@@ -1,0 +1,180 @@
+# PLACEHOLDER positions: rewrite from sources before the Expo.
+id: global_south
+name: Global South coalition
+short: GS
+type: regional
+playable: true
+difficulty: easier
+owner: ""
+summary: A fictional coalition seeking funded testing capacity and an equal role in shaping standards.
+mandate: Secure implementable obligations, shared facilities, and recognition of tests from lower-capacity participants.
+facts:
+  - text: The Paris AI Action Summit declaration called for AI capacity building in developing countries.
+    source_ids: [C-GS-01]
+  - text: The declaration's signatory list included the African Union Commission.
+    source_ids: [C-GS-02]
+  - text: This simulation groups diverse countries into one fictional coalition for a six-seat game.
+    source_ids: [C-GS-03]
+relations:
+  china: Seek practical capacity support while retaining an independent negotiating position.
+  us: Seek access to testing resources and recognition beyond established networks.
+  eu: Seek implementation support alongside new compliance obligations.
+  frontier_lab: Seek affordable evaluation access and multilingual test resources.
+  evaluator: Seek training that enables local experts to scrutinise results.
+voices: []
+internal_resolution: lead_voice
+attendance:
+  attend_threshold: 3
+  base_willingness: {un_multilateral: 5, bilateral_us_china: 0, likeminded_club: 3, standards_body: 4}
+  conditions:
+    - id: gs_capacity_agenda
+      when: {agenda_includes: capacity_building}
+      modifier: 1
+      say: Capacity building gives more of our members a practical route to implement the standard.
+      source_ids: [C-GS-04]
+    - id: gs_expert_channel
+      when: {format: track2}
+      modifier: 1
+      say: Expert participation can help our evaluators shape workable tests early.
+      source_ids: [C-GS-04]
+  parallel_forum_propensity: 0.5
+  track2_willingness: 6
+red_lines:
+  - id: gs_no_broad_restrictions
+    label: Reject broad technology restrictions
+    when: {clause: export_controls, param: scope, equals: broad}
+    say: We cannot endorse broad restrictions that cut off our members' access to useful technology.
+    source_ids: [C-GS-05]
+must_haves:
+  - id: gs_funded_capacity
+    label: Funded capacity building
+    when: {clause: capacity_building, param: support, equals: funded}
+    weight: 2
+    softenable_by: [capacity_support]
+    soften_amount: 1
+    max_soften: 2
+    say: New testing responsibilities need funded training, compute, and practical facilities.
+    source_ids: [C-GS-06]
+  - id: gs_recognise_results
+    label: Multilateral recognition
+    when: {clause: mutual_recognition, param: mode, equals: multilateral}
+    weight: 2
+    softenable_by: [mutual_recognition, sovereignty_respect]
+    soften_amount: 1
+    max_soften: 2
+    say: Recognition should extend beyond a bilateral deal between the largest powers.
+    source_ids: [C-GS-06]
+  - id: gs_shared_tests
+    label: Shared test resources
+    when: {clause: jailbreak_rate, param: test_set, equals: shared}
+    weight: 1
+    softenable_by: [capacity_support]
+    soften_amount: 1
+    max_soften: 1
+    say: A shared test resource should let our evaluators participate without rebuilding the whole protocol.
+    source_ids: [C-GS-06]
+vote_threshold: 2
+side_payment_values: {shared_test_set: 1, capacity_support: 2, host_test_facility: 2, evaluation_exchange: 1}
+trust_initial: 0
+walkout_triggers: []
+brief: >-
+  Represent a fictional coalition whose members have diverse interests (C-GS-03).
+  Use the Paris capacity-building commitment and African Union Commission signature as background (C-GS-01, C-GS-02).
+  Attendance, restrictions, priorities, relationships, and point values are teaching assumptions (C-GS-04 to C-GS-07).
+  Ask who pays for testing and whether locally produced evidence will count.
+  Seek funded facilities, multilingual test resources, and broad recognition.
+  Follow the engine's stance and vote. Avoid claiming a single real Global South position or an already funded programme.
+style: Clear, practical, inclusion-focused, and attentive to implementation costs.
+claims:
+  - id: C-GS-01
+    claim: The Paris declaration called for AI capacity building in developing countries.
+    used_in: [facts, brief]
+    source: AI Action Summit declaration, 11 February 2025, paragraph 2
+    url: https://www.elysee.fr/admin/upload/default/0001/17/0efc53b2025d5bc1f0fc68556c41370cee166e7f.pdf
+    confidence: high
+  - id: C-GS-02
+    claim: The African Union Commission appeared on the Paris declaration's signatory list.
+    used_in: [facts, brief]
+    source: AI Action Summit declaration, 11 February 2025, signatories
+    url: https://www.elysee.fr/admin/upload/default/0001/17/0efc53b2025d5bc1f0fc68556c41370cee166e7f.pdf
+    confidence: high
+  - id: C-GS-03
+    claim: A single regional coalition can stand in for diverse lower-capacity participants in this teaching prototype.
+    used_in: [facts, summary, mandate, brief]
+    source: ""
+    confidence: low
+    notes: Team assumption. The role is fictional and cannot represent every developing country's interests.
+  - id: C-GS-04
+    claim: The fictional coalition favours inclusive forums, responds positively to a capacity agenda, and participates readily in expert dialogue.
+    used_in: [attendance]
+    source: ""
+    confidence: low
+    notes: Team assumption about willingness, forum scores, and parallel-forum propensity.
+  - id: C-GS-05
+    claim: The fictional coalition vetoes broad technology export restrictions.
+    used_in: [red_lines/gs_no_broad_restrictions]
+    source: ""
+    confidence: low
+    notes: Team assumption. Real countries' positions differ by technology, security interests, and policy period.
+  - id: C-GS-06
+    claim: Funded capacity, multilateral recognition, and shared tests determine the coalition's willingness to endorse the package.
+    used_in: [must_haves/gs_funded_capacity, must_haves/gs_recognise_results, must_haves/gs_shared_tests]
+    source: ""
+    confidence: low
+    notes: Team assumption about concrete conditions and tag effects. Broad support for capacity building does not establish this exact bargaining rule.
+  - id: C-GS-07
+    claim: Neutral trust and comparatively valuable capacity exchanges approximate the fictional coalition's bargaining incentives.
+    used_in: [relations, vote_threshold, side_payment_values, trust_initial, style]
+    source: ""
+    confidence: low
+    notes: Team assumption. Test whether one exchange makes capacity obligations too easy to omit.
+research:
+  - id: R-GS-01
+    question: Does the Paris declaration call for developing-country AI capacity building?
+    why: facts and brief depend on C-GS-01.
+    status: found
+    owner: ""
+    leads: [AI Action Summit declaration 11 February 2025 paragraph 2]
+    claim_ids: [C-GS-01]
+  - id: R-GS-02
+    question: Is the African Union Commission included in the published Paris signatories?
+    why: facts depend on C-GS-02.
+    status: found
+    owner: ""
+    leads: [AI Action Summit declaration signatory list]
+    claim_ids: [C-GS-02]
+  - id: R-GS-03
+    question: Which named regional or country positions should this coalition draw on, and where do they disagree?
+    why: summary, mandate, facts, and brief depend on the representational limits of C-GS-03.
+    status: todo
+    owner: ""
+    leads: [African Union Continental AI Strategy, G77 statements, Indian and Brazilian AI-governance statements, regional digital-policy consultations]
+    claim_ids: [C-GS-03]
+  - id: R-GS-04
+    question: What attendance barriers arise from cost, invitation rules, and agenda control in actual safety or standards forums?
+    why: attendance/gs_capacity_agenda, gs_expert_channel, and forum scores depend on C-GS-04.
+    status: todo
+    owner: ""
+    leads: [Institute-network membership criteria, UN participation rules, travel-support programmes, standards participation studies]
+    claim_ids: [C-GS-04]
+  - id: R-GS-05
+    question: Which countries oppose which export restrictions, and are any positions sufficiently shared for a coalition red line?
+    why: gs_no_broad_restrictions needs evidence that preserves differences among participants.
+    status: todo
+    owner: ""
+    leads: [Regional trade and technology statements, WTO technology-access discussions, country responses to chip-export restrictions]
+    claim_ids: [C-GS-05, C-GS-03]
+  - id: R-GS-06
+    question: What training, compute, language coverage, and funding are necessary to run the proposed tests locally?
+    why: gs_funded_capacity and gs_shared_tests require concrete costs and implementable support.
+    status: todo
+    owner: ""
+    leads: [Regional evaluator training programmes, public test-facility budgets, multilingual evaluation datasets, UN capacity-development proposals]
+    claim_ids: [C-GS-06, C-GS-07]
+  - id: R-GS-07
+    question: Which recognition arrangements and exchanges would give smaller participants influence over the standard?
+    why: gs_recognise_results, relations, vote_threshold, trust_initial, and side_payment_values depend on C-GS-06 and C-GS-07.
+    status: todo
+    owner: ""
+    leads: [Laboratory accreditation recognition systems, regional testing networks, funded facility agreements, structured playtests]
+    claim_ids: [C-GS-06, C-GS-07]

@@ -1,0 +1,120 @@
+@media screen and (max-width: 960px) {
+  :root {
+    --gutter: var(--space-4);
+  }
+
+  .l-split,
+  .attendance__grid,
+  .research-layout,
+  .summit-room {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .l-sticky,
+  .research-nav {
+    position: static;
+  }
+
+  .app-header {
+    position: static;
+  }
+
+  .app-header__inner {
+    height: auto;
+    min-height: var(--header-h);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding-block: var(--space-2);
+  }
+
+  .app-nav__list,
+  .phasebar,
+  .phasebar__list {
+    flex-wrap: wrap;
+  }
+
+  .app-progress__inner {
+    display: block;
+    padding-block: var(--space-2);
+  }
+
+  .app-busy:not(.app-busy--on) {
+    display: none;
+  }
+
+  .phasebar,
+  .phasebar__list {
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .phasebar__step + .phasebar__step::before {
+    display: none;
+  }
+
+  .screen-head__row,
+  .research-heading,
+  .seat__choose-head {
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .summit-transcript {
+    height: clamp(320px, 55dvh, 550px);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .l-page {
+    padding-top: var(--space-4);
+  }
+
+  .t-display {
+    font-size: var(--text-2xl);
+  }
+
+  .app-nav__link {
+    padding-inline: var(--space-2);
+  }
+
+  .app-nav__list {
+    gap: 0;
+  }
+
+  .radio-cards__grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .doc {
+    --doc-gutter: 1.9em;
+    padding: var(--space-4);
+  }
+
+  .doc__meta-row {
+    grid-template-columns: minmax(0, 8rem) minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  .rolecard__relation {
+    grid-template-columns: 3.4em minmax(0, 1fr);
+    gap: var(--space-1) var(--space-2);
+  }
+
+  .rolecard__relation > :last-child {
+    grid-column: 1 / -1;
+  }
+
+  .summit-discussion__head {
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+
+  .summit-tally,
+  .attendance__figures {
+    gap: var(--space-3);
+  }
+
+  .attendance__line {
+    flex-wrap: wrap;
+  }
+}

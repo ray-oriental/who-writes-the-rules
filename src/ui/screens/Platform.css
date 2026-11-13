@@ -1,0 +1,109 @@
+/* Gallery */
+.gallery-howto {
+  max-width: 28ch;
+  text-align: right;
+}
+
+.gallery-saved {
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border: var(--hairline-strong);
+  border-inline-start: 3px solid var(--ok);
+  background: var(--paper-raised);
+}
+
+.gallery-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.gallery-filter__chip {
+  height: 32px;
+  padding: 0 var(--space-3);
+  border: var(--hairline-strong);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.gallery-filter__chip:hover {
+  background: var(--paper-sunk);
+  color: var(--ink);
+}
+
+.gallery-filter__chip--on,
+.gallery-filter__chip--on:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-ink);
+}
+
+/* "Passed in the room" beside "accepted outside" */
+.gallery-gap {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-5);
+  padding: var(--space-3) 0;
+  border-block: var(--hairline);
+  font-family: var(--font-sans);
+}
+
+.gallery-gap__rank {
+  display: grid;
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  line-height: 1;
+}
+
+.gallery-gap__rank .t-eyebrow,
+.gallery-gap__rank .t-meta {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+}
+
+.gallery-gap__cell {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.gallery-bar {
+  display: block;
+  height: 8px;
+  background: var(--paper-sunk);
+  border: var(--hairline-strong);
+}
+
+.gallery-bar__fill {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .gallery-gap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gallery-howto {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+/* Admin */
+.admin-groups {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.admin-group {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: var(--hairline);
+}

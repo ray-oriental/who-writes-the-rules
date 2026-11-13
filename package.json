@@ -1,0 +1,37 @@
+{
+  "name": "who-writes-the-rules",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Who Writes the Rules for AI? A simulated international AI-safety summit you can play in the browser.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:single": "tsc --noEmit && vite build --mode single && node tools/rename-single.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:browser": "node tests/browser-smoke.mjs && node tests/onboarding-smoke.mjs && node tests/team-smoke.mjs",
+    "check:public": "node tools/check-public-tree.mjs",
+    "check-config": "vitest run tests/config.test.ts",
+    "proxy": "node tools/llm-proxy.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^5.5.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^26.6.6",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^6.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vite-plugin-singlefile": "^2.3.4",
+    "vitest": "^5.1.0"
+  }
+}

@@ -1,0 +1,20 @@
+- id: verify_without_weights
+  label: Verify without weights
+  description: Explain how controlled testing can support verification while protecting model weights.
+  examples: [structured access, secure enclave, third-party api testing, verify without weights, controlled test access, audited test session, keep the weights private, independent testing through an api, keep the weights secret, without exposing the weights, without sharing the weights, without releasing the weights, without handing over the weights, black-box testing, api-only access, 结构化访问, 受控测试访问, 不公开权重, 不交出权重, 不泄露权重, 保护模型权重, 通过接口测试]
+- id: measurement_error
+  label: Measurement error
+  description: Identify uncertainty, benchmark gaming, or incomplete coverage in an evaluation.
+  examples: [error bars, confidence interval, benchmark gaming, measurement error, test set contamination, adaptive attacks, sampling uncertainty, report attack coverage, margin of error, statistical uncertainty, benchmark contamination, incomplete coverage, teaching to the test, measurement uncertainty, uncertainty in the evaluation, 测量误差, 误差范围, 置信区间, 基准测试作弊, 测试集污染, 覆盖不全, 评测的不确定性]
+- id: capacity_support
+  label: Capacity support
+  description: Offer practical resources that enable countries to run and understand the tests.
+  examples: [capacity building, shared testing facilities, fund evaluator training, shared compute access, multilingual test sets, train local evaluators, subsidise testing costs, subsidize testing costs, regional testing centres, regional testing centers, technical assistance, help countries build testing capacity, funding for testing, share compute, training for evaluators, 能力建设, 共享测试设施, 培训评估人员, 技术援助, 资助测试, 共享算力, 区域测试中心]
+- id: mutual_recognition
+  label: Mutual recognition
+  description: Propose accepting national results under a shared and reviewable protocol.
+  examples: [mutual recognition, recognise national results, recognize national results, accept each other's tests, common test protocol, reciprocal acceptance, cross-border recognition, comparable national reports, "recognise each other's results", "recognize each other's results", "accept each other's results", "accept the other side's tests", "accept one another's results", one protocol, shared test protocol, 互认, 相互承认, 互相认可, 承认对方的测试结果, 接受对方的测试结果, 统一测试协议, 共同的测试协议]
+- id: sovereignty_respect
+  label: Respect sovereignty
+  description: Keep execution under national institutions while sharing evidence that others can scrutinise.
+  examples: [respect for sovereignty, national institutions run the tests, respect sovereignty, respect national sovereignty, domestic execution, only exchange results, national safety institutes, retain national control, local testing authority, each country runs its own tests, national authorities run the tests, domestic institutions, 尊重主权, 尊重国家主权, 各国自行测试, 本国机构执行, 国内执行, 仅交换结果, 只交换结果]

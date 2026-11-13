@@ -1,0 +1,83 @@
+/* Delegation editor: form pieces. Prefix ed-. Tokens only. */
+
+.ed-input {
+  width: 100%;
+  min-height: 38px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.ed-input:hover { border-color: var(--ink-3); }
+.ed-input:focus-visible { border-color: var(--ink); }
+.ed-input--mono { font-family: var(--font-mono); font-size: var(--text-sm); }
+.ed-input--invalid { border-color: var(--danger); }
+
+.ed-mono { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--ink-3); }
+.ed-muted { color: var(--ink-3); font-size: var(--text-sm); }
+.ed-flip svg { transform: rotate(180deg); }
+
+.ed-intro { color: var(--ink-2); max-width: 66ch; }
+.ed-subhead { font-size: var(--text-md); font-weight: var(--weight-medium); margin-top: var(--space-2); }
+
+.ed-grid { display: grid; gap: var(--space-4); align-items: start; }
+.ed-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ed-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ed-field-pad { padding-top: var(--space-5); }
+
+.ed-check { display: flex; gap: var(--space-2); align-items: flex-start; cursor: pointer; }
+.ed-check input { margin-top: 4px; accent-color: var(--ink); }
+.ed-check__label { display: block; font-weight: var(--weight-medium); }
+.ed-check__hint { display: block; font-size: var(--text-xs); color: var(--ink-3); }
+
+/* Lists of items */
+.ed-list { display: flex; flex-direction: column; gap: var(--space-4); }
+.ed-list__empty { color: var(--ink-3); font-style: italic; }
+.ed-list__items { display: flex; flex-direction: column; }
+.ed-item { border-top: var(--hairline-strong); padding: var(--space-3) 0 var(--space-5); }
+.ed-item__head { display: flex; align-items: center; gap: var(--space-3); min-height: 40px; }
+.ed-item__index { color: var(--ink-3); font-size: var(--text-sm); min-width: 1.5em; }
+.ed-item__title { font-weight: var(--weight-medium); flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.ed-item__tools { display: inline-flex; gap: var(--space-1); }
+.ed-item__body { padding-left: calc(1.5em + var(--space-3)); padding-top: var(--space-3); }
+.ed-undo { font-size: var(--text-sm); color: var(--ink-2); }
+
+.ed-issues { color: var(--danger); font-size: var(--text-sm); display: grid; gap: var(--space-1); }
+
+/* Condition builder */
+.ed-builder {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--paper-sunk);
+  border-inline-start: 2px solid var(--rule-strong);
+}
+.ed-builder__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--space-3); align-items: end; }
+.ed-builder__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--paper-sunk); border-inline-start: 2px solid var(--rule-strong); }
+.ed-builder .select, .ed-builder__grid .select { width: 100%; }
+.ed-sentence {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: var(--leading-doc);
+  display: flex; gap: var(--space-3); align-items: baseline; flex-wrap: wrap;
+  padding: var(--space-2) var(--space-4);
+  border-top: var(--hairline);
+  background: var(--paper-raised);
+}
+.ed-sentence__tag { font-family: var(--font-sans); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--ink-3); }
+.ed-sentence__empty { color: var(--ink-3); font-style: italic; font-size: var(--text-md); }
+.ed-note { font-size: var(--text-sm); }
+.ed-note--warn { color: var(--warn); }
+.ed-note--error { color: var(--danger); }
+
+.ed-explain { padding: var(--space-3) var(--space-4); background: var(--paper-sunk); display: grid; gap: var(--space-2); max-width: 70ch; border-inline-start: 2px solid var(--rule-strong); }
+.ed-explain__head { font-weight: var(--weight-medium); }
+
+.ed-sources { display: flex; flex-direction: column; gap: var(--space-2); }
+
+@media (max-width: 760px) {
+  .ed-grid--2, .ed-grid--3 { grid-template-columns: minmax(0, 1fr); }
+  .ed-item__body { padding-left: 0; }
+}
+
+.field .number { align-self: flex-start; }

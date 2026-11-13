@@ -1,0 +1,37 @@
+.rolecard {
+  max-width: 860px;
+}
+
+.rolecard__label {
+  font-weight: var(--weight-bold);
+}
+
+.rolecard__relations {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: var(--doc-gutter);
+}
+
+.rolecard__relation {
+  display: grid;
+  grid-template-columns: 3.4em 11rem 1fr;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px dotted var(--rule);
+  font-size: var(--text-md);
+}
+
+.rolecard__relation:last-child {
+  border-bottom: 0;
+}
+
+.rolecard__relation-name {
+  font-style: italic;
+  color: var(--ink-2);
+}
+
+.rolecard__actions {
+  margin-top: var(--space-6);
+  border-top: 0;
+}

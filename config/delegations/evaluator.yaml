@@ -1,0 +1,181 @@
+# PLACEHOLDER positions: rewrite from sources before the Expo.
+id: evaluator
+name: Independent evaluation body
+short: EVAL
+type: expert_body
+playable: false
+difficulty: medium
+owner: ""
+summary: A fictional expert body seeking reproducible tests and scrutiny beyond developer self-reporting.
+mandate: Make the proposal independently checkable and precise about what the evidence can establish.
+facts:
+  - text: The 2024 institute-network risk-assessment statement called for reproducible, documented evaluations that independent evaluators can replicate.
+    source_ids: [C-EVAL-01]
+  - text: The IDAIS Beijing statement called for rigorous evaluations and continued international technical collaboration.
+    source_ids: [C-EVAL-02]
+  - text: The Seoul commitments included considering evidence from independent third-party evaluators.
+    source_ids: [C-EVAL-03]
+relations:
+  china: Seek reviewable evidence from national testing without requiring weights transfer.
+  us: Seek enough disclosure to independently scrutinise security-relevant claims.
+  eu: Share an interest in credible external scrutiny while specifying practical test limits.
+  frontier_lab: Negotiate controlled access and documentation adequate for independent checking.
+  global_south: Support methods and training that expand the pool of competent evaluators.
+voices: []
+internal_resolution: lead_voice
+attendance:
+  attend_threshold: 3
+  base_willingness: {un_multilateral: 5, bilateral_us_china: 1, likeminded_club: 4, standards_body: 5}
+  conditions:
+    - id: eval_verification_agenda
+      when: {agenda_includes: verification_tech}
+      modifier: 1
+      say: We welcome an agenda that makes access and reproducibility explicit.
+      source_ids: [C-EVAL-04]
+    - id: eval_expert_channel
+      when: {format: track2}
+      modifier: 1
+      say: Expert dialogue can establish a useful common technical baseline.
+      source_ids: [C-EVAL-04]
+  parallel_forum_propensity: 0.2
+  track2_willingness: 7
+red_lines:
+  - id: eval_no_self_report_only
+    label: Reject exclusive self-reporting
+    when: {clause: verifier, param: who, equals: self_report}
+    say: We cannot endorse a verification arrangement based solely on the developer's own report.
+    source_ids: [C-EVAL-05]
+must_haves:
+  - id: eval_independent_verification
+    label: Independent verification
+    when: {clause: verifier, param: who, equals: third_party}
+    weight: 2
+    softenable_by: [verify_without_weights, mutual_recognition]
+    soften_amount: 1
+    max_soften: 2
+    say: We seek independent checking, including a credible review route for nationally produced results.
+    source_ids: [C-EVAL-06]
+  - id: eval_dangerous_capabilities
+    label: Dangerous-capability coverage
+    when: {clause: dangerous_capability_eval, param: domains, includes: cyber}
+    weight: 2
+    softenable_by: [measurement_error]
+    soften_amount: 1
+    max_soften: 1
+    say: The package should test consequential capabilities with a documented cyber evaluation.
+    source_ids: [C-EVAL-06]
+  - id: eval_moderate_threshold
+    label: A strict jailbreak threshold
+    when: {clause: jailbreak_rate, param: threshold_pct, lte: 3}
+    weight: 1
+    softenable_by: [measurement_error]
+    soften_amount: 1
+    max_soften: 1
+    say: A jailbreak threshold above three percent lets too much through to mean anything.
+    source_ids: [C-EVAL-06]
+vote_threshold: 2
+side_payment_values: {shared_test_set: 1, capacity_support: 1, host_test_facility: 1, evaluation_exchange: 1}
+trust_initial: 0
+walkout_triggers: []
+brief: >-
+  Represent a fictional evaluation body with a remit to scrutinise evidence.
+  Use reproducibility principles (C-EVAL-01), the expert Beijing consensus (C-EVAL-02), and the Seoul testing commitments (C-EVAL-03).
+  Your attendance, self-report veto, priorities, and scoring are assumptions (C-EVAL-04 to C-EVAL-07).
+  Explain what controlled access, repeatable protocols, and uncertainty reporting allow an evaluator to conclude.
+  Consider national execution with reciprocal independent checking when the engine permits the compromise.
+  Follow the engine's stance and vote. Make no claim that this fictional body accredits real models or represents all researchers.
+style: Analytical, measured, and explicit about uncertainty and reproducibility.
+claims:
+  - id: C-EVAL-01
+    claim: The 2024 institute-network statement supports documented and reproducible assessments that independent evaluators can replicate and validate.
+    used_in: [facts, brief]
+    source: Institute network, Joint Statement on Risk Assessment, 20 November 2024, section 6
+    url: https://www.nist.gov/system/files/documents/2024/11/20/Joint%20Statement%20on%20Risk%20Assessment%20of%20Advanced%20AI%20Systems.pdf
+    confidence: high
+  - id: C-EVAL-02
+    claim: The March 2024 IDAIS Beijing expert statement called for rigorous empirical evaluations and technical collaboration.
+    used_in: [facts, brief]
+    source: IDAIS Beijing, Consensus Statement on Red Lines in Artificial Intelligence, March 2024
+    url: https://idais.ai/dialogue/idais-beijing/
+    confidence: high
+  - id: C-EVAL-03
+    claim: The Seoul commitments called for considering independent third-party evaluation evidence as appropriate.
+    used_in: [facts, brief]
+    source: UK government, Frontier AI Safety Commitments 2024, clause I
+    url: https://www.gov.uk/government/publications/frontier-ai-safety-commitments-ai-seoul-summit-2024/frontier-ai-safety-commitments-ai-seoul-summit-2024
+    confidence: high
+  - id: C-EVAL-04
+    claim: The fictional evaluator readily attends technical and inclusive forums, with high willingness for expert dialogue.
+    used_in: [attendance]
+    source: ""
+    confidence: low
+    notes: Team assumption about forum scores, modifiers, and parallel-forum propensity.
+  - id: C-EVAL-05
+    claim: The fictional evaluator vetoes a text assigning verification exclusively to developer self-reporting.
+    used_in: [red_lines/eval_no_self_report_only]
+    source: ""
+    confidence: low
+    notes: Team assumption about a composite body's negotiating mandate.
+  - id: C-EVAL-06
+    claim: Independent checking, cyber-capability coverage, and a strict jailbreak threshold are the fictional evaluator's priorities.
+    used_in: [must_haves/eval_independent_verification, must_haves/eval_dangerous_capabilities, must_haves/eval_moderate_threshold]
+    source: ""
+    confidence: low
+    notes: Team assumption. Numeric thresholds, weights, and tag effects require technical validation and playtesting.
+  - id: C-EVAL-07
+    claim: A unified expert seat with neutral trust and small technical exchanges is a useful prototype simplification.
+    used_in: [summary, mandate, relations, vote_threshold, side_payment_values, trust_initial, style]
+    source: ""
+    confidence: low
+    notes: Team assumption. Researchers differ about access, evaluation adequacy, and institutional authority.
+research:
+  - id: R-EVAL-01
+    question: Does the institute network explicitly support reproducibility and independent replication?
+    why: facts and brief depend on C-EVAL-01.
+    status: found
+    owner: ""
+    leads: [NIST Joint Statement on Risk Assessment November 2024 section 6]
+    claim_ids: [C-EVAL-01]
+  - id: R-EVAL-02
+    question: Does the Beijing expert statement call for evaluations and technical collaboration?
+    why: facts and brief depend on C-EVAL-02.
+    status: found
+    owner: ""
+    leads: ["https://idais.ai/dialogue/idais-beijing/"]
+    notes: Source opened. Its expert recommendations require separate evidence before being attributed to governments.
+    claim_ids: [C-EVAL-02]
+  - id: R-EVAL-03
+    question: Do the Seoul commitments include considering independent third-party evaluation evidence?
+    why: facts depend on C-EVAL-03.
+    status: found
+    owner: ""
+    leads: [UK government Frontier AI Safety Commitments 2024 clause I]
+    claim_ids: [C-EVAL-03]
+  - id: R-EVAL-04
+    question: What funding, conflicts-of-interest, and access conditions make an evaluator meaningfully independent?
+    why: eval_no_self_report_only and eval_independent_verification depend on a defensible definition of independence.
+    status: todo
+    owner: ""
+    leads: [Independent evaluator governance disclosures, assessment contracts, laboratory accreditation and conflict-of-interest policies]
+    claim_ids: [C-EVAL-05, C-EVAL-06]
+  - id: R-EVAL-05
+    question: Which evaluations can outsiders reproduce through structured access while national institutions execute the tests?
+    why: eval_independent_verification softening by verify_without_weights and mutual_recognition requires demonstrable scrutiny.
+    status: todo
+    owner: ""
+    leads: [Controlled evaluator access protocols, network joint assessments, reproducibility reports, secure testing facilities]
+    claim_ids: [C-EVAL-06]
+  - id: R-EVAL-06
+    question: What attack budget, sampling scheme, and uncertainty reporting justify a jailbreak threshold or cyber test?
+    why: eval_dangerous_capabilities and eval_moderate_threshold depend on meaningful rather than arbitrary pass conditions.
+    status: todo
+    owner: ""
+    leads: [Public jailbreak evaluation protocols, adaptive-attack studies, dangerous-capability evaluation methods, benchmark contamination research]
+    claim_ids: [C-EVAL-06]
+  - id: R-EVAL-07
+    question: Which real evaluator organisations fit this role, and how do forum access and resource exchanges affect their independence?
+    why: attendance, relations, vote_threshold, trust_initial, and side_payment_values depend on C-EVAL-04 and C-EVAL-07.
+    status: todo
+    owner: ""
+    leads: [Evaluator mission statements, funding disclosures, standards participation records, structured playtests]
+    claim_ids: [C-EVAL-04, C-EVAL-07]

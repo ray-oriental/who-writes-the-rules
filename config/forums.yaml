@@ -1,0 +1,25 @@
+- id: un_multilateral
+  name: UN Global Dialogue session
+  description: An inclusive summit setting with a voluntary negotiated text.
+  exclusive: false
+  binding_level: low
+  source_ids: [C-GEN-02, C-GEN-01]
+- id: bilateral_us_china
+  name: China–US bilateral
+  description: A two-party official dialogue. Other delegations have no seats here.
+  exclusive: true
+  binding_level: low
+  members_fixed: [china, us]
+  source_ids: [C-GEN-03, C-GEN-01]
+- id: likeminded_club
+  name: Like-minded testing network
+  description: An invitation-based testing network. Invite only the partners you want to include.
+  exclusive: true
+  binding_level: medium
+  source_ids: [C-GEN-04, C-GEN-01]
+- id: standards_body
+  name: Technical standards committee
+  description: A simplified ISO-like committee seeking technically workable common standards.
+  exclusive: false
+  binding_level: medium
+  source_ids: [C-GEN-05, C-GEN-01]

@@ -1,0 +1,182 @@
+# PLACEHOLDER positions: rewrite from sources before the Expo.
+id: us
+name: United States
+short: US
+type: state
+playable: true
+difficulty: medium
+owner: ""
+summary: Seek credible dangerous-capability tests while protecting innovation and sensitive technology.
+mandate: Build a practical safety-testing agreement that preserves security safeguards and interoperability.
+facts:
+  - text: The United States appears in the institute network's November 2024 launch roster.
+    source_ids: [C-US-01]
+  - text: China and the US held their first intergovernmental AI dialogue in Geneva on 14 May 2024.
+    source_ids: [C-US-02]
+  - text: The US and UK did not sign the February 2025 Paris AI Action Summit declaration.
+    source_ids: [C-US-03]
+relations:
+  china: Maintain a risk-management channel amid disagreements about technology restrictions.
+  eu: Cooperate on evaluations while debating regulatory burden and market access.
+  frontier_lab: Seek useful testing evidence with safeguards for sensitive technology.
+  global_south: Seek broader participation through practical assistance.
+  evaluator: Value reproducible evidence and technically competent scrutiny.
+voices: []
+internal_resolution: lead_voice
+attendance:
+  attend_threshold: 3
+  base_willingness: {un_multilateral: 4, bilateral_us_china: 4, likeminded_club: 5, standards_body: 4}
+  conditions:
+    - id: us_expert_channel
+      when: {format: track2}
+      modifier: 1
+      say: We can compare technical evidence through a focused expert channel.
+      source_ids: [C-US-04]
+    - id: us_export_agenda
+      when: {agenda_includes: export_controls, format: track1}
+      modifier: 1
+      say: Security restrictions can be discussed, although agreement on them will be difficult.
+      source_ids: [C-US-04]
+  parallel_forum_propensity: 0.5
+  track2_willingness: 6
+red_lines:
+  - id: us_no_weights_transfer
+    label: Protect sensitive model weights
+    when: {clause: model_access, param: level, equals: weights}
+    say: We cannot support compulsory transfer of sensitive model weights to all participating testers.
+    source_ids: [C-US-05]
+must_haves:
+  - id: us_dangerous_capabilities
+    label: Dangerous-capability testing
+    when: {clause: dangerous_capability_eval, param: domains, includes: cyber}
+    weight: 2
+    softenable_by: [measurement_error]
+    soften_amount: 1
+    max_soften: 1
+    say: The package should test dangerous capabilities, including cyber misuse.
+    source_ids: [C-US-06]
+  - id: us_checkable_results
+    label: Results that others can check
+    when: {clause: verifier, param: who, equals: third_party}
+    weight: 2
+    softenable_by: [verify_without_weights, mutual_recognition]
+    soften_amount: 1
+    max_soften: 2
+    say: We will not rely on results that only the tested party's own institutions have seen.
+    source_ids: [C-US-06]
+  - id: us_safeguarded_access
+    label: Safeguarded access
+    when: {clause: model_access, param: level, in: [api_only, structured_access]}
+    weight: 1
+    softenable_by: [verify_without_weights]
+    soften_amount: 1
+    max_soften: 1
+    say: Testing should provide useful evidence while protecting sensitive model assets.
+    source_ids: [C-US-06]
+vote_threshold: 3
+side_payment_values: {shared_test_set: 1, capacity_support: 0, host_test_facility: 1, evaluation_exchange: 1}
+trust_initial: 0
+walkout_triggers: []
+brief: >-
+  Represent a simulated US delegation balancing useful evaluations and technology safeguards.
+  The launch roster (C-US-01), Geneva dialogue (C-US-02), and Paris non-signature (C-US-03) are historical facts.
+  Attendance, a weights-transfer veto, priorities, and exchange values are team assumptions (C-US-04 to C-US-07).
+  Discuss cyber testing and recognition of comparable results. Accept structured access when the engine permits it.
+  Follow the engine's stance and vote. Do not infer current policy or motives from the historical non-signature.
+style: Direct, pragmatic, evidence-focused, and attentive to security and implementation cost.
+claims:
+  - id: C-US-01
+    claim: The United States was listed among the November 2024 institute-network launch participants.
+    used_in: [facts, brief]
+    source: International Network of AI Safety Institutes, Mission Statement, 21 November 2024
+    url: https://www.nist.gov/system/files/documents/2024/11/20/Mission%20Statement%20-%20International%20Network%20of%20AISIs.pdf
+    confidence: high
+  - id: C-US-02
+    claim: China and the US held their first intergovernmental AI dialogue in Geneva on 14 May 2024.
+    used_in: [facts, brief]
+    source: State Council English website, first intergovernmental AI-dialogue report, 16 May 2024
+    url: https://english.www.gov.cn/news/202405/16/content_WS664579edc6d0868f4e8e7268.html
+    confidence: high
+    notes: The Chinese post-meeting account reports discussion of risks and governance. Check both governments' accounts for follow-up commitments.
+  - id: C-US-03
+    claim: The US and UK did not sign the February 2025 Paris AI Action Summit declaration.
+    used_in: [facts, brief]
+    source: TIME, reporting on the Paris AI Action Summit, 11 February 2025
+    url: https://time.com/7221384/ai-regulation-takes-backseat-paris-summit/
+    confidence: medium
+    notes: Historical event corroborated by the summit's published signatory list. A non-signature alone establishes no general refusal to cooperate.
+  - id: C-US-04
+    claim: The simulated US delegation attends the four forums, welcomes expert dialogue, and remains willing to discuss export controls.
+    used_in: [attendance]
+    source: ""
+    confidence: low
+    notes: Team assumption. Numeric attendance and parallel-forum parameters require calibration and period-specific policy evidence.
+  - id: C-US-05
+    claim: The simulated US delegation vetoes compulsory transfer of sensitive weights to participating testers.
+    used_in: [red_lines/us_no_weights_transfer]
+    source: ""
+    confidence: low
+    notes: Team assumption about this negotiating mandate. Existing technology restrictions do not establish this exact universal access veto.
+  - id: C-US-06
+    claim: Dangerous-capability testing, independently checkable results, and safeguarded access drive the simulated US vote.
+    used_in: [must_haves/us_dangerous_capabilities, must_haves/us_checkable_results, must_haves/us_safeguarded_access]
+    source: ""
+    confidence: low
+    notes: Team assumption. The weights and argument-tag effects are design choices, with the 2024 institute network as a research lead.
+  - id: C-US-07
+    claim: Neutral initial trust, the listed relationships, and small technical exchanges are a plausible US bargaining baseline.
+    used_in: [summary, mandate, relations, vote_threshold, trust_initial, side_payment_values, style]
+    source: ""
+    confidence: low
+    notes: Team assumption about incentives. Verify against the period chosen for the summit and playtest the numbers.
+research:
+  - id: R-US-01
+    question: Was the US included in the institute network's 2024 launch roster?
+    why: facts and brief depend on C-US-01.
+    status: found
+    owner: ""
+    leads: [NIST Mission Statement 21 November 2024]
+    claim_ids: [C-US-01]
+  - id: R-US-02
+    question: What exact topics and follow-up commitments did the two governments record after the Geneva AI talks?
+    why: attendance/us_expert_channel, relations/china, and the limits of C-US-02 need both post-meeting accounts.
+    status: todo
+    owner: ""
+    leads: [US National Security Council statement 15 May 2024, Chinese Foreign Ministry post-meeting readout, State Council announcement 14 May 2024]
+    claim_ids: [C-US-02, C-US-04, C-US-07]
+  - id: R-US-03
+    question: Did the US and UK sign the Paris summit declaration in February 2025?
+    why: facts and brief depend on C-US-03.
+    status: found
+    owner: ""
+    leads: ["https://time.com/7221384/ai-regulation-takes-backseat-paris-summit/", AI Action Summit declaration signatory list]
+    notes: Event checked. Independently check the dated official list before marking verified.
+    claim_ids: [C-US-03]
+  - id: R-US-04
+    question: Which published US positions distinguish protected model weights from controlled evaluation access?
+    why: red_lines/us_no_weights_transfer and must_haves/us_safeguarded_access depend on C-US-05 and C-US-06.
+    status: todo
+    owner: ""
+    leads: [US Commerce and national-security model-security guidance, institute evaluation agreements, period-specific export-control rules]
+    claim_ids: [C-US-05, C-US-06]
+  - id: R-US-05
+    question: Would the US accept reciprocal national tests under a shared protocol, and which independent checks would it require?
+    why: us_checkable_results and its verify_without_weights and mutual_recognition softening tags depend on C-US-06.
+    status: todo
+    owner: ""
+    leads: [NIST network Joint Statement on Risk Assessment November 2024, bilateral institute testing agreements]
+    claim_ids: [C-US-06]
+  - id: R-US-06
+    question: What evidence supports the US willingness to join inclusive or exclusive forums while discussing export controls?
+    why: attendance/us_export_agenda, base_willingness, track2_willingness, and parallel_forum_propensity depend on C-US-04.
+    status: todo
+    owner: ""
+    leads: [Official AI-summit statements, national institute cooperation announcements, 2024 Geneva dialogue records, organiser records for the unresolved XIV dialogue]
+    claim_ids: [C-US-04]
+  - id: R-US-07
+    question: Which concrete concessions and test domains best represent US priorities without assuming a single permanent policy?
+    why: us_dangerous_capabilities, relations, vote_threshold, trust_initial, and side_payment_values depend on C-US-06 and C-US-07.
+    status: todo
+    owner: ""
+    leads: [Dated US institute evaluation guidance, cyber-capability evaluation methods, structured playtests with a declared historical scenario date]
+    claim_ids: [C-US-06, C-US-07]

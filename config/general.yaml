@@ -1,0 +1,136 @@
+claims:
+  - id: C-GEN-01
+    claim: Prototype timing, voting rights, quorum, trust, format effects, rewards, and forum binding levels are teaching choices.
+    used_in: [rules, scenario, convene, forums, argument_tags, side_payments, quiz]
+    source: ""
+    confidence: low
+    notes: Team assumption for playtesting. Numeric settings and the six-seat simplification require justification in the dossier.
+  - id: C-GEN-02
+    claim: The February 2025 Paris declaration endorsed initiating a UN Global Dialogue on AI governance and an Independent International Scientific Panel on AI.
+    used_in: [forums/un_multilateral]
+    source: AI Action Summit, Statement on Inclusive and Sustainable AI, 11 February 2025, paragraph 4
+    url: https://www.elysee.fr/admin/upload/default/0001/17/0efc53b2025d5bc1f0fc68556c41370cee166e7f.pdf
+    confidence: high
+    notes: The later establishment date and current mandates need separate verification. This summit is a fictionalised setting.
+  - id: C-GEN-03
+    claim: China and the US held their first intergovernmental AI dialogue in Geneva on 14 May 2024.
+    used_in: [forums/bilateral_us_china]
+    source: State Council English website, report on the first intergovernmental AI dialogue, 16 May 2024
+    url: https://english.www.gov.cn/news/202405/16/content_WS664579edc6d0868f4e8e7268.html
+    confidence: high
+    notes: This post-meeting account establishes an official dialogue precedent. It establishes no standing joint standard-setting body.
+  - id: C-GEN-04
+    claim: The November 2024 AI Safety Institutes network launch listed Australia, Canada, the European Commission, France, Japan, Kenya, South Korea, Singapore, the UK, and the US.
+    used_in: [forums/likeminded_club]
+    source: International Network of AI Safety Institutes, Mission Statement, 21 November 2024
+    url: https://www.nist.gov/system/files/documents/2024/11/20/Mission%20Statement%20-%20International%20Network%20of%20AISIs.pdf
+    confidence: high
+    notes: Historical launch roster. The game's invitation-based club is a simplified analogue.
+  - id: C-GEN-05
+    claim: ISO/IEC enquiry and final-draft approval require two-thirds support among voting P-members and at most one-quarter negative votes overall, subject to stated counting rules.
+    used_in: [rules/pass_rule, forums/standards_body]
+    source: ISO/IEC Directives Part 1, clauses 2.6.3 and 2.7.3, accessed November 2026
+    url: https://www.iso.org/sites/directives/current/consolidated/index.html
+    confidence: high
+    notes: The optional iso_double mode simplifies the distinct electorates. The default game uses two_thirds and six equal delegation votes.
+  - id: C-GEN-06
+    claim: The selected clause parameters, categories, defaults, and passing thresholds are plausible teaching assumptions.
+    used_in: [agenda_catalog/jailbreak_rate, agenda_catalog/dangerous_capability_eval, agenda_catalog/compute_threshold, agenda_catalog/measurement_uncertainty, agenda_catalog/verifier]
+    source: ""
+    confidence: low
+    notes: Team assumption. Five percent jailbreak success and a 95 percent interval have no universal safety meaning without a protocol.
+  - id: C-GEN-07
+    claim: The March 2024 IDAIS Beijing consensus called for evaluations addressing severe cyber harms and assistance with weapons of mass destruction.
+    used_in: [agenda_catalog/dangerous_capability_eval, rules/track2]
+    source: IDAIS Beijing, Consensus Statement on Red Lines in Artificial Intelligence, March 2024
+    url: https://idais.ai/dialogue/idais-beijing/
+    confidence: high
+    notes: An expert statement supports the topic. The game's four selectable domains are a teaching simplification.
+  - id: C-GEN-08
+    claim: The EU AI Act uses training compute greater than 10^25 FLOP as a presumption of high-impact capabilities, while designation can also use other criteria.
+    used_in: [agenda_catalog/compute_threshold]
+    source: European Commission, General-Purpose AI Models in the AI Act, questions and answers on systemic risk
+    url: https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers
+    confidence: high
+    notes: Historical statutory threshold. A single compute trigger in this game simplifies a broader legal classification and possible future changes.
+  - id: C-GEN-09
+    claim: The 2024 institute network statement supports documented, reproducible assessments and independent replication while preserving national assessment flexibility.
+    used_in: [agenda_catalog/measurement_uncertainty, agenda_catalog/verifier]
+    source: International Network of AI Safety Institutes, Joint Statement on Risk Assessment, 20 November 2024
+    url: https://www.nist.gov/system/files/documents/2024/11/20/Joint%20Statement%20on%20Risk%20Assessment%20of%20Advanced%20AI%20Systems.pdf
+    confidence: high
+    notes: This principle motivates the verification puzzle. It establishes no international accreditation or mutual-recognition treaty.
+  - id: C-GEN-10
+    claim: Controlled structured access can satisfy the simulated parties without transferring weights.
+    used_in: [agenda_catalog/model_access, argument_tags/verify_without_weights]
+    source: ""
+    confidence: low
+    notes: Team assumption. Establish which tests can be independently reproduced under each access level and what security guarantees are credible.
+  - id: C-GEN-11
+    claim: Mutual recognition can reconcile national test execution with cross-border confidence in this simulation.
+    used_in: [agenda_catalog/mutual_recognition, argument_tags/mutual_recognition]
+    source: ""
+    confidence: low
+    notes: Team assumption. Scientific interoperability does not establish legal reciprocal acceptance.
+  - id: C-GEN-12
+    claim: A fourteen-day joint-registry reporting clause is an acceptable negotiated incident-reporting option.
+    used_in: [agenda_catalog/incident_reporting]
+    source: ""
+    confidence: low
+    notes: Team assumption. Identify actual reporting duties, deadlines, confidentiality, and competent authorities before replacing this value.
+  - id: C-GEN-13
+    claim: Funded shared test facilities could make the proposed standard more implementable for lower-capacity participants.
+    used_in: [agenda_catalog/capacity_building, side_payments, argument_tags/capacity_support]
+    source: ""
+    confidence: low
+    notes: Team assumption about the mechanism and funding. The Paris declaration supports capacity building but does not fund these fictional facilities.
+  - id: C-GEN-14
+    claim: Combining safety tests with export-control negotiations can make attendance harder.
+    used_in: [agenda_catalog/export_controls, convene/agenda_scopes/tests_export_controls]
+    source: ""
+    confidence: low
+    notes: Team assumption. Document each party's actual linkage or separation of security restrictions and safety cooperation.
+research:
+  - id: R-GEN-01
+    question: Which voting electorate and approval stage does the ISO-like forum represent, and how should equal firm and expert votes be justified?
+    why: C-GEN-01 and rules/pass_rule, voting_mode, quorum, and forums/standards_body depend on this comparison.
+    status: todo
+    owner: ""
+    leads: [ISO/IEC Directives Part 1 clauses 2.6.3 and 2.7.3, "https://www.iso.org/sites/directives/current/consolidated/index.html", structured playtests of two_thirds and iso_double]
+    claim_ids: [C-GEN-01, C-GEN-05]
+  - id: R-GEN-02
+    question: What are the adopted establishment date, participation rules, and mandates of the UN Dialogue and Scientific Panel?
+    why: forums/un_multilateral and C-GEN-02 need adopted institutional evidence and a defensible binding_level.
+    status: todo
+    owner: ""
+    leads: [UN General Assembly resolution A/RES/79/325, "https://docs.un.org/en/A/RES/79/325", "https://www.un.org/global-dialogue-ai-governance/en/faq", UN pages returned access errors during this check]
+    claim_ids: [C-GEN-02, C-GEN-01]
+  - id: R-GEN-03
+    question: Which protocol makes jailbreak percentages, dangerous-capability tests, compute triggers, and uncertainty estimates comparable across participants?
+    why: agenda_catalog/jailbreak_rate, dangerous_capability_eval, compute_threshold, and measurement_uncertainty depend on reproducible operational definitions.
+    status: todo
+    owner: ""
+    leads: [NIST network risk-assessment statement November 2024, IDAIS Beijing consensus March 2024, EU AI Act Articles 51 and 55, national evaluation protocols]
+    claim_ids: [C-GEN-06, C-GEN-07, C-GEN-08, C-GEN-09]
+  - id: R-GEN-04
+    question: What evidence supports independent verification through structured access and reciprocal acceptance of national results?
+    why: agenda_catalog/model_access, verifier, mutual_recognition and the associated softening tags require evidence about technical and legal feasibility.
+    status: todo
+    owner: ""
+    leads: [National safety institute model-access agreements, structured access research, accredited laboratory mutual-recognition agreements, network joint assessments]
+    claim_ids: [C-GEN-10, C-GEN-11, C-GEN-09]
+  - id: R-GEN-05
+    question: Which actual incident deadlines, capacity-funding commitments, and export-control disputes could replace the prototype defaults?
+    why: agenda_catalog/incident_reporting, capacity_building, export_controls and side-payment values depend on these institutional details.
+    status: todo
+    owner: ""
+    leads: [EU AI Act Article 55, AI Action Summit declaration February 2025, UN capacity-development proposals, official bilateral AI-dialogue readouts]
+    claim_ids: [C-GEN-12, C-GEN-13, C-GEN-14]
+  - id: R-GEN-06
+    question: What real case of under-compliance can be used as historical baggage with a clear commitment, date, failure, and response?
+    why: C-GEN-01 and the delegation briefs need a documented case for DESIGN section 12 and course Team work 2.
+    status: todo
+    owner: ""
+    leads: [Anthropic October 2024 Responsible Scaling Policy update, "https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy", company review of evaluations completed three days late, independent corroboration and policy version history]
+    notes: The company self-reported a procedural lapse and assessed minimal risk. Confirm the original obligation and corroboration before generalising it.
+    claim_ids: [C-GEN-01]

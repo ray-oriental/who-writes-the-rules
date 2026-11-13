@@ -1,0 +1,252 @@
+.res-screen {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* ── Vote ── */
+.res-vote {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-7);
+}
+
+.res-vote > * {
+  min-width: 0;
+}
+
+.res-vote__table {
+  position: sticky;
+  top: calc(var(--header-h, 56px) + var(--space-4));
+}
+
+.res-vote__table .rt {
+  margin-block: -36px -24px;
+}
+
+.res-tally {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.res-tally__numbers {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.res-tally__num b {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  margin-inline-end: var(--space-1);
+}
+
+.res-tally__num--yes b {
+  color: var(--ok);
+}
+
+.res-tally__num--no b {
+  color: var(--danger);
+}
+
+.res-tally__need {
+  margin-inline-start: auto;
+  color: var(--accent-strong);
+  font-weight: var(--weight-medium);
+}
+
+.res-tally__bar {
+  position: relative;
+  display: flex;
+  gap: 3px;
+  height: 10px;
+}
+
+.res-tally__seg {
+  flex: 1;
+  background: var(--paper-sunk);
+  border: var(--hairline);
+  transition: background var(--dur) var(--ease);
+}
+
+.res-tally__seg--yes {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+.res-tally__seg--no {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.res-tally__mark {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 2px;
+  margin-inline-start: -2px;
+  background: var(--accent);
+}
+
+.res-statements {
+  display: grid;
+  gap: 0;
+  min-height: 2rem;
+}
+
+.res-statement {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-top: var(--hairline);
+  animation: res-in var(--dur-slow) var(--ease) both;
+}
+
+.res-statement:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.res-statement--observer {
+  opacity: 0.8;
+}
+
+.res-statement__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.res-statement__text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-lg);
+  line-height: var(--leading-doc);
+  color: var(--ink);
+  max-width: 62ch;
+  overflow-wrap: anywhere;
+}
+
+.res-next {
+  border-top: 2px solid var(--accent);
+  padding-top: var(--space-4);
+}
+
+.res-next__list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.res-next__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.res-next__list li .button {
+  flex: none;
+  min-width: 13rem;
+  justify-content: center;
+}
+
+.res-next__list li p {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  max-width: 34ch;
+}
+
+@keyframes res-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ── Outcome ── */
+.res-communique {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 62rem;
+  padding-inline-start: var(--space-5);
+  border-inline-start: 3px solid var(--accent);
+}
+
+.res-communique__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--text-3xl);
+  line-height: 1.1;
+}
+
+.res-communique__lead {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  line-height: 1.4;
+  max-width: 44rem;
+  color: var(--ink);
+}
+
+.res-communique__facts {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.res-outcome {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-7);
+}
+
+.res-outcome > * {
+  min-width: 0;
+}
+
+.res-outcome__table {
+  position: sticky;
+  top: calc(var(--header-h, 56px) + var(--space-4));
+}
+
+.res-outcome__key {
+  text-align: center;
+}
+
+.res-outcome__docs {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.res-outcome__docs--pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+.res-outcome__gallery {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+@media (max-width: 1000px) {
+  .res-vote,
+  .res-outcome {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+
+  .res-vote__table,
+  .res-outcome__table {
+    position: static;
+    justify-self: center;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .res-outcome__docs--pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

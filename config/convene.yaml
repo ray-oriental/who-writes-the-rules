@@ -1,0 +1,21 @@
+# Category scopes and format effects are prototype choices tracked by C-GEN-01.
+agenda_scopes:
+  - id: tests_only
+    label: Tests only
+    description: Agree on test methods, metrics, and measurement uncertainty.
+    categories: [test_method, metric_definition]
+  - id: tests_verification
+    label: Tests and verification
+    description: Add verification, model access, recognition, reporting, and capacity building.
+    categories: [test_method, metric_definition, verification_tech, governance]
+  - id: tests_export_controls
+    label: Tests and export controls
+    description: Open the full agenda, including politically sensitive restrictions on models and chips.
+    categories: [test_method, metric_definition, verification_tech, governance, political]
+formats:
+  - id: track1
+    label: Official negotiation (Track 1)
+    description: Delegations negotiate an official summit proposal.
+  - id: track2
+    label: Expert dialogue (Track 2)
+    description: Experts negotiate a voluntary technical annex within the technical scope.

@@ -1,0 +1,37 @@
+.has-action-bar {
+  padding-bottom: calc(var(--space-8) + var(--space-6));
+}
+
+.action-bar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 8;
+  background: var(--paper-raised);
+  border-top: var(--hairline-strong);
+  box-shadow: 0 -6px 20px rgba(28, 42, 69, 0.06);
+}
+
+.action-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  max-width: var(--page-wide);
+  margin: 0 auto;
+  padding: var(--space-3) var(--gutter);
+}
+
+.action-bar__note {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  font-weight: var(--weight-medium);
+}
+
+.action-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-inline-start: auto;
+}

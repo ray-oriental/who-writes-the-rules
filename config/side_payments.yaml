@@ -1,0 +1,12 @@
+- id: shared_test_set
+  label: Share a test set
+  description: Contribute a documented multilingual test set that recipients can reuse.
+- id: capacity_support
+  label: Fund capacity building
+  description: Fund evaluator training and testing compute for the receiving delegation.
+- id: host_test_facility
+  label: Host a shared test facility
+  description: Offer a safeguarded testing facility with access for the receiving delegation.
+- id: evaluation_exchange
+  label: Exchange evaluation expertise
+  description: Arrange reciprocal technical training on reproducible evaluation protocols.

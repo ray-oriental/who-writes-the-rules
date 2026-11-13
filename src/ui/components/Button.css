@@ -1,0 +1,116 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 38px;
+  padding: 0 var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.button--sm {
+  min-height: 30px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.button--lg {
+  min-height: 46px;
+  padding: 0 var(--space-5);
+  font-size: var(--text-lg);
+}
+
+.button__icon {
+  flex: none;
+}
+
+.button--primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-ink);
+}
+.button--primary:hover:not(:disabled) {
+  background: #0f1a30;
+}
+
+.button--secondary {
+  background: var(--paper-raised);
+  border-color: var(--rule-strong);
+  color: var(--ink);
+}
+.button--secondary:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.button--quiet {
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 4px;
+}
+.button--quiet:hover:not(:disabled) {
+  color: var(--ink);
+  text-decoration-color: currentColor;
+}
+
+.button--danger {
+  background: var(--paper-raised);
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--paper));
+  color: var(--danger);
+}
+.button--danger:hover:not(:disabled) {
+  background: var(--danger-tint);
+  border-color: var(--danger);
+}
+
+.button--decision {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.button--decision:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background: var(--paper-sunk);
+  border-color: var(--rule);
+  color: var(--ink-4);
+}
+.button--quiet:disabled {
+  background: transparent;
+  text-decoration: none;
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink-2);
+}
+.icon-button:hover:not(:disabled) {
+  background: var(--paper-sunk);
+  color: var(--ink);
+}
+.icon-button:disabled {
+  color: var(--ink-4);
+  cursor: not-allowed;
+}

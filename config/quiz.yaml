@@ -1,0 +1,6 @@
+enabled: true
+questions:
+  - id: actors_and_tradeoff
+    text: Name three actors who influence AI safety rules and one trade-off between them.
+  - id: willingness_to_attend
+    text: Why are some parties unwilling to sit at the same table in the first place?

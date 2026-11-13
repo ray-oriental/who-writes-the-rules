@@ -1,0 +1,12 @@
+title: Who Writes the Rules for AI?
+tagline: Bring the delegations together and negotiate a standard they can verify.
+intro: >-
+  You are a technical adviser at an international AI-safety summit.
+  Choose a forum, invite the delegations, and negotiate measurable tests with a workable verification arrangement.
+  Your choices determine who attends, who supports the text, and whose interests it serves.
+ai_language: en
+repo_url: https://github.com/ray-oriental/who-writes-the-rules
+repo_branch: main
+chair_name: Summit chair
+player_role: Technical adviser
+seats: [china, us, eu, frontier_lab, global_south, evaluator]

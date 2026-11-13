@@ -1,0 +1,212 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-skip {
+  position: absolute;
+  left: var(--space-4);
+  top: -48px;
+  z-index: 20;
+  padding: var(--space-2) var(--space-3);
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.app-skip:focus-visible {
+  top: var(--space-2);
+}
+
+/* Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: var(--hairline);
+}
+
+.app-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  max-width: var(--page-wide);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.app-header__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.app-header__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  letter-spacing: 0.005em;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+}
+
+.app-nav__list {
+  display: flex;
+  gap: var(--space-1);
+}
+
+/* Team pages: quieter, set off by a hairline */
+.app-nav__list--team {
+  margin-inline-start: var(--space-3);
+  padding-inline-start: var(--space-3);
+  border-inline-start: var(--hairline);
+}
+
+.app-nav__list--team .app-nav__link {
+  font-weight: var(--weight-regular, 400);
+  color: var(--ink-3);
+}
+
+.app-nav__list--team .app-nav__link:hover,
+.app-nav__list--team .app-nav__link--active {
+  color: var(--ink);
+}
+
+.app-nav__link {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.app-nav__link:hover {
+  color: var(--ink);
+  background: var(--paper-sunk);
+}
+
+.app-nav__link--active {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--ink);
+  border-radius: 0;
+}
+
+/* Progress strip under the header (play route only) */
+.app-progress {
+  position: relative;
+  border-bottom: var(--hairline);
+  background: var(--paper);
+}
+
+.app-progress__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  max-width: var(--page-wide);
+  margin: 0 auto;
+  padding: var(--space-1) var(--gutter);
+}
+
+.app-progress__aside {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.app-clock {
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.app-clock--over {
+  color: var(--accent);
+  font-weight: var(--weight-medium);
+}
+
+.app-busy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 20px;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.app-progress__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.app-progress__bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 30%;
+  background: var(--ink);
+  animation: busy-slide 1.4s var(--ease) infinite;
+}
+
+.app-progress__bar--on {
+  opacity: 1;
+}
+
+@keyframes busy-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(340%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-progress__bar::after {
+    animation: none;
+    width: 100%;
+    opacity: 0.4;
+  }
+}
+
+.app-banner {
+  max-width: var(--page-wide);
+  width: 100%;
+  margin: var(--space-4) auto 0;
+  padding: 0 var(--gutter);
+}
+
+.app-main {
+  flex: 1;
+}
+
+.app-main:focus {
+  outline: none;
+}
+
+/* Stubs */
+.stub {
+  padding: var(--space-7) 0;
+}
+
+.stub__note {
+  margin-top: var(--space-3);
+  color: var(--ink-3);
+}

@@ -1,0 +1,119 @@
+.attendance__grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 440px) minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.attendance__table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.attendance__summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: var(--hairline-strong);
+}
+
+.attendance__figures {
+  display: flex;
+  gap: var(--space-7);
+}
+
+.attendance__line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.attendance__badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.attendance__note {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.attendance__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: var(--hairline);
+}
+
+.attendance__letters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.attendance__letters-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: var(--space-3);
+  border-top: var(--hairline-strong);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+}
+
+.attendance__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.attendance__item {
+  animation: letter-in var(--dur-slow) var(--ease);
+}
+
+.attendance__letter {
+  box-shadow:
+    0 1px 0 var(--rule),
+    0 10px 24px -20px rgba(28, 42, 69, 0.35);
+}
+
+.attendance__flag {
+  padding-left: var(--doc-gutter);
+}
+
+.attendance__empty {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-3);
+}
+
+@keyframes letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (max-width: 1140px) {
+  .attendance__grid {
+    grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+.attendance__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.attendance__decision {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}

@@ -1,0 +1,182 @@
+# PLACEHOLDER positions: rewrite from sources before the Expo.
+id: eu
+name: European Union
+short: EU
+type: regional
+playable: true
+difficulty: medium
+owner: ""
+summary: Seek independently checkable evaluations and accountable governance for systemic risks.
+mandate: Secure a measurable, reviewable testing package with credible incident reporting and protected evaluation access.
+facts:
+  - text: The EU AI Act uses training compute greater than 10^25 FLOP as one route to identifying general-purpose models with systemic risk.
+    source_ids: [C-EU-01]
+  - text: The Commission reported that general-purpose model obligations began applying in August 2025 with transitional provisions for existing models.
+    source_ids: [C-EU-02]
+  - text: The European Commission appears in the institute network's November 2024 launch roster.
+    source_ids: [C-EU-03]
+relations:
+  china: Seek comparability of national evidence with an independently reviewable protocol.
+  us: Seek interoperable evaluations while negotiating differences over regulatory obligations.
+  frontier_lab: Expect credible safety evidence while allowing safeguards for sensitive assets.
+  global_south: Seek a standard that can be implemented with practical capacity support.
+  evaluator: Share an interest in independent scrutiny and documented methods.
+voices: []
+internal_resolution: lead_voice
+attendance:
+  attend_threshold: 3
+  base_willingness: {un_multilateral: 5, bilateral_us_china: 1, likeminded_club: 5, standards_body: 5}
+  conditions:
+    - id: eu_verification_agenda
+      when: {agenda_includes: verification_tech}
+      modifier: 1
+      say: A verification agenda gives us a route to a credible agreement.
+      source_ids: [C-EU-04]
+    - id: eu_expert_channel
+      when: {format: track2}
+      modifier: 1
+      say: Expert work can clarify methods before an official commitment.
+      source_ids: [C-EU-04]
+  parallel_forum_propensity: 0.4
+  track2_willingness: 6
+red_lines:
+  - id: eu_no_self_report_only
+    label: Reject exclusive self-reporting
+    when: {clause: verifier, param: who, equals: self_report}
+    say: Developer self-reporting alone cannot provide the scrutiny this agreement needs.
+    source_ids: [C-EU-05]
+must_haves:
+  - id: eu_independent_verification
+    label: Independent verification
+    when: {clause: verifier, param: who, equals: third_party}
+    weight: 2
+    softenable_by: [mutual_recognition, verify_without_weights]
+    soften_amount: 1
+    max_soften: 2
+    say: We seek independent verification, and will consider nationally executed tests with credible reciprocal scrutiny.
+    source_ids: [C-EU-06]
+  - id: eu_structured_access
+    label: Meaningful tester access
+    when: {clause: model_access, param: level, in: [structured_access, weights]}
+    weight: 2
+    softenable_by: [verify_without_weights]
+    soften_amount: 1
+    max_soften: 1
+    say: Testers need enough controlled access to examine the claims they are asked to endorse.
+    source_ids: [C-EU-06]
+  - id: eu_incident_reporting
+    label: Timely incident reporting
+    when: {clause: incident_reporting, param: deadline_days, lte: 30}
+    weight: 1
+    softenable_by: [measurement_error]
+    soften_amount: 1
+    max_soften: 1
+    say: Serious incidents should be reported promptly through a clear accountability process.
+    source_ids: [C-EU-06]
+vote_threshold: 3
+side_payment_values: {shared_test_set: 1, capacity_support: 1, host_test_facility: 1, evaluation_exchange: 1}
+trust_initial: 0
+walkout_triggers: []
+brief: >-
+  Represent a simulated EU delegation concerned with systemic risks and accountable evidence.
+  Use the compute presumption (C-EU-01), historical application announcement (C-EU-02), and network roster (C-EU-03).
+  The exact verification veto, deadline preference, and bargaining values are prototype assumptions (C-EU-04 to C-EU-07).
+  Explore whether a common protocol, reciprocal review, and structured access can make national execution credible.
+  Follow the engine's stance and vote. Never describe the game's thirty-day preference or third-party demand as an exact legal obligation.
+style: Precise, procedural, and focused on accountability and workable scrutiny.
+claims:
+  - id: C-EU-01
+    claim: The AI Act presumes high-impact capabilities above 10^25 training FLOP and also permits systemic-risk designation on other grounds.
+    used_in: [facts, brief]
+    source: European Commission, General-Purpose AI Models in the AI Act, questions and answers
+    url: https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers
+    confidence: high
+    notes: The game's compute clause simplifies the legal framework.
+  - id: C-EU-02
+    claim: General-purpose AI model obligations began applying in August 2025, with a later compliance date for models already on the market before 2 August 2025.
+    used_in: [facts, brief]
+    source: European Commission, announcement on application of general-purpose AI rules, 1 August 2025
+    url: https://digital-strategy.ec.europa.eu/en/news/eu-rules-general-purpose-ai-models-start-apply-bringing-more-transparency-safety-and-accountability
+    confidence: high
+    notes: Historical implementation announcement. Consult the current legal text for precise duties and deadlines.
+  - id: C-EU-03
+    claim: The European Commission was listed in the institute network's November 2024 launch roster.
+    used_in: [facts, brief]
+    source: International Network of AI Safety Institutes, Mission Statement, 21 November 2024
+    url: https://www.nist.gov/system/files/documents/2024/11/20/Mission%20Statement%20-%20International%20Network%20of%20AISIs.pdf
+    confidence: high
+  - id: C-EU-04
+    claim: The simulated EU delegation is willing to join inclusive standards discussions and gives extra weight to verification and expert dialogue.
+    used_in: [attendance]
+    source: ""
+    confidence: low
+    notes: Team assumption about forum selection and numeric attendance. No current mandate is implied.
+  - id: C-EU-05
+    claim: The simulated EU delegation vetoes a verifier clause limited to developer self-reporting.
+    used_in: [red_lines/eu_no_self_report_only]
+    source: ""
+    confidence: low
+    notes: Team assumption. Establish the actual assessment and oversight requirements for the relevant model class before treating this as law.
+  - id: C-EU-06
+    claim: Independent verification, meaningful tester access, and reporting within thirty days are negotiable EU priorities in the prototype.
+    used_in: [must_haves/eu_independent_verification, must_haves/eu_structured_access, must_haves/eu_incident_reporting]
+    source: ""
+    confidence: low
+    notes: Team assumption. The thirty-day value and softening increments are balance choices.
+  - id: C-EU-07
+    claim: Neutral trust and the configured relationships, exchanges, and vote threshold approximate a useful EU bargaining baseline.
+    used_in: [summary, mandate, relations, vote_threshold, side_payment_values, trust_initial, style]
+    source: ""
+    confidence: low
+    notes: Team assumption for playtesting. The EU is represented as a single regional delegation.
+research:
+  - id: R-EU-01
+    question: Does the AI Act use a greater-than-10^25-FLOP presumption alongside other systemic-risk designation routes?
+    why: facts and C-EU-01 need the distinction between a compute trigger and the full legal definition.
+    status: found
+    owner: ""
+    leads: [European Commission general-purpose-model questions and answers, AI Act Article 51]
+    notes: Commission explanation opened. Independently check the legal text and scenario date before marking verified.
+    claim_ids: [C-EU-01]
+  - id: R-EU-02
+    question: When did general-purpose model duties begin applying, and what transition was announced for existing models?
+    why: facts and brief depend on C-EU-02.
+    status: found
+    owner: ""
+    leads: [European Commission announcement 1 August 2025, AI Act application timeline]
+    claim_ids: [C-EU-02]
+  - id: R-EU-03
+    question: Was the European Commission a participant in the institute network's 2024 launch?
+    why: facts depend on C-EU-03.
+    status: found
+    owner: ""
+    leads: [NIST Mission Statement 21 November 2024]
+    claim_ids: [C-EU-03]
+  - id: R-EU-04
+    question: Which obligations require external scrutiny, and which permit providers to conduct and document their own evaluations?
+    why: eu_no_self_report_only and eu_independent_verification depend on distinguishing negotiating preferences from legal requirements.
+    status: todo
+    owner: ""
+    leads: [AI Act Articles 53 and 55, GPAI Code of Practice safety and security chapter, AI Office evaluation powers]
+    claim_ids: [C-EU-05, C-EU-06]
+  - id: R-EU-05
+    question: What access and incident-reporting arrangements could the EU accept in a cross-border safety-testing agreement?
+    why: eu_structured_access and eu_incident_reporting need support for access levels, confidentiality, recipients, and deadlines.
+    status: todo
+    owner: ""
+    leads: [AI Act Article 55, European AI Office implementation guidance, institute access agreements]
+    claim_ids: [C-EU-06]
+  - id: R-EU-06
+    question: What official statements support reciprocal recognition of national tests as a compromise on independent verification?
+    why: eu_independent_verification softening by mutual_recognition and verify_without_weights depends on C-EU-06.
+    status: todo
+    owner: ""
+    leads: [EU international AI cooperation statements, national institute network joint assessments, conformity-assessment recognition agreements]
+    claim_ids: [C-EU-06]
+  - id: R-EU-07
+    question: How should EU forum preferences, relations, neutral trust, and exchange values change when treating it as a regional actor?
+    why: attendance, vote_threshold, relations, trust_initial, and side_payment_values depend on C-EU-04 and C-EU-07.
+    status: todo
+    owner: ""
+    leads: [Council negotiating mandates, Commission summit statements, structured playtests comparing state and regional seats]
+    claim_ids: [C-EU-04, C-EU-07]

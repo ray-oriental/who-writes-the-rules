@@ -1,0 +1,180 @@
+.summit-screen {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.summit-screen--negotiate {
+  gap: var(--space-4);
+}
+
+.summit-screen--negotiate .screen-head {
+  margin-bottom: 0;
+}
+
+.summit-room {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(225px, 24%, 290px);
+  align-items: start;
+  gap: var(--space-6);
+}
+
+.summit-room > * {
+  min-width: 0;
+}
+
+.summit-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.summit-discussion__head {
+  flex-wrap: wrap;
+  min-height: 2rem;
+}
+
+.summit-transcript {
+  position: relative;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  height: clamp(345px, 58dvh, 700px);
+  background: var(--paper-raised);
+  border: var(--hairline);
+  border-radius: var(--radius);
+  overscroll-behavior: contain;
+}
+
+.summit-message {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--hairline);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.summit-message p {
+  max-width: 72ch;
+  margin-top: var(--space-1);
+  font-size: var(--text-lg);
+  line-height: var(--leading-doc);
+}
+
+.summit-message--chair p {
+  font-size: var(--text-sm);
+}
+
+.summit-message--chair {
+  font-style: italic;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+
+.summit-tag {
+  display: inline-block;
+  margin: var(--space-2) var(--space-2) 0 0;
+}
+
+.summit-tally {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border: var(--hairline);
+  background: var(--paper-raised);
+}
+
+.summit-records > li {
+  border-top: var(--hairline);
+  padding: var(--space-3) 0;
+  overflow-wrap: anywhere;
+}
+
+.summit-records--raised {
+  padding: 0 var(--space-4);
+  background: var(--paper-raised);
+  border: var(--hairline);
+}
+
+.summit-records--raised > li:first-child {
+  border-top: 0;
+}
+
+.summit-clause {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  overflow-wrap: anywhere;
+}
+
+.summit-bullets {
+  list-style: disc;
+  padding-inline-start: var(--space-5);
+}
+
+.summit-details {
+  border-bottom: var(--hairline);
+  padding: var(--space-2) 0;
+}
+
+.summit-details > summary {
+  cursor: pointer;
+  font-weight: var(--weight-medium);
+}
+
+@media (max-width: 1140px) {
+  .summit-room {
+    gap: var(--space-4);
+  }
+}
+
+.summit-input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background: var(--paper-raised);
+  border: var(--hairline-strong);
+  border-radius: var(--radius);
+}
+
+.summit-composer .textarea {
+  min-height: 4rem;
+  padding: var(--space-2) var(--space-3);
+}
+
+.summit-composer__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 19rem) auto;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.summit-participation {
+  border-top: var(--hairline);
+  padding-top: var(--space-2);
+  text-align: center;
+}
+
+.summit-example {
+  padding: var(--space-2) var(--space-3);
+  border: var(--hairline);
+  background: var(--paper-raised);
+  font-size: var(--text-sm);
+}
+
+.summit-example summary {
+  cursor: pointer;
+  font-weight: var(--weight-medium);
+}
+
+.summit-example[open] > summary {
+  margin-bottom: var(--space-3);
+}
+
+.summit-example__quote {
+  border-inline-start: var(--hairline-strong);
+  padding-inline-start: var(--space-2);
+  color: var(--ink-2);
+}
+
+.summit-example .button {
+  align-self: start;
+}

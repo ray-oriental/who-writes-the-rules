@@ -1,0 +1,233 @@
+# PLACEHOLDER positions: rewrite from sources before the Expo.
+id: china
+name: China
+short: CN
+type: state
+playable: true
+difficulty: harder
+owner: ""
+summary: Seek interoperable tests while retaining national execution and control of model access.
+mandate: Negotiate credible common tests and recognition of national results while protecting domestic security authority.
+facts:
+  - text: TC260 issued an AI Safety Governance Framework in September 2024 that addresses risk management and international cooperation.
+    source_ids: [C-CN-01]
+  - text: China was absent from the institute network's published November 2024 launch roster.
+    source_ids: [C-CN-02]
+  - text: China proposed a World AI Cooperation Organization in July 2025.
+    source_ids: [C-CN-03]
+  - text: The March 2024 IDAIS Beijing statement proposed shared red lines and international scientific collaboration on AI safety.
+    source_ids: [C-CN-04]
+relations:
+  us: Seek technical risk dialogue while disputing restrictions on technology access.
+  eu: Explore common test protocols while retaining national implementation authority.
+  frontier_lab: Share concerns about protecting weights while seeking credible evidence of safety.
+  global_south: Seek support for inclusive governance and practical evaluation capacity.
+  evaluator: Welcome technical expertise under a nationally executed testing arrangement.
+voices:
+  - id: tc260_engineer
+    label: Standards engineer (TC260)
+    priorities: [workable_tests, domestic_framework_alignment, mutual_recognition]
+  - id: regulator
+    label: Regulator
+    priorities: [security_control, national_execution, protected_model_access]
+internal_resolution: veto_by_any
+attendance:
+  attend_threshold: 3
+  base_willingness: {un_multilateral: 5, bilateral_us_china: 4, likeminded_club: -10, standards_body: 4}
+  conditions:
+    - id: cn_export_agenda
+      when: {agenda_includes: export_controls, format: track1}
+      modifier: -4
+      action: refuse
+      say: We will not join an official safety negotiation whose agenda includes export controls.
+      source_ids: [C-CN-05]
+    - id: cn_exclusive_exclusion
+      when: {forum_exclusive: true, not_invited: true}
+      action: consider_parallel_forum
+      say: If we are excluded, we will consider pursuing standards in another forum.
+      source_ids: [C-CN-05]
+    - id: cn_expert_channel
+      when: {format: track2}
+      modifier: 1
+      say: A bounded expert dialogue gives our engineers room to compare technical methods.
+      source_ids: [C-CN-05, C-CN-04]
+  parallel_forum_propensity: 0.7
+  track2_willingness: 6
+red_lines:
+  - id: cn_no_weights_access
+    label: Protect model weights
+    when: {clause: model_access, param: level, equals: weights}
+    voice: regulator
+    say: We cannot accept compulsory transfer of model weights to outside testers.
+    source_ids: [C-CN-06]
+  - id: cn_no_broad_export_controls
+    label: Reject broad export restrictions
+    when: {clause: export_controls, param: scope, equals: broad}
+    voice: regulator
+    say: We cannot endorse broad technology restrictions as a condition of safety cooperation.
+    source_ids: [C-CN-05]
+must_haves:
+  - id: national_execution
+    label: National test execution
+    when: {clause: verifier, param: who, equals: national_institute}
+    weight: 2
+    softenable_by: [mutual_recognition, sovereignty_respect]
+    soften_amount: 1
+    max_soften: 2
+    say: Our national institutions should execute the tests and exchange reviewable results.
+    source_ids: [C-CN-07]
+  - id: cn_workable_tests
+    label: A workable shared jailbreak test
+    when: {clause: jailbreak_rate, param: threshold_pct, gte: 5, lte: 10}
+    weight: 2
+    softenable_by: [measurement_error]
+    soften_amount: 1
+    max_soften: 1
+    say: We seek a practical jailbreak threshold supported by a clear test protocol.
+    source_ids: [C-CN-07]
+  - id: cn_recognise_results
+    label: Recognition of national results
+    when: {clause: mutual_recognition, param: mode, in: [bilateral, multilateral]}
+    weight: 1
+    softenable_by: [mutual_recognition]
+    soften_amount: 1
+    max_soften: 1
+    say: Results produced under the agreed protocol should receive reciprocal recognition.
+    source_ids: [C-CN-07]
+vote_threshold: 3
+side_payment_values: {shared_test_set: 1, capacity_support: 1, host_test_facility: 1, evaluation_exchange: 1}
+trust_initial: 0
+walkout_triggers:
+  - id: cn_export_walkout
+    when: {clause: export_controls, param: scope, in: [targeted, broad]}
+    say: Introducing technology restrictions has moved this text beyond our safety-testing mandate.
+    source_ids: [C-CN-05]
+brief: >-
+  You represent a simulated Chinese delegation seeking common tests with national execution and mutual recognition.
+  Cite the TC260 framework (C-CN-01), historical network roster (C-CN-02), 2025 cooperation proposal (C-CN-03),
+  and expert Beijing statement (C-CN-04) only within their documented scope.
+  The engineer and regulator are a teaching assumption (C-CN-08).
+  Treat the configured access restrictions, attendance decisions, and concessions as simulation positions (C-CN-05 to C-CN-09).
+  Explain how structured access could protect weights while permitting scrutiny.
+  Follow the engine's stance and vote. Make no claims about a current official mandate or the unresolved XIV dialogue.
+style: Formal, technically specific, patient, and careful about domestic authority.
+claims:
+  - id: C-CN-01
+    claim: TC260 issued an AI Safety Governance Framework in September 2024 covering security risks and cooperative governance.
+    used_in: [facts, brief]
+    source: State Council English website, report on TC260 framework, 10 September 2024
+    url: https://english.www.gov.cn/news/202409/10/content_WS66df9f30c6d0868f4e8eac91.html
+    confidence: high
+    notes: This supports the existence and broad themes of the framework.
+  - id: C-CN-02
+    claim: China is absent from the published November 2024 institute-network launch roster.
+    used_in: [facts, brief]
+    source: International Network of AI Safety Institutes, Mission Statement, 21 November 2024
+    url: https://www.nist.gov/system/files/documents/2024/11/20/Mission%20Statement%20-%20International%20Network%20of%20AISIs.pdf
+    confidence: high
+    notes: Historical membership only. The roster gives no reason for China's absence.
+  - id: C-CN-03
+    claim: China proposed establishing a World AI Cooperation Organization in July 2025.
+    used_in: [facts, brief]
+    source: Chinese Ministry of Foreign Affairs, regular press briefing, 29 July 2025
+    url: https://www.mfa.gov.cn/mfa_eng/xw/fyrbt/202507/t20250729_11679085.html
+    confidence: high
+    notes: The proposal supports a historical alternative-forum example. It does not establish a causal response to exclusion from another forum.
+  - id: C-CN-04
+    claim: The March 2024 IDAIS Beijing expert consensus called for AI red lines and international technical collaboration.
+    used_in: [facts, brief, attendance/cn_expert_channel]
+    source: IDAIS Beijing, Consensus Statement on Red Lines in Artificial Intelligence, March 2024
+    url: https://idais.ai/dialogue/idais-beijing/
+    confidence: high
+    notes: Expert views provide a precedent for dialogue. National endorsement and attendance scores remain assumptions.
+  - id: C-CN-05
+    claim: The simulated delegation refuses an official export-control agenda, may walk out over restrictions, and has high parallel-forum propensity.
+    used_in: [attendance, walkout_triggers/cn_export_walkout, red_lines/cn_no_broad_export_controls]
+    source: ""
+    confidence: low
+    notes: Team assumption. Forum scores, Track 2 openness, and 0.7 propensity are balance parameters requiring evidence and playtesting.
+  - id: C-CN-06
+    claim: The simulated regulator vetoes any proposal requiring outside testers to receive weights.
+    used_in: [red_lines/cn_no_weights_access]
+    source: ""
+    confidence: low
+    notes: Team assumption. No verified blanket Chinese negotiating prohibition on all forms of foreign weights access has been established.
+  - id: C-CN-07
+    claim: National execution, a moderate jailbreak threshold, and reciprocal recognition are the simulated delegation's negotiable priorities.
+    used_in: [must_haves/national_execution, must_haves/cn_workable_tests, must_haves/cn_recognise_results]
+    source: ""
+    confidence: low
+    notes: Team assumption. Weights, thresholds, and tag effects describe the prototype bargaining model.
+  - id: C-CN-08
+    claim: A TC260 engineer and regulator can be represented as distinct voices with a regulator veto.
+    used_in: [voices, internal_resolution, red_lines/cn_no_weights_access, red_lines/cn_no_broad_export_controls]
+    source: ""
+    confidence: low
+    notes: Team assumption about internal preference differences and decision authority. Institutional plurality alone cannot establish a veto rule.
+  - id: C-CN-09
+    claim: The simulated delegation begins with neutral trust and accepts the configured exchanges and relationship descriptions.
+    used_in: [summary, mandate, relations, vote_threshold, trust_initial, side_payment_values, style]
+    source: ""
+    confidence: low
+    notes: Team assumption for balance. No point values or uniform bilateral trust can be inferred from the cited historical facts.
+research:
+  - id: R-CN-01
+    question: Did TC260 publish a framework in September 2024 addressing risk management and cooperation?
+    why: facts and brief depend on C-CN-01.
+    status: found
+    owner: ""
+    leads: ["https://english.www.gov.cn/news/202409/10/content_WS66df9f30c6d0868f4e8eac91.html", TC260 AI Safety Governance Framework 1.0 September 2024]
+    notes: Publication and broad themes checked. A teammate should independently read the framework before marking verified.
+    claim_ids: [C-CN-01]
+  - id: R-CN-02
+    question: Was China listed in the November 2024 institute-network launch roster?
+    why: facts and the historical context for attendance depend on C-CN-02.
+    status: found
+    owner: ""
+    leads: [NIST network Mission Statement 21 November 2024]
+    notes: China is absent from the opened roster. Verify the selected historical date before using this as current membership.
+    claim_ids: [C-CN-02]
+  - id: R-CN-03
+    question: Did China propose a World AI Cooperation Organization in July 2025?
+    why: facts and the alternative-forum background depend on C-CN-03.
+    status: found
+    owner: ""
+    leads: ["https://www.mfa.gov.cn/mfa_eng/xw/fyrbt/202507/t20250729_11679085.html"]
+    notes: The proposal is documented. Its later institutional development requires another source.
+    claim_ids: [C-CN-03]
+  - id: R-CN-04
+    question: What documents demonstrate a substantive TC260 engineer–regulator disagreement and authority to veto a joint negotiating position?
+    why: voices, internal_resolution/veto_by_any, and regulator-owned red lines depend on C-CN-08.
+    status: todo
+    owner: ""
+    leads: [TC260 consultation records, regulator mandates, Chinese standards-drafting minutes, institutional studies of AI governance]
+    claim_ids: [C-CN-08]
+  - id: R-CN-05
+    question: Under which laws or published negotiating positions would Chinese actors reject foreign weights access?
+    why: red_lines/cn_no_weights_access depends on C-CN-06.
+    status: todo
+    owner: ""
+    leads: [TC260 framework access and security provisions, official model-security rules, official bilateral AI-dialogue readouts]
+    claim_ids: [C-CN-06]
+  - id: R-CN-06
+    question: What direct evidence links export-control agendas or exclusion to refusal, walkout, or pursuing a parallel standards forum?
+    why: attendance/cn_export_agenda, cn_exclusive_exclusion, cn_export_walkout, and parallel_forum_propensity depend on C-CN-05.
+    status: todo
+    owner: ""
+    leads: [May 2024 Geneva post-meeting readouts, July 2025 cooperation-organisation proposal, statements separating safety cooperation from technology restrictions]
+    claim_ids: [C-CN-05, C-CN-03]
+  - id: R-CN-07
+    question: Which common protocols and reciprocal arrangements could reconcile national execution with independent scrutiny, and what concessions are plausible?
+    why: national_execution, cn_workable_tests, cn_recognise_results, vote_threshold, relations, and exchange values depend on C-CN-07 and C-CN-09.
+    status: todo
+    owner: ""
+    leads: [TC260 test methods, NIST network reproducibility statement, laboratory accreditation agreements, structured playtests]
+    claim_ids: [C-CN-07, C-CN-09]
+  - id: R-CN-08
+    question: What were the exact date, organisers, participants, and official or Track 2 status of the XIV Round of the U.S.-China Dialogue on AI and International Security?
+    why: attendance/cn_expert_channel and brief need a verified Track 2 precedent distinct from the 2024 official Geneva dialogue.
+    status: todo
+    owner: ""
+    leads: [Exact-title search for XIV Round of the U.S.-China Dialogue on AI and International Security, organiser programmes and institutional event archives, IDAIS Beijing March 2024]
+    notes: No matching event record was established in this search. Keep its date and status unresolved.
+    claim_ids: [C-CN-04, C-CN-05]

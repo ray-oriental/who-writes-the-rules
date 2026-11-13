@@ -1,0 +1,86 @@
+- id: jailbreak_rate
+  category: test_method
+  label: Jailbreak success rate
+  description: A negotiated threshold on a specified attack set. Its value depends on the test protocol.
+  text: Jailbreak success rate must not exceed {threshold_pct}% on the {test_set} test set.
+  params:
+    threshold_pct: {type: number, label: Maximum success rate, min: 0, max: 50, step: 1, default: 5, unit: "%"}
+    test_set: {type: enum, label: Test set, values: [shared, national, lab_internal], default: shared}
+  source_ids: [C-GEN-06]
+- id: dangerous_capability_eval
+  category: test_method
+  label: Dangerous-capability evaluations
+  description: Evaluate selected dangerous-capability domains before release using a documented protocol.
+  text: Before release, use the {protocol} protocol to evaluate dangerous capabilities across {domains}.
+  params:
+    domains: {type: multi, label: Risk domains, values: [cyber, bio, chem, nuclear], default: [cyber, bio], value_labels: {cyber: cybersecurity, bio: biological risk, chem: chemical risk, nuclear: nuclear risk}}
+    protocol: {type: enum, label: Protocol, values: [shared, national, lab_internal], default: shared}
+  source_ids: [C-GEN-07, C-GEN-06]
+- id: compute_threshold
+  category: metric_definition
+  label: Compute threshold for a frontier model
+  description: A simplified training-compute trigger. This game does not reproduce the full EU legal classification.
+  text: Apply the frontier-model testing protocol to training runs exceeding {flop} FLOP.
+  params:
+    flop: {type: enum, label: Training compute, values: ["1e25", "1e26"], default: "1e25"}
+  source_ids: [C-GEN-08, C-GEN-06]
+- id: measurement_uncertainty
+  category: metric_definition
+  label: Measurement uncertainty
+  description: Make sampling uncertainty and attack coverage visible alongside a headline score.
+  text: Publish a {confidence_pct}% uncertainty interval and {coverage} coverage information with each score.
+  params:
+    confidence_pct: {type: number, label: Confidence level, min: 80, max: 99, step: 1, default: 95, unit: "%"}
+    coverage: {type: enum, label: Coverage detail, values: [summary, reproducible_protocol], default: reproducible_protocol}
+  source_ids: [C-GEN-09, C-GEN-06]
+- id: verifier
+  category: verification_tech
+  label: Who verifies results
+  description: Choose who runs and documents the tests. Recognition is negotiated in its own clause.
+  text: Results shall be verified by {who} under the agreed test protocol.
+  params:
+    who: {type: enum, label: Verifier, values: [national_institute, third_party, self_report], default: national_institute, value_labels: {national_institute: national institutes, third_party: independent third parties, self_report: the developer}}
+  source_ids: [C-GEN-09, C-GEN-06]
+- id: model_access
+  category: verification_tech
+  label: Model access for testers
+  description: Structured access means controlled testing and documented outputs under safeguards.
+  text: Accredited testers shall receive {level} under agreed security safeguards.
+  params:
+    level: {type: enum, label: Access level, values: [api_only, structured_access, weights], default: structured_access, value_labels: {api_only: API-only access, structured_access: structured access, weights: access to model weights}}
+  source_ids: [C-GEN-10]
+- id: mutual_recognition
+  category: governance
+  label: Mutual recognition of test results
+  description: Decide whether results produced under the common protocol can be accepted across borders.
+  text: Test results shall receive {mode} recognition when they follow the agreed protocol.
+  params:
+    mode: {type: enum, label: Recognition arrangement, values: [none, bilateral, multilateral], default: multilateral}
+  source_ids: [C-GEN-11]
+- id: incident_reporting
+  category: governance
+  label: Incident reporting
+  description: Choose a reporting deadline and audience for serious safety incidents.
+  text: Within {deadline_days} days of a serious safety incident, submit {recipient}.
+  params:
+    deadline_days: {type: number, label: Deadline, min: 1, max: 90, step: 1, default: 14, unit: days}
+    recipient: {type: enum, label: Recipient, values: [national_authority, joint_registry, public_summary], default: joint_registry, value_labels: {national_authority: a report to the national authority, joint_registry: a report to the joint registry, public_summary: a public summary}}
+  source_ids: [C-GEN-12]
+- id: capacity_building
+  category: governance
+  label: Capacity building and shared test facilities
+  description: Commit resources so delegations with limited evaluation capacity can implement the protocol.
+  text: Provide {support} support through {facility} for participating countries.
+  params:
+    support: {type: enum, label: Support commitment, values: [voluntary, funded], default: funded}
+    facility: {type: enum, label: Facilities, values: [shared_test_facility, national_centres], default: shared_test_facility, value_labels: {shared_test_facility: a shared test facility, national_centres: national centres}}
+  source_ids: [C-GEN-13]
+- id: export_controls
+  category: political
+  label: Export controls on models and chips
+  description: A politically sensitive negotiated restriction whose inclusion can prevent attendance.
+  text: Apply {scope} export controls to {coverage}.
+  params:
+    scope: {type: enum, label: Restriction, values: [none, targeted, broad], default: targeted}
+    coverage: {type: enum, label: Coverage, values: [chips, model_weights, both], default: both}
+  source_ids: [C-GEN-14]

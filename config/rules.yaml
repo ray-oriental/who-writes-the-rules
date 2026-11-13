@@ -1,0 +1,37 @@
+# Prototype mechanics and numerical values are assumptions tracked by C-GEN-01.
+rounds_per_cycle: 5
+max_cycles: 3
+min_responders_per_round: 2
+max_responders_per_round: 3
+allow_early_report_after: 3
+min_clauses_to_vote: 2
+voting_mode: all_delegations
+pass_rule:
+  type: two_thirds
+  negative_cap: 0.25
+quorum: 4
+major_powers: [china, us, eu]
+reconvene_attempts: 2
+parallel_threshold: 0.6
+trust:
+  min: -3
+  max: 3
+  excluded: -2
+  exclusive_forum_nonmember: -1
+track2:
+  enabled: true
+  uses_per_game: 1
+  rounds: 3
+  scope: [test_method, metric_definition, verification_tech]
+  bonus: 2
+swing_band: 1
+tagger_confidence_min: 0.6
+side_payments_per_cycle: 1
+expo:
+  time_limit_minutes: 12
+leaderboard:
+  prior_votes: 5
+  questions:
+    - Would the major powers sign it?
+    - Can it actually be measured?
+    - Is it fair to countries that were absent?
