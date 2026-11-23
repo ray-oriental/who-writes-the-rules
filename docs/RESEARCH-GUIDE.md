@@ -4,6 +4,7 @@
 
 This guide is for teammates who research sources. No coding is needed. Each section gives the Chinese text first, then the English.
 
+- 查到资料后怎样改规则、怎样新增代表团，见 [代表团指南](DELEGATION-GUIDE.md)。 · How to turn evidence into rules, and how to add a delegation: [delegation guide](DELEGATION-GUIDE.md).
 - 字段的完整说明见 [配置指南](CONFIG-GUIDE.md)。 · Every field is described in the [configuration guide](CONFIG-GUIDE.md).
 - 在线游戏：<https://ray-oriental.github.io/who-writes-the-rules/>，资料总览在 **Research**。 · Live game: <https://ray-oriental.github.io/who-writes-the-rules/>; the overview is under **Research**.
 

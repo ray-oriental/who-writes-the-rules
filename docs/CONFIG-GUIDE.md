@@ -68,7 +68,7 @@ Convening conditions support `forum`, `forum_exclusive`, `not_invited`, `format`
 
 ## Connect rules to evidence
 
-For the full research workflow, from claiming a task to merging the pull request, see the bilingual [research guide](RESEARCH-GUIDE.md).
+For the full research workflow, from claiming a task to merging the pull request, see the bilingual [research guide](RESEARCH-GUIDE.md). To turn evidence into rules or add a delegation, see the [delegation guide](DELEGATION-GUIDE.md).
 
 Add a claim inside the same delegation's `claims` list. Give it a globally unique ID such as `C-CN-10`, a narrowly worded `claim`, and `used_in` pointers naming the affected rule IDs. Add its ID to each affected item's `source_ids`. General claims use `C-GEN-NN`.
 
