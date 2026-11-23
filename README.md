@@ -21,7 +21,7 @@ In **Settings**, open **Print cards** and choose **Print or save as PDF**. Give 
 
 ## Team research
 
-Open **Research** and pick a delegation or **Shared research**. Each dossier lists its owner, research questions, status, suggested sources and the claims that depend on them. Open a task or claim ID to link to that exact entry. A task lists its own owner, including whether it is unassigned. To claim a task, add your handle or initials to its `owner` and update `status` in that dossier's YAML file. Use one branch and pull request per dossier when working in parallel. Download **Claims CSV** to export the combined claims table.
+Open **Research** and pick a delegation or **Shared research**. Each dossier lists its owner, research questions, status, suggested sources and the claims that depend on them. Open a task or claim ID to link to that exact entry. A task lists its own owner, including whether it is unassigned. To claim a task, add your handle or initials to its `owner` and update `status` in that dossier's YAML file. Use one branch and pull request per dossier when working in parallel. Download **Claims CSV** to export the combined claims table. Step-by-step instructions for finding sources and opening a pull request, in Chinese and English: [Research guide](docs/RESEARCH-GUIDE.md).
 
 The GitHub edit link appears when `repo_url` and `repo_branch` in `config/scenario.yaml` point to the team's repository and branch. [Configuration guide](docs/CONFIG-GUIDE.md)
 

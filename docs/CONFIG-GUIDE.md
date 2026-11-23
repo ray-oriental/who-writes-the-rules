@@ -68,6 +68,8 @@ Convening conditions support `forum`, `forum_exclusive`, `not_invited`, `format`
 
 ## Connect rules to evidence
 
+For the full research workflow, from claiming a task to merging the pull request, see the bilingual [research guide](RESEARCH-GUIDE.md).
+
 Add a claim inside the same delegation's `claims` list. Give it a globally unique ID such as `C-CN-10`, a narrowly worded `claim`, and `used_in` pointers naming the affected rule IDs. Add its ID to each affected item's `source_ids`. General claims use `C-GEN-NN`.
 
 Only add `source` and `url` after opening a document and checking the exact claim. Record institution, document title, date, and relevant section. Use `confidence: high` or `medium` as warranted. For an assumption, leave `source: ""`, use `confidence: low`, explain the assumption in `notes`, and create a research task linked through `claim_ids`. A historical roster requires its date. A policy document alone cannot establish a numerical trust penalty or an actor's negotiating veto.
