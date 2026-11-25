@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: var(--space-3);
   max-width: 60rem;
-  padding: var(--space-4) 0 var(--space-5);
+  padding: var(--space-2) 0 var(--space-2);
 }
 
 .seat__tagline {
@@ -62,14 +62,15 @@
 
 .seat__guide {
   display: grid;
-  gap: var(--space-3);
-  padding: var(--space-3) 0;
+  gap: var(--space-2);
 }
 
 .seat__steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
 }
 
 .seat__steps li {
@@ -77,23 +78,18 @@
   padding-top: var(--space-2);
 }
 
-.seat__steps p,
-.seat__example p {
-  color: var(--ink-2);
-  font-size: var(--text-sm);
+.seat__steps strong {
+  color: var(--ink);
 }
 
-.seat__example {
-  border: var(--hairline);
-  padding: var(--space-2) var(--space-3);
-  background: var(--paper-raised);
-}
-
-.seat__example summary {
+.seat__about summary {
   cursor: pointer;
   font-weight: var(--weight-medium);
+  color: var(--ink-2);
 }
 
-.seat__example p {
-  margin: var(--space-2) 0;
+@media (max-width: 700px) {
+  .seat__steps {
+    grid-template-columns: 1fr;
+  }
 }

@@ -43,8 +43,6 @@ export function SeatScreen() {
   const [hover, setHover] = useState<Id | null>(null);
   const s = config.scenario;
   const playable = (id: Id) => !!get(id).config?.playable;
-  const exampleForum = config.forums.find(forum => forum.id === 'un_multilateral' && !forum.members_fixed);
-  const exampleAgenda = config.convene.agenda_scopes.find(scope => scope.id === 'tests_verification');
 
   const status: Record<Id, SeatStatus> = {};
   for (const id of s.seats) status[id] = id === selected ? 'player' : 'present';
@@ -61,20 +59,12 @@ export function SeatScreen() {
           </header>
 
           <section className="seat__guide" aria-labelledby="seat-guide">
-            <h2 id="seat-guide" className="t-heading">How to play</h2>
+            <h2 id="seat-guide" className="t-eyebrow">How to play</h2>
             <ol className="seat__steps">
-              <li><strong>1. Invite</strong><p>Choose a delegation, a venue and whom to invite.</p></li>
-              <li><strong>2. Negotiate</strong><p>Propose test clauses and discuss them with the delegates who attend.</p></li>
-              <li><strong>3. Vote</strong><p>Put the draft to a vote, then see who backed it and why.</p></li>
+              <li><strong>1. Invite</strong> the delegations you want at the table.</li>
+              <li><strong>2. Negotiate</strong> test clauses with those who come.</li>
+              <li><strong>3. Vote</strong> on the draft and see who backed it.</li>
             </ol>
-            {playable('china') && exampleForum && exampleAgenda && (
-              <details className="seat__example">
-                <summary>Try a first summit</summary>
-                <p>Play as China. Choose {exampleForum.name} and {exampleAgenda.label}, and invite everyone.
-                  At the table, try a shared test with national verification.</p>
-                <Button size="sm" onClick={() => actions.chooseSeat('china')}>Start as China</Button>
-              </details>
-            )}
           </section>
 
           <section className="l-stack" aria-labelledby="seat-choose">
@@ -82,7 +72,7 @@ export function SeatScreen() {
               <h2 id="seat-choose" className="t-heading">
                 Choose your delegation
               </h2>
-              <p className="t-meta">You play its {s.player_role.toLowerCase()}. AI plays the others.</p>
+              <p className="t-meta">You play its {s.player_role.toLowerCase()}; AI plays the rest.</p>
             </div>
             <RadioCards
               legend="Delegation"
@@ -119,6 +109,11 @@ export function SeatScreen() {
               >
                 {selected ? `Take the ${get(selected).name} seat` : 'Choose a seat'}
               </Button>
+              {playable('china') && (
+                <Button variant="quiet" size="sm" onClick={() => actions.chooseSeat('china')}>
+                  Start as China
+                </Button>
+              )}
             </div>
           </section>
         </div>
@@ -140,7 +135,10 @@ export function SeatScreen() {
             items={selected ? ['player', 'present'] : ['present']}
             labels={{ present: 'AI delegation' }}
           />
-          <p className="seat__text">{s.intro}</p>
+          <details className="seat__about">
+            <summary>About this summit</summary>
+            <p className="seat__text">{s.intro}</p>
+          </details>
         </aside>
       </div>
     </div>

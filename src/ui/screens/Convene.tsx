@@ -91,7 +91,6 @@ export function ConveneScreen() {
       <ScreenHead
         eyebrow={`Attempt ${attempt} of ${attemptsTotal}`}
         title="Convene the summit"
-        lead="Choose a forum, set your guest list, and pick the agenda and meeting format."
       />
 
       <div className="l-split">
@@ -103,7 +102,8 @@ export function ConveneScreen() {
             </Banner>
           )}
 
-          <Section number="1" title="Choose a forum">
+          <Section number="1" title="Pick a forum">
+            <p className="t-meta">Where the summit meets. It sets who can be invited and how binding the result is.</p>
             <RadioCards
               legend="Forum"
               hideLegend
@@ -115,11 +115,23 @@ export function ConveneScreen() {
             />
           </Section>
 
-          <Section number="2" title="Invite delegations" aside={`${invited.length} of ${eligible.length} invited`}>
+          <Section number="2" title="Pick an agenda">
+            <p className="t-meta">What the delegations will discuss.</p>
+            <RadioCards
+              legend="Agenda scope"
+              hideLegend
+              value={scopeId}
+              onChange={setScopeId}
+              columns={3}
+              options={scopeOptions}
+              disabled={!!busy}
+            />
+          </Section>
+
+          <Section number="3" title="Invite delegations" aside={`${invited.length} of ${eligible.length} invited`}>
             <div className="l-stack l-stack--sm">
               <p className="t-meta">
-                Your seat is reserved. Invited delegations may decline. At least {rules.quorum} delegations,
-                including yours, must attend to open negotiations.
+                Invited delegations may decline. You need at least {rules.quorum} at the table, yourself included.
               </p>
               {missingForQuorum > 0 && (
                 <p className="t-meta convene__quorum" role="status">
@@ -145,19 +157,11 @@ export function ConveneScreen() {
             ) : <p className="t-meta">No other delegations are eligible for this forum.</p>}
           </Section>
 
-          <Section number="3" title="Choose an agenda">
-            <RadioCards
-              legend="Agenda scope"
-              hideLegend
-              value={scopeId}
-              onChange={setScopeId}
-              columns={3}
-              options={scopeOptions}
-              disabled={!!busy}
-            />
-          </Section>
-
-          <Section number="4" title="Choose a meeting format">
+          <details className="convene__format">
+            <summary>
+              Meeting format: <strong>{config.convene.formats.find((f) => f.id === format)?.label ?? '—'}</strong> (change)
+            </summary>
+          <div className="convene__format-body">
             <RadioCards
               legend="Format"
               hideLegend
@@ -167,7 +171,8 @@ export function ConveneScreen() {
               options={formatOptions}
               disabled={!!busy}
             />
-          </Section>
+          </div>
+          </details>
         </div>
 
         <aside className="l-sticky convene__aside" aria-label="Invitation preview">
