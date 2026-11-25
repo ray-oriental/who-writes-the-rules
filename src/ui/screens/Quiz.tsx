@@ -5,7 +5,7 @@ import { TextArea } from '../components/Forms';
 import { ScreenHead } from '../components/Misc';
 import './Quiz.css';
 
-/** Used for both prequiz and postquiz. The only way on is to submit; blank answers are allowed. */
+/** Post-game quiz (the pre kind is kept for old saves). Skip and Finish both submit; blank answers are allowed. */
 export function QuizScreen({ kind }: { kind: 'pre' | 'post' }) {
   const { config } = useConfig();
   const { view, actions } = useGame();
@@ -23,12 +23,12 @@ export function QuizScreen({ kind }: { kind: 'pre' | 'post' }) {
             ? questions.length === 1
               ? 'One question first'
               : 'A few questions first'
-            : 'The same questions, again'
+            : 'Before you go'
         }
         lead={
           kind === 'pre'
             ? 'Answer in a sentence or two. There are no right answers; you will see these again at the end.'
-            : 'Has anything changed in how you would answer?'
+            : 'Optional. A sentence each is plenty, and blank answers are fine.'
         }
       />
       <form
@@ -71,11 +71,21 @@ export function QuizScreen({ kind }: { kind: 'pre' | 'post' }) {
           })}
         </ol>
         <div className="l-actions l-actions--end">
+          {kind === 'post' && (
+            <Button
+              type="button"
+              variant="quiet"
+              disabled={busy}
+              onClick={() => actions.submitQuiz(kind, answers.map((a) => a.trim()))}
+            >
+              Skip
+            </Button>
+          )}
           <span className="t-meta quiz__count t-num">
-            {answered} of {questions.length} answered
+            {kind === 'pre' ? `${answered} of ${questions.length} answered` : 'All questions are optional'}
           </span>
           <Button type="submit" variant="primary" size="lg" icon="arrow-right" disabled={busy}>
-            {kind === 'pre' ? 'Submit and convene' : 'Submit'}
+            {kind === 'pre' ? 'Submit and convene' : 'Finish'}
           </Button>
         </div>
       </form>

@@ -25,20 +25,28 @@ export function ReportScreen() {
   const electorate = derived.voters.length || derived.present.length;
 
   return <div className="l-page l-page--narrow res-screen has-action-bar">
+    <p className="res-decision" role="status">
+      <b>The draft is ready.</b> {report.objection
+        ? 'Your objection is on the record. Call the vote when you are ready.'
+        : 'Read it, object once if the summary is wrong, or call the vote.'}
+    </p>
     <Document kicker={state.track === 1 ? 'Draft resolution' : 'Draft technical annex'} title="Report of the rapporteur"
       titleAs="h1" meta={[[ 'Cycle', state.cycle ], [ 'Voting threshold', derived.votes_needed + ' affirmative votes' ]]}>
       {report.fallback && <Chip tone="warn">Offline fallback</Chip>}
-      <DocSection n="1." title="Record of deliberation"><p>{report.summary}</p></DocSection>
-      <DocSection n="2." title="Text before the table">
-        {report.clauses.map((clause, index) => <DocPara key={clause.id} n={'2.' + (index + 1)}>{clause.text}</DocPara>)}
+      <DocSection n="1." title="Text before the table">
+        {report.clauses.map((clause, index) => <DocPara key={clause.id} n={'1.' + (index + 1)}>{clause.text}</DocPara>)}
       </DocSection>
-      {report.positions.length > 0 && <DocSection n="3." title="Positions">
-        {report.positions.map(item => <DocPara key={item.delegation} lead={get(item.delegation).name + '.'}>{item.text}</DocPara>)}
-      </DocSection>}
-      {report.open_issues.length > 0 && <DocSection n="4." title="Open issues">
-        {report.open_issues.map((issue, index) => <DocPara key={index}>{issue}</DocPara>)}
-      </DocSection>}
       {report.objection && <DocSection title="Objection on the record"><p>{report.objection}</p></DocSection>}
+      <details className="res-fold">
+        <summary>Record of deliberation, positions and open issues</summary>
+        <DocSection n="2." title="Record of deliberation"><p>{report.summary}</p></DocSection>
+        {report.positions.length > 0 && <DocSection n="3." title="Positions">
+          {report.positions.map(item => <DocPara key={item.delegation} lead={get(item.delegation).name + '.'}>{item.text}</DocPara>)}
+        </DocSection>}
+        {report.open_issues.length > 0 && <DocSection n="4." title="Open issues">
+          {report.open_issues.map((issue, index) => <DocPara key={index}>{issue}</DocPara>)}
+        </DocSection>}
+      </details>
     </Document>
     <ActionBar label="Report actions" note={derived.votes_needed + ' of ' + electorate + ' votes needed'}>
       {!report.objection && <Button variant="quiet" disabled={!!busy} onClick={() => setObjectionOpen(true)}>Object to summary</Button>}
@@ -70,6 +78,11 @@ function voteSummary(vote: VoteResult, passRule: RulesConfig['pass_rule']): stri
     return count + ' The share of votes against exceeded the ' + new Intl.NumberFormat('en', { style: 'percent' }).format(passRule.negative_cap) + ' limit.';
   }
   return count + ' The threshold was ' + vote.needed + '.';
+}
+
+function firstSentence(text: string): string {
+  const match = /^.*?[.!?](\s|$)/.exec(text.trim());
+  return (match ? match[0] : text).trim();
 }
 
 function prefersReducedMotion(): boolean {
@@ -148,25 +161,6 @@ function VoteReveal({ vote }: { vote: VoteResult }) {
         {!done && <div><Button variant="quiet" size="sm" onClick={() => setRevealed(total)}>Skip</Button></div>}
       </div>
       <div className="res-vote__side l-stack l-stack--lg">
-        <ol className="res-statements" aria-live="polite" aria-label="Statements">
-          {shown.map(detail => <li key={detail.delegation} className="res-statement">
-            <div className="res-statement__head">
-              <DelegationBadge id={detail.delegation} withName tone={detail.delegation === state.seat ? 'solid' : 'tint'} />
-              <div className="l-cluster">
-                {detail.fallback && <Chip tone="warn">Offline fallback</Chip>}
-                <Chip tone={detail.vote === 'yes' ? 'ok' : 'danger'} icon={detail.vote === 'yes' ? 'check' : 'close'}>{detail.vote === 'yes' ? 'YES' : 'NO'}</Chip>
-              </div>
-            </div>
-            {detail.statement && <p className="res-statement__text">{detail.statement}</p>}
-          </li>)}
-          {done && observers.map(detail => <li key={detail.delegation} className="res-statement res-statement--observer">
-            <div className="res-statement__head">
-              <DelegationBadge id={detail.delegation} withName tone="muted" />
-              <Chip>Observer, no vote</Chip>
-            </div>
-            {detail.statement && <p className="res-statement__text">{detail.statement}</p>}
-          </li>)}
-        </ol>
         {done && <div className="res-next" ref={actionsRef}>
           <ul className="res-next__list">
             {derived.can_start_track2 && <li>
@@ -181,6 +175,26 @@ function VoteReveal({ vote }: { vote: VoteResult }) {
             </li>
           </ul>
         </div>}
+        <ol className="res-statements" aria-live="polite" aria-label="Statements">
+          {shown.map(detail => <li key={detail.delegation} className="res-statement">
+            <details className="res-statement__fold">
+              <summary className="res-statement__head">
+                <DelegationBadge id={detail.delegation} withName tone={detail.delegation === state.seat ? 'solid' : 'tint'} />
+                <Chip tone={detail.vote === 'yes' ? 'ok' : 'danger'} icon={detail.vote === 'yes' ? 'check' : 'close'}>{detail.vote === 'yes' ? 'YES' : 'NO'}</Chip>
+                {detail.statement && <span className="res-statement__line">{firstSentence(detail.statement)}</span>}
+              </summary>
+              {detail.fallback && <Chip tone="warn">Offline fallback</Chip>}
+              {detail.statement && <p className="res-statement__text">{detail.statement}</p>}
+            </details>
+          </li>)}
+          {done && observers.map(detail => <li key={detail.delegation} className="res-statement res-statement--observer">
+            <div className="res-statement__head">
+              <DelegationBadge id={detail.delegation} withName tone="muted" />
+              <Chip>Observer, no vote</Chip>
+            </div>
+            {detail.statement && <p className="res-statement__text">{detail.statement}</p>}
+          </li>)}
+        </ol>
       </div>
     </div>
   </div>;
@@ -240,38 +254,41 @@ export function OutcomeScreen() {
       <p className="res-communique__lead">{outcomeParagraph(outcome, nameOf)}</p>
       <div className="res-communique__facts t-meta">
         {outcome.final_vote
-          ? <p>{voteSummary(outcome.final_vote, config.rules.pass_rule)}{outcome.opposing_major.length > 0 && ' Major powers voting against: ' + listNames(outcome.opposing_major.map(nameOf)) + '.'}</p>
-          : <>
-            <p>The official summit ended before a vote was held.</p>
-            {state.track === 1 && !derived.quorum_met && <p>
-              {derived.present.length} delegations were at the table. {config.rules.quorum} were needed to hold a vote.
-            </p>}
-          </>}
-        {outcome.absent_major.length > 0 && <p>Absent major powers: {listNames(outcome.absent_major.map(nameOf))}.</p>}
+          ? <p>{voteSummary(outcome.final_vote, config.rules.pass_rule)}</p>
+          : <p>The official summit ended before a vote was held.
+            {state.track === 1 && !derived.quorum_met && ' ' + derived.present.length + ' delegations were at the table; ' + config.rules.quorum + ' were needed.'}</p>}
+        <p>{derived.present.length} of {config.scenario.seats.length} delegations attended.
+          {outcome.absent_major.length > 0 && ' Absent major powers: ' + listNames(outcome.absent_major.map(nameOf)) + '.'}
+          {outcome.opposing_major.length > 0 && ' Voting against: ' + listNames(outcome.opposing_major.map(nameOf)) + '.'}</p>
       </div>
     </header>
     <div className="res-outcome">
-      <aside className="res-outcome__table l-stack">
-        <RoundTable seats={config.scenario.seats} status={table} marks={marks} size={340} centerLabel="Summit"
+      <details className="res-fold res-outcome__table">
+        <summary>Show the round table</summary>
+        <div className="l-stack"><RoundTable seats={config.scenario.seats} status={table} marks={marks} size={340} centerLabel="Summit"
           label="Round table at the close of the summit" />
         <RoundTableLegend items={key} />
         {Object.keys(marks).length > 0 && <p className="t-meta res-outcome__key">A check marks a yes vote, a cross a no.</p>}
-      </aside>
+        </div>
+      </details>
       <div className={'res-outcome__docs' + (outcome.parallel && main.texts.length > 0 ? ' res-outcome__docs--pair' : '')}>
         {main.texts.length > 0
           ? <Document size="compact" kicker={main.kicker} title={main.title}>
             {main.texts.map((text, index) => <DocPara key={index} n={(index + 1) + '.'}>{text}</DocPara>)}
           </Document>
           : <p className="t-meta">No clauses reached the table.</p>}
-        {outcome.parallel && <Document size="compact" kicker={'Convened by ' + listNames(outcome.parallel.convened_by.map(nameOf))} title="The other standard">
-          {outcome.parallel.clauses.map((clause, index) => <DocPara key={index} n={(index + 1) + '.'}>{clause.text}</DocPara>)}
-        </Document>}
+        {outcome.parallel && <details className="res-fold">
+          <summary>The other standard, convened by {listNames(outcome.parallel.convened_by.map(nameOf))}</summary>
+          <Document size="compact" kicker="Parallel text" title="The other standard">
+            {outcome.parallel.clauses.map((clause, index) => <DocPara key={index} n={(index + 1) + '.'}>{clause.text}</DocPara>)}
+          </Document>
+        </details>}
         {published && <p className="res-outcome__gallery">
           {adopted ? 'This text' : 'This annex'} is now in the <a href={href('gallery')}>Gallery</a>, where other visitors can read and rate it.
         </p>}
       </div>
     </div>
-    <ActionBar label="Outcome actions" note="Next: what shaped this result.">
+    <ActionBar label="Outcome actions" note="Next: what decided this result.">
       <Button variant="primary" icon="arrow-right" onClick={actions.openDebrief}>Open debrief</Button>
     </ActionBar>
   </div>;
