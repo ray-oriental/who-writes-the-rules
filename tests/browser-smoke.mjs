@@ -36,8 +36,6 @@ try {
   await page.locator('label').filter({ has: page.locator('input[type="radio"][value="china"]') }).click();
   await button('Take the China seat').click();
   await button('Proceed to the summit').click();
-  await page.getByLabel('Name three actors', { exact: false }).fill('Governments, labs, and evaluators balance access and secrecy.');
-  await button('Submit and convene').click();
   await heading('Convene the summit').waitFor();
   const invitationGroup = page.getByRole('group', { name: 'Invite delegations' });
   const guest = name => invitationGroup.getByRole('checkbox', { name, exact: true });
@@ -92,7 +90,6 @@ try {
   await button('Open debrief').click();
   await heading('Summit debrief').waitFor();
   await button('Continue to follow-up questions').click();
-  await page.getByLabel('Name three actors', { exact: false }).fill('Governments, labs and evaluators need compatible evidence.');
   await button('Submit').click();
   await button('New game').waitFor();
 
@@ -152,7 +149,6 @@ try {
   await page.locator('label').filter({ has: page.locator('input[type="radio"][value="us"]') }).click();
   await button('Take the United States seat').click();
   await button('Proceed to the summit').click();
-  await button('Submit and convene').click();
   await page.getByText('Tests and verification', { exact: true }).click();
   await page.getByText('Expert dialogue (Track 2)', { exact: true }).click();
   await button('Convene').click();
@@ -213,7 +209,6 @@ try {
   await page.locator('label').filter({ has: page.locator('input[type="radio"][value="china"]') }).click();
   await button('Take the China seat').click();
   await button('Proceed to the summit').click();
-  await button('Submit and convene').click();
   await toggleGuest('United States');
   await button('Convene').click();
   await page.getByRole('article', { name: 'Note from United States' }).waitFor();

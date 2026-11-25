@@ -40,7 +40,6 @@ async function enterRoom({ page, button, heading }) {
   await page.locator('label').filter({ has: page.locator('input[type="radio"][value="china"]') }).click();
   await button('Take the China seat').click();
   await button('Proceed to the summit').click();
-  await button('Submit and convene').click();
   await page.getByText('Tests and verification', { exact: true }).click();
   await button('Convene').click();
   await button('Enter the room').click();
@@ -51,7 +50,7 @@ try {
   // 1. Statements have an effect. The movement asserted here comes from the shipped delegations and argument tags.
   {
     const session = await open();
-    const { context, page, button } = session;
+    const { context, page, button, heading } = session;
     await page.goto(startUrl);
     await enterRoom(session);
     for (const id of ['jailbreak_rate', 'dangerous_capability_eval', 'compute_threshold', 'verifier',
@@ -77,6 +76,16 @@ try {
     assert.ok(moved >= 1);
     assert.ok(await page.locator('.neg-msg--you').last().locator('.neg-hit').count() >= 1);
     assert.equal(await page.locator('.neg__lean-row').filter({ hasText: '→' }).count(), moved);
+
+    // The task strip says what to do, and Restart abandons the game without clearing any data.
+    await page.locator('.app-task__text').filter({ hasText: 'ask for the report' }).waitFor();
+    await button('Restart').click();
+    await button('Cancel').click();
+    await heading('Negotiating the text').waitFor();
+    await button('Restart').click();
+    await button('Yes, restart').click();
+    await page.locator('input[type="radio"][value="china"]').waitFor();
+    assert.equal(await button('Restart').count(), 0);
     await context.close();
   }
 

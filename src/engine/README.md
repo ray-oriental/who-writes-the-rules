@@ -12,7 +12,7 @@ Import functions and shared types from `src/engine/index.ts`. State transformers
 - `allowedTemplates(config, state)` returns templates allowed by the agenda and active track.
 - `createGame(config, { id, seed, now })` creates the initial seat-selection state.
 - `chooseSeat(config, state, seat, now)` selects a playable delegation and opens its role card.
-- `leaveRoleCard(config, state, now)` opens the prequiz or convening screen.
+- `leaveRoleCard(config, state, now)` opens the convening screen (the opening quiz is no longer part of the flow).
 - `submitQuiz(state, kind, answers, now)` records pre/post answers and advances the phase.
 - `normalizeChoices(config, state, choices)` validates a forum/scope/format and normalizes invitations, returning `undefined` for invalid choices.
 - `evaluateAttendance(config, state, choices)` computes attendance using the supplied normalized choices and current trust without penalties.

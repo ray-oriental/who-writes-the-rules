@@ -151,7 +151,7 @@ export function FixtureProviders({ children }: { children: ReactNode }) {
           timeline: [...s.timeline, { phase: 'rolecard', track: 1, at: Date.now() }],
         });
       },
-      leaveRoleCard: () => go({ phase: config.quiz.enabled ? 'prequiz' : 'convene' }),
+      leaveRoleCard: () => go({ phase: 'convene' }),
       submitQuiz: (kind, answers) => {
         const s = stateRef.current;
         go(

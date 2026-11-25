@@ -19,7 +19,9 @@ export function chooseSeat(config: GameConfig, state: GameState, seat: string, n
 }
 
 export function leaveRoleCard(config: GameConfig, state: GameState, now: number): GameState {
-  return state.phase === 'rolecard' ? transition(state, config.quiz.enabled ? 'prequiz' : 'convene', now) : state;
+  // The opening quiz was dropped from the flow (players found it a barrier); the follow-up quiz stays.
+  void config;
+  return state.phase === 'rolecard' ? transition(state, 'convene', now) : state;
 }
 
 export function submitQuiz(state: GameState, kind: 'pre' | 'post', answers: string[], now: number): GameState {

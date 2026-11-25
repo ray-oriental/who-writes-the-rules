@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import type { Phase } from '../engine/types';
-import type { Busy } from '../game/api';
+import type { Busy, GameView } from '../game/api';
 import { useConfig, useGame, useSettings } from '../game/context';
+import { Button } from './components/Button';
 import { Banner, TypingDots } from './components/Misc';
 import { PhaseBar } from './components/PhaseBar';
 import { DevScreen } from './dev/DevScreen';
@@ -128,6 +129,71 @@ function Nav({ route }: { route: Route }) {
 
 const PLAYING: Phase[] = ['convene', 'attendance', 'negotiate', 'report', 'vote', 'outcome'];
 
+/** One plain sentence telling the player what to do on the current screen. */
+function taskFor(view: GameView, minClauses: number): string {
+  const { state, derived } = view;
+  switch (state.phase) {
+    case 'seat':
+      return 'Choose the delegation you will lead.';
+    case 'rolecard':
+      return 'Read your goals and limits, then go to the summit.';
+    case 'prequiz':
+      return 'Answer if you like, then continue to the summit.';
+    case 'convene':
+      return 'Pick a venue and an agenda, tick whom to invite, then convene.';
+    case 'attendance':
+      return derived.quorum_met
+        ? 'See who came and who stayed away, then enter the room.'
+        : 'Too few delegations came. Change your invitation, try the expert channel, or end here.';
+    case 'negotiate': {
+      const tabled = state.clauses.length;
+      if (tabled < minClauses) return `Propose at least ${minClauses} clauses for the text (${tabled} so far).`;
+      if (derived.can_request_report) return 'Argue for your text to win votes, then ask for the report.';
+      return 'Make your case to the delegates. Name one to address them directly.';
+    }
+    case 'report':
+      return 'Check the draft. Object once if it misstates you, or call the vote.';
+    case 'vote':
+      return 'See how each delegation voted and why, then continue.';
+    case 'outcome':
+      return 'See what the summit produced, then open the debrief.';
+    case 'debrief':
+      return 'See what changed minds and what would have changed the room, then play again or finish.';
+    case 'postquiz':
+      return 'A few optional questions. Skip any you like, then finish.';
+    case 'done':
+      return 'Game over. Start a new game when you are ready.';
+  }
+}
+
+/** Abandons the current game after a second click; disabled while the model is answering. */
+function RestartButton({ onRestart, disabled }: { onRestart: () => void; disabled: boolean }) {
+  const [confirming, setConfirming] = useState(false);
+  useEffect(() => {
+    if (!confirming) return;
+    const timer = window.setTimeout(() => setConfirming(false), 6000);
+    return () => window.clearTimeout(timer);
+  }, [confirming]);
+  if (!confirming) {
+    return (
+      <Button size="sm" variant="quiet" disabled={disabled} onClick={() => setConfirming(true)}>
+        Restart
+      </Button>
+    );
+  }
+  return (
+    <span className="app-restart" role="group" aria-label="Restart the game">
+      <span className="app-restart__ask">Lose this game?</span>
+      <Button size="sm" variant="primary" onClick={() => { setConfirming(false); onRestart(); }}>
+        Yes, restart
+      </Button>
+      <Button size="sm" variant="quiet" onClick={() => setConfirming(false)}>
+        Cancel
+      </Button>
+    </span>
+  );
+}
+
 function formatElapsed(ms: number): string {
   const total = Math.max(0, Math.floor(ms / 1000));
   const m = Math.floor(total / 60);
@@ -231,15 +297,22 @@ export function App() {
               {PLAYING.includes(state.phase) && (
                 <ElapsedClock startedAt={state.started_at} limitMinutes={config.rules.expo.time_limit_minutes} />
               )}
-            <p className={cx('app-busy', busy && 'app-busy--on')} aria-live="polite">
-              {busy && (
-                <>
-                  <TypingDots label="" />
-                  <span>{BUSY_TEXT[busy.kind]}</span>
-                </>
-              )}
-            </p>
+              <p className={cx('app-busy', busy && 'app-busy--on')} aria-live="polite">
+                {busy && (
+                  <>
+                    <TypingDots label="" />
+                    <span>{BUSY_TEXT[busy.kind]}</span>
+                  </>
+                )}
+              </p>
+              {state.phase !== 'seat' && <RestartButton onRestart={actions.newGame} disabled={!!busy} />}
             </div>
+          </div>
+          <div className="app-task">
+            <p className="app-task__inner" aria-live="polite">
+              <span className="app-task__label">Your task</span>
+              <span className="app-task__text">{taskFor(view, config.rules.min_clauses_to_vote)}</span>
+            </p>
           </div>
           <div className={cx('app-progress__bar', busy && 'app-progress__bar--on')} aria-hidden="true" />
         </div>

@@ -31,7 +31,6 @@ try {
     await screenshot('onboarding');
     await button('Start as China').click();
     await button('Proceed to the summit').click();
-    await button('Submit and convene').click();
     await page.getByRole('group', { name: 'Forum', exact: true }).getByText(venue, { exact: true }).click();
     await page.getByText('Tests and verification', { exact: true }).click();
     await button('Convene').click();

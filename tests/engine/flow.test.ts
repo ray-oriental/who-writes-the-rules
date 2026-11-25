@@ -60,18 +60,18 @@ describe('phase transitions and expert channel', () => {
     expect(state).toMatchObject({ phase: 'seat', seat: '', track: 1, cycle: 1, round: 0, trust: { a: 0, b: 0, c: 0, d: 0 } });
     state = chooseSeat(config, freeze(state), 'a', 1);
     state = leaveRoleCard(config, state, 2);
-    expect(state.phase).toBe('prequiz');
-    state = submitQuiz(state, 'pre', ['Actors and tradeoffs.'], 3);
+    // No opening quiz: the role card leads straight to convening, even with the quiz enabled.
     expect(state.phase).toBe('convene');
+    expect(submitQuiz(state, 'pre', ['ignored'], 3)).toBe(state);
     state = concede(config, state, 4);
     state = openDebrief(state, 5);
     state = finishDebrief(config, state, 6);
     expect(state.phase).toBe('postquiz');
     state = submitQuiz(state, 'post', ['A fuller answer.'], 7);
     expect(state.phase).toBe('done');
-    expect(state.quiz).toEqual({ pre: ['Actors and tradeoffs.'], post: ['A fuller answer.'] });
+    expect(state.quiz).toEqual({ post: ['A fuller answer.'] });
     expect(state.timeline.map(t => [t.phase, t.at])).toEqual([
-      ['seat', 0], ['rolecard', 1], ['prequiz', 2], ['convene', 3], ['outcome', 4], ['debrief', 5], ['postquiz', 6], ['done', 7],
+      ['seat', 0], ['rolecard', 1], ['convene', 2], ['outcome', 4], ['debrief', 5], ['postquiz', 6], ['done', 7],
     ]);
     expect(finishDebrief(fixture(), openDebrief(scripted('full_agreement'), 9), 10).phase).toBe('done');
   });
