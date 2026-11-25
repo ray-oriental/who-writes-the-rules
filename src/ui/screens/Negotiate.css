@@ -654,3 +654,11 @@
 .neg__addr > summary {
   margin-bottom: var(--space-1);
 }
+
+.neg__aside {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}

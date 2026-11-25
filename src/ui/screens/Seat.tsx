@@ -6,6 +6,7 @@ import { DelegationBadge } from '../components/DelegationBadge';
 import { RadioCards } from '../components/Forms';
 import { RoundTable, RoundTableLegend, type SeatStatus } from '../components/RoundTable';
 import { useDelegations } from '../lib/delegations';
+import { useCentreClicks, useKonami } from '../lib/easterEggs';
 import './Seat.css';
 
 const DIFFICULTY: Record<DelegationConfig['difficulty'], string> = {
@@ -41,6 +42,8 @@ export function SeatScreen() {
   const { all, get } = useDelegations();
   const [selected, setSelected] = useState<Id | null>(null);
   const [hover, setHover] = useState<Id | null>(null);
+  const coffee = useKonami();
+  const { toast, onCentreClick } = useCentreClicks();
   const s = config.scenario;
   const playable = (id: Id) => !!get(id).config?.playable;
 
@@ -126,11 +129,14 @@ export function SeatScreen() {
             size={420}
             onSelectSeat={(id) => playable(id) && setSelected(id)}
             isSelectable={playable}
-            centerLabel={config.forums.length ? 'The summit' : undefined}
-            centerSub={`${s.seats.length} delegations`}
+            centerLabel={coffee ? 'Coffee break' : config.forums.length ? 'The summit' : undefined}
+            centerSub={coffee ? 'Back in five minutes' : `${s.seats.length} delegations`}
+            coffee={coffee}
+            onCentreClick={onCentreClick}
             statusLabels={{ present: 'AI delegation' }}
             label="Seating plan, clockwise from the top"
           />
+          {toast && <p className="seat__toast" role="status">{toast}</p>}
           <RoundTableLegend
             items={selected ? ['player', 'present'] : ['present']}
             labels={{ present: 'AI delegation' }}

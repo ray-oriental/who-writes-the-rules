@@ -8,6 +8,7 @@ import { Chip, ScreenHead } from '../components/Misc';
 import { Dialog } from '../components/Overlay';
 import { RoundTable, RoundTableLegend, type SeatMark } from '../components/RoundTable';
 import { listNames, useDelegations } from '../lib/delegations';
+import { isUnanimous } from '../lib/easterEggs';
 import { outcomeLabels, tableStatus } from '../lib/play';
 import { href } from '../router';
 import { ActionBar } from './ActionBar';
@@ -246,6 +247,7 @@ export function OutcomeScreen() {
     <header className="res-communique">
       <p className="t-eyebrow">Summit outcome</p>
       <h1 className="res-communique__title">{outcomeLabels[outcome.type]}</h1>
+      {isUnanimous(outcome.type, outcome.final_vote?.details ?? []) && <p className="res-seal" title="Unanimous">Unanimous &mdash; frame this one</p>}
       <p className="res-communique__lead">{outcomeParagraph(outcome, nameOf)}</p>
       <div className="res-communique__facts t-meta">
         {outcome.final_vote

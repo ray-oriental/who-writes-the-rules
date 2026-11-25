@@ -280,3 +280,17 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.res-seal {
+  display: inline-block;
+  margin: 0;
+  padding: 2px var(--space-3);
+  border: 1.5px double var(--accent);
+  border-radius: 999px;
+  color: var(--accent-strong);
+  font-family: var(--font-serif);
+  font-size: var(--text-sm);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  transform: rotate(-2deg);
+}
