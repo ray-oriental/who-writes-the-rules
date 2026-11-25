@@ -43,6 +43,10 @@ export interface RoundTableProps {
   /** Accessible name for the whole figure. */
   label?: string;
   className?: string;
+  /** Cups on the table (a brief easter egg). */
+  coffee?: boolean;
+  /** Click on the middle of the table top; decorative. */
+  onCentreClick?: () => void;
 }
 
 // Geometry in viewBox units (440 × 440).
@@ -93,6 +97,8 @@ export function RoundTable({
   statusLabels,
   label = 'Round table',
   className,
+  coffee,
+  onCentreClick,
 }: RoundTableProps) {
   const { get } = useDelegations();
   const labels = { ...DEFAULT_STATUS_LABELS, ...statusLabels };
@@ -113,6 +119,24 @@ export function RoundTable({
           <text className="rt__center-sub" x={C} y={centerLabel ? C + 18 : C + 4} textAnchor="middle">
             {centerSub}
           </text>
+        )}
+
+        {coffee && (
+          <g className="rt__coffee" aria-hidden="true">
+            {[0, 72, 144, 216, 288].map(deg => {
+              const [cx2, cy2] = polar(R_TABLE - 40, deg + 36);
+              return (
+                <g key={deg} transform={`translate(${cx2} ${cy2})`}>
+                  <circle r={9} />
+                  <circle r={5} className="rt__coffee-in" />
+                  <path d="M-2 -13 q-3 -4 0 -7 M3 -13 q-3 -4 0 -7" />
+                </g>
+              );
+            })}
+          </g>
+        )}
+        {onCentreClick && (
+          <circle className="rt__centre-hit" cx={C} cy={C} r={48} onClick={onCentreClick} aria-hidden="true" />
         )}
 
         {seats.map((id, i) => {

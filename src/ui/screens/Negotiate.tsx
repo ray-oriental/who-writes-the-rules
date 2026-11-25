@@ -10,6 +10,7 @@ import { Banner, Chip, EmptyState, TypingDots } from '../components/Misc';
 import { Dialog } from '../components/Overlay';
 import { RoundTable } from '../components/RoundTable';
 import { cx, listNames, useDelegations } from '../lib/delegations';
+import { chairAside } from '../lib/easterEggs';
 import { tableStatus } from '../lib/play';
 import './Summit.css';
 import './Negotiate.css';
@@ -72,6 +73,7 @@ export function NegotiateScreen() {
   const { view: { state, derived, busy }, actions } = useGame();
   const { get } = useDelegations();
   const [text, setText] = useState('');
+  const aside = chairAside(text);
   const [address, setAddress] = useState('');
   const [builder, setBuilder] = useState<{ template?: Id } | null>(null);
   const [offer, setOffer] = useState<{ to: Id; payment: string } | null>(null);
@@ -323,6 +325,7 @@ export function NegotiateScreen() {
                 composer.current?.requestSubmit();
               }
             }} />}</Field>
+          {aside && <p className="neg__aside">{aside}</p>}
           <div className="summit-composer__actions neg__send">
             <details className="neg__addr" open={!!address || undefined}>
               <summary>{delegates.includes(address) ? 'To ' + get(address).short : 'To the whole table'}</summary>

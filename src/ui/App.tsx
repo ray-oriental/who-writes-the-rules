@@ -7,6 +7,7 @@ import { Banner, TypingDots } from './components/Misc';
 import { PhaseBar } from './components/PhaseBar';
 import { DevScreen } from './dev/DevScreen';
 import { cx } from './lib/delegations';
+import { nextRestartLine } from './lib/easterEggs';
 import { href, useRoute, type Route } from './router';
 import { AttendanceScreen } from './screens/Attendance';
 import { ConveneScreen } from './screens/Convene';
@@ -172,6 +173,7 @@ function taskFor(view: GameView, minClauses: number, reportAfter: number): strin
 /** Abandons the current game after a second click; disabled while the model is answering. */
 function RestartButton({ onRestart, disabled }: { onRestart: () => void; disabled: boolean }) {
   const [confirming, setConfirming] = useState(false);
+  const [ask, setAsk] = useState('Lose this game?');
   useEffect(() => {
     if (!confirming) return;
     const timer = window.setTimeout(() => setConfirming(false), 6000);
@@ -179,14 +181,14 @@ function RestartButton({ onRestart, disabled }: { onRestart: () => void; disable
   }, [confirming]);
   if (!confirming) {
     return (
-      <Button size="sm" variant="quiet" disabled={disabled} onClick={() => setConfirming(true)}>
+      <Button size="sm" variant="quiet" disabled={disabled} onClick={() => { setAsk(nextRestartLine()); setConfirming(true); }}>
         Restart
       </Button>
     );
   }
   return (
     <span className="app-restart" role="group" aria-label="Restart the game">
-      <span className="app-restart__ask">Lose this game?</span>
+      <span className="app-restart__ask">{ask}</span>
       <Button size="sm" variant="primary" onClick={() => { setConfirming(false); onRestart(); }}>
         Yes, restart
       </Button>

@@ -293,3 +293,40 @@
 .rt-legend__item svg {
   overflow: visible;
 }
+
+/* Easter eggs */
+.rt__centre-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.rt__coffee circle {
+  fill: var(--paper-raised);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.rt__coffee .rt__coffee-in {
+  fill: var(--accent-strong);
+  stroke: none;
+}
+
+.rt__coffee path {
+  fill: none;
+  stroke: var(--ink-4);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  animation: rt-steam 2.4s ease-in-out infinite;
+}
+
+@keyframes rt-steam {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rt__coffee path {
+    animation: none;
+  }
+}

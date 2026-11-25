@@ -1,6 +1,7 @@
 import type { ConfigIssue } from '../../engine/types';
 import { Button } from '../components/Button';
 import { Banner, ScreenHead } from '../components/Misc';
+import { WITHDRAWN } from '../lib/easterEggs';
 import { href } from '../router';
 import './Summit.css';
 
@@ -22,6 +23,7 @@ export function ConfigErrorsScreen({ errors, hasLocalEdits, onDiscardLocalEdits 
 export function NotFoundScreen({ path }: { path: string }) {
   return <div className="l-page summit-screen">
     <ScreenHead title="Page not found" lead={path} />
+    <p className="t-meta"><em>{WITHDRAWN.title}.</em> {WITHDRAWN.lead}</p>
     <p><a href={href()}>Return to the game</a></p>
   </div>;
 }
