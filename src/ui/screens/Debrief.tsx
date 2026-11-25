@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { useConfig, useGame, useSettings } from '../../game/context';
 import { Button } from '../components/Button';
 import { DelegationBadge } from '../components/DelegationBadge';
 import { Icon } from '../components/Icon';
-import { Chip, ScreenHead, Section, type ChipTone } from '../components/Misc';
-import { useDelegations } from '../lib/delegations';
+import { Chip, ScreenHead, type ChipTone } from '../components/Misc';
+import { listNames, useDelegations } from '../lib/delegations';
 import { outcomeLabels, tableStatus } from '../lib/play';
 import { href } from '../router';
 import { ActionBar } from './ActionBar';
@@ -35,6 +35,13 @@ function phaseLabel(phase: string): string {
   if (phase === 'prequiz') return 'Opening questions';
   if (phase === 'postquiz') return 'Follow-up questions';
   return phase[0].toUpperCase() + phase.slice(1);
+}
+
+function Fold({ title, children, open }: { title: ReactNode; children: ReactNode; open?: boolean }) {
+  return <details className="debrief__fold" open={open}>
+    <summary>{title}</summary>
+    <div className="l-stack">{children}</div>
+  </details>;
 }
 
 export function DebriefScreen() {
@@ -71,12 +78,39 @@ export function DebriefScreen() {
   const changed = state.clauses.filter(reworded);
   const unchanged = state.clauses.filter(clause => !reworded(clause));
 
+  const seats = config.scenario.seats.length;
+  const absentNames = (state.outcome?.absent_major ?? []).map(id => get(id).name);
+  const attendedLine = derived.present.length + ' of ' + seats + ' delegations attended'
+    + (absentNames.length ? '; ' + listNames(absentNames) + ' stayed away.' : '.');
+  const lastVote = state.votes.at(-1);
+  const voteLine = lastVote
+    ? 'The last vote ' + (lastVote.passed ? 'passed' : 'failed') + ' with ' + lastVote.yes + ' yes and ' + lastVote.no + ' no (' + lastVote.needed + ' needed).'
+    : 'No vote was held.';
+  const argumentLine = argumentsMoved.length
+    ? argumentsMoved.length + (argumentsMoved.length === 1 ? ' of your statements' : ' of your statements') + ' softened a position, and ' + changed.length + (changed.length === 1 ? ' clause was' : ' clauses were') + ' reworded along the way.'
+    : 'None of your statements shifted a position.';
+
   return <div className="l-page l-page--narrow debrief has-action-bar">
     {played && <p className="debrief__thanks" role="status">Thank you. Your answers are saved.</p>}
     <ScreenHead title="Summit debrief" eyebrow="What happened, and why"
       aside={state.outcome && <Chip tone="accent">{outcomeLabels[state.outcome.type]}</Chip>} />
 
-    <Section number="1" title="Who came, and why">
+    <section className="debrief__decided" aria-labelledby="debrief-decided">
+      <h2 className="debrief__decided-title" id="debrief-decided">What decided this game</h2>
+      <ul className="debrief__bullets">
+        <li>{attendedLine}</li>
+        <li>{voteLine}</li>
+        <li>{argumentLine}</li>
+      </ul>
+      {derived.counterfactuals.length > 0 && <div className="debrief__callouts">
+        {derived.counterfactuals.map((item, index) => <p key={index} className="debrief__callout">
+          <Icon name="info" size={16} /><span>{item.description}</span>
+        </p>)}
+      </div>}
+    </section>
+
+    <p className="t-eyebrow debrief__more-label">More detail</p>
+    <Fold title="Who came, and why">
       {state.choices && <p className="t-meta">{forumName(state.choices.forum)}{agenda ? ' · ' + agenda.label : ''}</p>}
       <ul className="debrief__rows">{state.attendance.filter(item => item.delegation !== state.seat).map(item => {
         const walkout = state.walkouts.find(entry => entry.delegation === item.delegation);
@@ -91,11 +125,6 @@ export function DebriefScreen() {
           </div>
         </li>;
       })}</ul>
-      {derived.counterfactuals.length > 0 && <div className="debrief__callouts">
-        {derived.counterfactuals.map((item, index) => <p key={index} className="debrief__callout">
-          <Icon name="info" size={16} /><span>{item.description}</span>
-        </p>)}
-      </div>}
       <details className="debrief__more">
         <summary>Show the numbers</summary>
         <table className="debrief__table">
@@ -105,9 +134,9 @@ export function DebriefScreen() {
           </tr>)}</tbody>
         </table>
       </details>
-    </Section>
+    </Fold>
 
-    <Section number="2" title="What the text cost">
+    <Fold title="What the text cost">
       {state.votes.length === 0 && <p className="t-meta">No vote was held.</p>}
       <ul className="debrief__rows">{state.votes.map(vote => <li key={vote.track + '-' + vote.cycle} className="debrief__vote">
         <span>{vote.track === 1 ? 'Official summit' : 'Expert channel'}, cycle {vote.cycle}</span>
@@ -126,9 +155,9 @@ export function DebriefScreen() {
         <summary>{unchanged.length} {unchanged.length === 1 ? 'clause' : 'clauses'} stayed as first proposed</summary>
         <ul className="debrief__plain">{unchanged.map(clause => <li key={clause.id}><b>{templateLabel(clause.template)}.</b> {clause.text}</li>)}</ul>
       </details>}
-    </Section>
+    </Fold>
 
-    <Section number="3" title="Which of your arguments moved someone">
+    <Fold title="Which of your arguments moved someone">
       {argumentsMoved.length === 0
         ? <p>None of your arguments shifted a position. Arguments about how results can be verified tend to.</p>
         : <ul className="debrief__rows">{argumentsMoved.map(item => <li key={item.id} className="debrief__arg">
@@ -142,31 +171,30 @@ export function DebriefScreen() {
             </li>;
           })}</ul>
         </li>)}</ul>}
-    </Section>
+    </Fold>
 
-    <Section number="4" title="What they would never accept">
+    <Fold title="What each delegation would never accept">
       <div className="debrief__lines">{config.delegations.map(delegation => <div key={delegation.id} className="debrief__line">
         <DelegationBadge id={delegation.id} withName size="sm" />
         <ul>{delegation.red_lines.map(line => <li key={line.id}><b>{line.label}.</b> {line.say}</li>)}</ul>
       </div>)}</div>
-    </Section>
+    </Fold>
 
-    <Section number="5" title="Three things to take away">
+    <Fold title="Three things to take away">
       <ol className="debrief__takeaways">{TAKEAWAYS.map(([head, body]) => <li key={head}><b>{head}</b> {body}</li>)}</ol>
-    </Section>
+    </Fold>
 
-    {state.previous && <Section title="Comparison with your previous summit">
+    {state.previous && <Fold title="Comparison with your previous summit">
       <p>Previous: {forumName(state.previous.choices.forum)}, {outcomeLabels[state.previous.outcome]}, {state.previous.attended.length} attended, {state.previous.yes} in favour.</p>
       {state.outcome && <p>Current: {forumName(state.choices?.forum)}, {outcomeLabels[state.outcome.type]}, {derived.present.length} attended, {state.outcome.final_vote?.yes ?? 0} in favour.</p>}
-    </Section>}
+    </Fold>}
 
-    <details className="debrief__more">
-      <summary>Session timeline</summary>
+    <Fold title="Session timeline">
       <ol className="debrief__plain">{state.timeline.map((step, index) => <li key={index}>
         {phaseLabel(step.phase)}
         <span className="t-meta">{' · Track ' + step.track + ' · ' + Math.max(0, Math.round((step.at - state.started_at) / 1000)) + 's elapsed'}</span>
       </li>)}</ol>
-    </details>
+    </Fold>
 
     <ActionBar label="Debrief actions">
       {played ? <>

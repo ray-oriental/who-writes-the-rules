@@ -241,3 +241,40 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.debrief__decided {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+}
+
+.debrief__decided-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl, 1.4rem);
+}
+
+.debrief__bullets {
+  display: grid;
+  gap: var(--space-2);
+  padding-inline-start: 1.2em;
+  list-style: disc;
+}
+
+.debrief__more-label {
+  margin-top: var(--space-4);
+}
+
+.debrief__fold {
+  border-top: var(--hairline);
+  padding: var(--space-3) 0;
+}
+
+.debrief__fold > summary {
+  cursor: pointer;
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+}
+
+.debrief__fold[open] > summary {
+  margin-bottom: var(--space-3);
+}
