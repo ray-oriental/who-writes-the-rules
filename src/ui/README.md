@@ -118,3 +118,7 @@ Team pages for adding and editing delegations without touching YAML. Data comes 
   convening conditions as selects plus a sentence), `ListEditor` (add, remove with undo, reorder; `SourcePicker`), `Sections`.
 - `lib/editorModel.ts`: pure helpers (checklist, condition sentences, vote explanation, id generation). Add a new field by
   rendering `TextField`/`AreaField`/`NumField` with its path; no state wiring needed.
+
+## Play-screen pattern (v0.5)
+
+Every play screen after Seat shows a Restart button (one-step confirm, gallery data kept) beside the progress bar and a one-line "Your task" strip under it. Screens lead with the result and one primary action; role card details, decline letters, stances, the meeting format picker, report deliberation, vote statements and debrief sections sit in disclosures. There is no opening quiz; the closing quiz is optional (Skip or Finish).

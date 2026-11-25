@@ -73,9 +73,9 @@ attendance:
       source_ids: [C-US-04]
 ```
 
-数值和条件只是示意，必须以查到的资料为准。改完后，用中国的席位分别在双边会场和联合国会场试玩，看出席页给出的理由是否符合资料。
+数值和条件只是示意，必须以查到的资料为准。改完后，用中国的席位分别在双边会场和联合国会场试玩，看出席页给出的理由是否符合资料（拒信在 **Why some did not come** 里，法定人数不足时自动展开；要选专家渠道，先点开 **Meeting format … (change)**）。
 
-The numbers and the condition are illustrative only and must follow the evidence you find. After the change, play the China seat in both the bilateral and the UN forum and check that the reasons shown on the attendance screen match the evidence.
+The numbers and the condition are illustrative only and must follow the evidence you find. After the change, play the China seat in both the bilateral and the UN forum and check that the reasons shown on the attendance screen match the evidence (the letters are under **Why some did not come**, which opens by itself when quorum fails; to pick the expert channel, first open **Meeting format … (change)**).
 
 ---
 
@@ -171,8 +171,10 @@ When you create it, add these six to `research` (replace `XX` with its code), al
 
 1. **扮演它**玩一局：角色卡是否讲清了它要什么？ · **Play as it**: does the role card make clear what it wants?
 2. **用中国和美国各玩一局**，把它邀请进来：出席页的理由是否合理？它在“The room”里的倾向会不会被合适的论点改变？ · **Play as China and as the US** with it invited: are the attendance reasons sensible? Does its leaning in "The room" respond to the right arguments?
-3. 看复盘页：它投票的理由是否和资料一致？ · Read the debrief: do its vote reasons match the evidence?
+3. 看复盘页：它投票的理由是否和资料一致？（复盘各部分是折叠的，逐项展开。） · Read the debrief: do its vote reasons match the evidence? (Debrief sections are folded; open them one by one.)
 4. 好的代表团**既不是永远赞成，也不是永远反对**：合理的打法能争取到它，草率的打法会失去它。 · A good delegation is **neither always yes nor always no**: careful play wins it, careless play loses it.
+5. 想重来时点进度条旁的 **Restart**（确认一次，不会清除 Gallery 数据），不需要清理浏览器数据。 · To start over, use **Restart** beside the progress bar (one confirmation; gallery data is kept). There is no need to clear site data.
+6. 可玩席位测试：每个代表团小组可以加一个 `tests/playable-<id>.test.ts`，离线跑一个获胜打法和一个天真打法，断言各自的结局。内容组正在添加 `tests/playable-cnus.test.ts`、`tests/playable-eugs.test.ts`、`tests/playable-labeval.test.ts`，CI 会运行它们。 · Playable-seat tests: each delegation group may add `tests/playable-<id>.test.ts`, which plays a winning strategy and a naive strategy offline and asserts each outcome. The content agents are adding `tests/playable-cnus.test.ts`, `tests/playable-eugs.test.ts` and `tests/playable-labeval.test.ts`, and CI runs them.
 
 ### 2.7 提交时的预期 · What to expect when you submit
 

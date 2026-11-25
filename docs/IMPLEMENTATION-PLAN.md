@@ -60,7 +60,7 @@ who-writes-the-rules/
 ```
 
 - `convene.yaml`：召集面板里的 `agenda_scopes`（如 tests_only / tests_verification / tests_export_controls），每项对应允许出现的议题类别（category）；另有 `formats`（track1/track2）。
-- `quiz.yaml`：前测和后测题目（策划 §10），附 `enabled` 开关。
+- `quiz.yaml`：学习题目（策划 §10），附 `enabled` 开关。当前只在结尾出现，全部可选，可跳过（开场前测已移除）。
 
 ## 配置加载与校验
 
@@ -77,7 +77,7 @@ who-writes-the-rules/
 
 只列出策划里没写死、实现时必须统一的地方。
 
-- **状态机：** 阶段依次为 `seat → prequiz → convene → attendance → negotiate → report → vote → (negotiate | outcome) → debrief → postquiz`。Track 2 不另做一套阶段，而是给状态加 `track: 1|2`，复用 negotiate/report/vote，只是轮数改成 `track2.rounds`，议题限定在 `track2.scope` 之内。
+- **状态机：** 阶段依次为 `seat → convene → attendance → negotiate → report → vote → (negotiate | outcome) → debrief → postquiz`。Track 2 不另做一套阶段，而是给状态加 `track: 1|2`，复用 negotiate/report/vote，只是轮数改成 `track2.rounds`，议题限定在 `track2.scope` 之内。
 - **出席判定：** 按策划 §5.2 的伪代码。Track 2 用 `track2_willingness` 代替 `base_willingness[forum]`。`trust_modifier` 直接等于 trust 值（范围 −3..+3）。信任代价写在 `rules.yaml` 的 `trust_effects: {excluded: -2, exclusive_forum_nonmember: -1}`。
 - **平行会议：** 不用随机。只要某个被排除或拒绝出席的代表团 `parallel_forum_propensity ≥ rules.parallel_threshold`（默认 0.6），就标记出现了平行标准。平行条款集按该方的必得项自动生成。
 - **流会：** 到场方（含玩家）少于 quorum 时可以重新召集，最多 `reconvene_attempts` 次，或者转入 Track 2。
@@ -116,12 +116,12 @@ who-writes-the-rules/
 **核心意象是圆桌：** 用 SVG 画一张圆桌，缺席的代表团显示空椅子，退场的代表团显示被推开的椅子。召集、谈判、结局三个页面共用这张圆桌。这直接回应了「谁肯上桌」这条主张。
 
 页面清单对应策划 §9：
-1. **Seat**：代表团卡片和难度提示 → 进入**Role card**（授权、本方红线和必得项、技术事实、与各方的关系）。
-2. **Convene**：选择 forum、agenda scope、format，勾选邀请名单 → **Attendance**：椅子逐个亮起或空出，旁边展示拒信卡片和触发原因。
-3. **Negotiate**（三栏布局）：左栏是圆桌，带出席和信任指示；中栏是对话记录，玩家消息下方显示命中的标签，比如 `verify_without_weights → softened China`；右栏是桌上条款和 AI 建议的修正案。底部是输入框、点名下拉框、Propose clause 抽屉、side payment 按钮，顶部显示 `Round 3/5 · Cycle 1/3`，计时器只用于显示。
+1. **Seat**：代表团卡片、简短的 How to play 和 Start as China 快速开始 → 进入**Role card**（授权、本方红线和必得项、技术事实、与各方的关系；细节折叠）→ 直接召集。每个游戏界面进度条旁有 Restart（需确认），下面一行 Your task 说明该做什么。
+2. **Convene**：选择 forum、agenda scope、format，勾选邀请名单 → **Attendance**：椅子逐个亮起或空出，出席结果优先显示；拒信和触发原因折叠在 Why some did not come 里（法定人数不足时自动展开）。会议形式收在 Meeting format（change）里。
+3. **Negotiate**（三栏布局）：左栏是圆桌，带出席和信任指示；中栏是对话记录，玩家消息下方显示命中的标签，比如 `verify_without_weights → softened China`；右栏是桌上条款和 AI 建议的修正案。底部是输入框、点名下拉框、Propose clause 抽屉、side payment 按钮，顶部显示 `Round 3/5 · Cycle 1/3`，进度芯片显示 Clauses n/2 和 Votes likely x/y，计时器只用于显示；各方立场折叠在 Who supports it。
 4. **Report**：衬线字体的决议草案、异议按钮 → **Vote**：逐个亮出各方投票，每票附带理由。
 5. **Outcome**：结局类型、到场和缺席情况、票型。
-6. **Debrief**：时间线、「你的哪句话改变了谁」、反事实提示、全部代表团红线的揭晓、后测；**Replay with different convening**（保留席位，回到召集阶段，结束后和上一局并排对比）。
+6. **Debrief**：先给结果和一个主要操作，时间线、「你的哪句话改变了谁」、反事实提示、全部代表团红线的揭晓折叠在后面；可选后测（可 Skip 或 Finish）；**Replay with different convening**（保留席位，回到召集阶段，结束后和上一局并排对比）。
 7. **Gallery**（本机公开平台）：通过的提案和 Track 2 附件；三道评分题（1–5 分）加短评，同一台电脑可以多次评分，每次评完有 "Next viewer" 按钮；按 `(C·m + Σ)/(C + n)` 排名；可按结局类型筛选；同时显示会场票数；支持 JSON 导出和导入，用于手动合并多台设备的数据。
 8. **Settings**：LLM 模式和预设、Test connection 按钮、kiosk 开关（局终后显示一个大的 New game 按钮）。**Admin**（`#/admin`）：导出全部日志（CSV/JSON）、删除提案或评分、清空数据、查看配置校验报告。
 9. **Print cards**（P2）：把配置渲染成可打印的角色卡、条款卡和判定表，用打印样式输出，作为纸质备用版。

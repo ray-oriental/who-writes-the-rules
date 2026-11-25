@@ -13,6 +13,14 @@ npm ci
 npm run dev
 ```
 
+## How to play
+
+1. On **Seat**, pick a delegation (or use **Start as China**), read the role card, then convene.
+2. Choose a forum, agenda and the delegations to invite. If too few come, open **Why some did not come** for their letters.
+3. Negotiate: write a message, table at least two clauses, and watch **Clauses n/2** and **Votes likely x/y**.
+4. Review the rapporteur's report, call the vote, then read the outcome and debrief. The closing quiz is optional.
+5. The **Restart** button beside the progress bar starts a fresh game after one confirmation; gallery data is kept. The **Your task** line says what to do on each screen.
+
 The default **Offline templates** mode needs no account, key or internet connection. The browser saves your current game, gallery and completed sessions locally. **Admin** exports sessions as CSV or JSON and transfers gallery data between browsers.
 
 ## Paper backup
