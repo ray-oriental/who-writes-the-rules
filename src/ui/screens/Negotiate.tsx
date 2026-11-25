@@ -105,10 +105,17 @@ export function NegotiateScreen() {
   const leanings = derived.leanings;
   const leanCount = (lean: 'yes' | 'no' | 'wavering') => delegates.filter(id => leanings[id] === lean).length;
   const readTheRoom = delegates.some(id => leanings[id]);
-  const ownVote = derived.voters.includes(state.seat) ? '; your own vote counts as yes' : '';
   const voteLine = readTheRoom
-    ? `${leanCount('yes')} for · ${leanCount('wavering')} wavering · ${leanCount('no')} against. ${derived.votes_needed} of ${derived.voters.length} needed${ownVote}.`
+    ? `${leanCount('yes')} for · ${leanCount('wavering')} wavering · ${leanCount('no')} against`
     : '';
+  const likelyYes = leanCount('yes') + (derived.voters.includes(state.seat) ? 1 : 0);
+  const roundsToReport = Math.max(0, Math.min(config.rules.allow_early_report_after, derived.rounds_in_cycle) - complete);
+  const nextStep = !derived.quorum_met ? ''
+    : missingClauses > 0 ? `Next: table ${missingClauses} more ${missingClauses === 1 ? 'clause' : 'clauses'} (Propose clause).`
+      : reportReady ? 'Next: ask for the report.'
+        : derived.can_speak ? 'Next: argue for your clauses'
+          + (roundsToReport > 0 ? ` (${roundsToReport} more ${roundsToReport === 1 ? 'round' : 'rounds'} before the report).` : '.')
+          : 'Next: ask for the report.';
   const offered = (to: Id, payment: string) => state.side_payments.some(item => item.track === state.track
     && item.cycle === state.cycle && item.delegation === to && item.payment === payment);
 
@@ -237,8 +244,8 @@ export function NegotiateScreen() {
         <header className="neg__head">
           <div>
             <h2 className="neg__title">Discussion</h2>
-            <p className="t-meta t-num">Round {Math.min(state.round, derived.rounds_in_cycle)} of {derived.rounds_in_cycle}
-              {' · '}Cycle {state.cycle}{' · '}<span>{complete} of {derived.rounds_in_cycle} rounds complete</span></p>
+            <p className="t-meta t-num">{state.cycle > 1 && <>Cycle {state.cycle}{' · '}</>}
+              <span>{complete} of {derived.rounds_in_cycle} rounds complete</span></p>
           </div>
           <div className="l-cluster">
             {canJumpToLatest && <Button size="sm" variant="quiet" onClick={() => {
@@ -280,12 +287,11 @@ export function NegotiateScreen() {
                     {affected.length > 0
                       ? <><span className="t-meta">landed with</span>
                         {affected.map(id => <DelegationBadge key={id} id={id} size="sm" />)}</>
-                      : <span className="t-meta">nobody at the table needed convincing on this</span>}
+                      : <span className="t-meta">no one needed convincing</span>}
                   </span>;
                 })
-                : <p className="neg-hit__none t-meta">No delegation changed its position. Arguments about how results are{' '}
-                  <button type="button" className="neg-hit__link" onClick={showIdeas}>verified, recognised or measured</button>
-                  {' '}tend to land.</p>)}
+                : <p className="neg-hit__none t-meta">No delegation changed its position. Try{' '}
+                  <button type="button" className="neg-hit__link" onClick={showIdeas}>an argument idea</button>.</p>)}
             </li>;
           })}
           {typing.map(id => <li key={'typing-' + id} className="summit-message neg-msg--typing">
@@ -293,6 +299,14 @@ export function NegotiateScreen() {
               <TypingDots label={get(id).name + ' is typing'} /></div>
           </li>)}
         </ol>
+        {derived.quorum_met && <div className="neg__next">
+          <p className="neg__next-step">{nextStep}</p>
+          <ul className="neg__checks" aria-label="Progress">
+            <li><Chip tone={missingClauses === 0 ? 'ok' : 'neutral'}>Clauses {state.clauses.length}/{config.rules.min_clauses_to_vote}</Chip></li>
+            {readTheRoom && <li><Chip tone={likelyYes >= derived.votes_needed ? 'ok' : 'neutral'}>
+              Votes likely {likelyYes}/{derived.votes_needed}</Chip></li>}
+          </ul>
+        </div>}
         <p className="neg__effect" aria-live="polite" aria-atomic="true">{effectLine}</p>
         {derived.quorum_met ? <form ref={composer} className="neg__composer summit-composer" onSubmit={async event => {
           event.preventDefault();
@@ -303,14 +317,13 @@ export function NegotiateScreen() {
         }}>
           <div className="neg__ideas" role="group" aria-label="Argument ideas" ref={ideas} tabIndex={-1}>
             <span className="neg__ideas-label">Argument ideas</span>
-            {config.tags.map(tag => <button type="button" key={tag.id} aria-pressed={idea === tag.id}
+            {config.tags.map(tag => <button type="button" key={tag.id} aria-pressed={idea === tag.id} title={tag.description}
               className={cx('neg-idea', idea === tag.id && 'neg-idea--on')} disabled={!!busy || !derived.can_speak}
               onClick={() => pickIdea(tag.id)}>{tag.label}</button>)}
           </div>
-          {idea && <p className="neg__idea-note t-meta">{config.tags.find(item => item.id === idea)?.description}</p>}
           <Field label="Your statement" className="neg__statement">{id => <TextArea id={id} value={text} rows={3} maxLength={4000}
-            placeholder={derived.can_speak ? 'Say what you want the table to hear. Enter sends, Shift+Enter adds a line.'
-              : 'The rounds are over. Request the report to continue.'}
+            placeholder={derived.can_speak ? 'Make your case to the table. Enter sends.'
+              : 'The rounds are over.'}
             onChange={event => setText(event.target.value)} disabled={!!busy || !derived.can_speak}
             onKeyDown={event => {
               if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
@@ -319,9 +332,12 @@ export function NegotiateScreen() {
               }
             }} />}</Field>
           <div className="summit-composer__actions neg__send">
-            <Field label="Address">{id => <Select id={id} value={delegates.includes(address) ? address : ''}
-              onChange={setAddress} disabled={!!busy || !derived.can_speak} placeholder="The whole table"
-              options={delegates.map(item => ({ value: item, label: get(item).name }))} />}</Field>
+            <details className="neg__addr" open={!!address || undefined}>
+              <summary>{delegates.includes(address) ? 'To ' + get(address).short : 'To the whole table'}</summary>
+              <Field label="Address">{id => <Select id={id} value={delegates.includes(address) ? address : ''}
+                onChange={setAddress} disabled={!!busy || !derived.can_speak} placeholder="The whole table"
+                options={delegates.map(item => ({ value: item, label: get(item).name }))} />}</Field>
+            </details>
             <Button type="submit" variant="primary" disabled={!!busy || !derived.can_speak || !text.trim()}>Send statement</Button>
           </div>
         </form> : <Banner tone="warn" title="The table lost quorum">
@@ -329,11 +345,7 @@ export function NegotiateScreen() {
         </Banner>}
         <footer className="neg__foot">
           {derived.quorum_met ? <>
-            <p className="t-meta">{reportReady ? 'The text is ready for the rapporteur.' : <>
-              {missingClauses > 0 ? 'Table ' + missingClauses + ' more ' + (missingClauses === 1 ? 'clause' : 'clauses') + '. ' : ''}
-              {!derived.can_request_report && 'Complete ' + Math.max(0, Math.min(config.rules.allow_early_report_after, derived.rounds_in_cycle) - complete) + ' more rounds.'}
-            </>}</p>
-            <Button variant="primary" icon="arrow-right" disabled={!reportReady || !!busy}
+            <Button variant={reportReady ? 'primary' : 'secondary'} icon="arrow-right" disabled={!reportReady || !!busy}
               onClick={() => void actions.requestReport()}>Request report</Button>
           </> : <>
             {derived.can_start_track2 && <Button disabled={!!busy} onClick={() => void actions.startTrack2()}>Open expert channel</Button>}
@@ -346,7 +358,7 @@ export function NegotiateScreen() {
         <header className="neg__head">
           <h2 className="neg__title">Draft text <span className="t-meta t-num">{state.clauses.length}
             {state.clauses.length === 1 ? ' clause' : ' clauses'}</span></h2>
-          <Button size="sm" iconBefore="plus" disabled={!!busy || !derived.quorum_met || !available.length}
+          <Button size="sm" variant={missingClauses > 0 ? 'primary' : 'secondary'} iconBefore="plus" disabled={!!busy || !derived.quorum_met || !available.length}
             onClick={() => setBuilder({})}>Propose clause</Button>
         </header>
         <div className="neg__draft-body">
@@ -367,16 +379,14 @@ export function NegotiateScreen() {
               </li>;
             })}
           </ul>}
-          {state.clauses.length === 0 && <EmptyState title="Start with a test or a safeguard">
-            A clause becomes part of the draft when you add it to the table.
-          </EmptyState>}
+          {state.clauses.length === 0 && <EmptyState title="No clauses yet">Propose a test or a safeguard.</EmptyState>}
           <ol className="neg__clauses">{state.clauses.map(clause => <li key={clause.id} className="neg-clause">
             <p className="neg-clause__text">{clause.text}</p>
             <p className="neg-clause__meta t-meta">
               <span>{config.catalog.find(item => item.id === clause.template)?.label ?? clause.template}</span>
-              <span>v{clause.version}</span>
-              {clause.from_annex && <span className="neg-clause__annex">From the technical annex</span>}
+              {clause.from_annex && <span className="neg-clause__annex">From the annex</span>}
             </p>
+            <details className="neg__fold"><summary>Who supports it</summary>
             <ul className="neg-stances" aria-label="Where the delegations stand on this clause">
               {delegates.map(id => {
                 const stance = derived.stances[clause.id]?.[id] ?? 'neutral';
@@ -388,7 +398,7 @@ export function NegotiateScreen() {
                   </span>
                 </li>;
               })}
-            </ul>
+            </ul></details>
             <div className="l-cluster">
               <Button size="sm" variant="quiet" onClick={() => setBuilder({ template: clause.template })}
                 disabled={!!busy || !derived.quorum_met}>Revise</Button>
@@ -419,18 +429,15 @@ export function NegotiateScreen() {
             </li>;
           })}
         </ul>
-        {readTheRoom ? <p className="neg__tally t-num">{voteLine}</p>
-          : <p className="neg__tally t-meta">Table two clauses to read the room.</p>}
-        {away.length > 0 && <div className="neg__away">
-          <h3 className="t-eyebrow">Not at the table</h3>
+        {readTheRoom && <p className="neg__tally t-num">{voteLine}</p>}
+        {away.length > 0 && <details className="neg__away neg__fold"><summary>Not at the table ({away.length})</summary>
           <ul>{away.map(id => <li key={id}><DelegationBadge id={id} withName size="sm" tone="muted" />
             <span className="t-meta">{AWAY_LABEL[table[id] as keyof typeof AWAY_LABEL] ?? 'Declined'}</span></li>)}</ul>
-        </div>}
+        </details>}
         {config.side_payments.length > 0 && <div className="neg__offer">
           <Button size="sm" variant="quiet"
             disabled={!!busy || !derived.quorum_met || derived.side_payments_left <= 0 || !delegates.length}
-            onClick={() => setOffer({ to: delegates[0] ?? '', payment: '' })}>Offer something</Button>
-          <span className="t-meta">{derived.side_payments_left} left this cycle</span>
+            onClick={() => setOffer({ to: delegates[0] ?? '', payment: '' })}>Offer something ({derived.side_payments_left})</Button>
         </div>}
       </aside>
     </div>
