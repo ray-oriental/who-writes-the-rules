@@ -30,7 +30,7 @@ export function RoleCardScreen() {
           ['Re', 'Summit on testing frontier AI models'],
         ]}
       >
-        <DocSection n={`${next()}.`} title="Mandate">
+        <DocSection n={`${next()}.`} title="Your goal">
           <DocPara n={`${section}.1`}>{d.mandate}</DocPara>
           {d.voices.length > 1 && (
             <DocPara n={`${section}.2`} lead="Notes">
@@ -43,43 +43,62 @@ export function RoleCardScreen() {
           )}
         </DocSection>
 
-        {d.red_lines.length > 0 && (
-          <DocSection n={`${next()}.`} title="Red lines">
-            {d.red_lines.map((r, i) => (
-              <DocPara key={r.id} n={`${section}.${i + 1}`}>
-                <strong className="rolecard__label">{r.label}.</strong>
-                <DocQuote>{r.say}</DocQuote>
-              </DocPara>
-            ))}
-          </DocSection>
-        )}
-
-        {d.must_haves.length > 0 && (
-          <DocSection n={`${next()}.`} title="Must-haves">
-            {d.must_haves.map((m, i) => (
-              <DocPara key={m.id} n={`${section}.${i + 1}`} aside={m.weight >= 2 ? 'High priority' : 'Priority'}>
-                <strong className="rolecard__label">{m.label}.</strong>
-                <DocQuote>{m.say}</DocQuote>
-              </DocPara>
-            ))}
+        {(d.red_lines.length > 0 || d.must_haves.length > 0) && (
+          <DocSection n={`${next()}.`} title="What you must get, and what you cannot accept">
+            <div className="rolecard__lists">
+              {d.must_haves.length > 0 && (
+                <div>
+                  <h4 className="rolecard__sub">Must-haves</h4>
+                  <ul className="rolecard__list">
+                    {d.must_haves.map((m) => (
+                      <li key={m.id}>
+                        {m.label}
+                        {m.weight >= 2 && <span className="rolecard__tag"> · high priority</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {d.red_lines.length > 0 && (
+                <div>
+                  <h4 className="rolecard__sub">Red lines</h4>
+                  <ul className="rolecard__list">
+                    {d.red_lines.map((r) => (
+                      <li key={r.id}>{r.label}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+            <details className="rolecard__more">
+              <summary>In the delegation's own words</summary>
+              {[...d.must_haves, ...d.red_lines].map((x) => (
+                <DocPara key={x.id}>
+                  <strong className="rolecard__label">{x.label}.</strong>
+                  <DocQuote>{x.say}</DocQuote>
+                </DocPara>
+              ))}
+            </details>
           </DocSection>
         )}
 
         {d.facts.length > 0 && (
-          <DocSection n={`${next()}.`} title="Technical facts at your disposal">
+          <details className="rolecard__fold">
+            <summary>Technical facts at your disposal ({d.facts.length})</summary>
             {d.facts.map((f, i) => (
               <DocPara
                 key={i}
-                n={`${section}.${i + 1}`}
+                n={`${i + 1}.`}
                 aside={f.source_ids?.length ? `Source ${f.source_ids.join(', ')}` : undefined}
               >
                 {f.text}
               </DocPara>
             ))}
-          </DocSection>
+          </details>
         )}
 
-        <DocSection n={`${next()}.`} title="Other delegations">
+        <details className="rolecard__fold">
+          <summary>Other delegations ({others.length})</summary>
           <div className="rolecard__relations">
             {others.map((id) => (
               <div className="rolecard__relation" key={id}>
@@ -89,7 +108,7 @@ export function RoleCardScreen() {
               </div>
             ))}
           </div>
-        </DocSection>
+        </details>
       </Document>
 
       <div className="l-actions l-actions--end rolecard__actions">

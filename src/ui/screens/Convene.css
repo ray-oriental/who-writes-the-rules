@@ -40,3 +40,12 @@
   padding-left: var(--space-3);
   border-left: 2px solid var(--rule-strong);
 }
+
+.convene__format summary {
+  cursor: pointer;
+  color: var(--ink-2);
+}
+
+.convene__format-body {
+  margin-top: var(--space-3);
+}

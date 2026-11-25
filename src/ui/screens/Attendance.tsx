@@ -226,23 +226,28 @@ export function AttendanceScreen() {
             </div>
           </section>
 
-          <section className="attendance__letters" aria-labelledby="attendance-letters">
-            <h2 id="attendance-letters" className="attendance__letters-title">
-              Correspondence
-              <span className="t-meta t-num">{letters.length}</span>
-            </h2>
-            {letters.length === 0 ? (
-              <p className="attendance__empty">{done ? 'Every invited delegation accepted.' : 'No replies yet.'}</p>
-            ) : (
+          {letters.length > 0 && (
+            <details className="attendance__letters">
+              <summary className="attendance__letters-title">
+                Why some did not come
+                <span className="t-meta t-num">{letters.length}</span>
+              </summary>
               <ol className="attendance__list">
                 {letters.map((a) => (
                   <li key={a.delegation} className="attendance__item">
-                    <Letter result={a} forumName={forumName} />
+                    <details className="attendance__entry">
+                      <summary>
+                        <DelegationBadge id={a.delegation} size="sm" />
+                        <span>{get(a.delegation).name}</span>
+                        <span className="t-meta">{a.status === 'excluded' ? 'not invited' : 'declined'}</span>
+                      </summary>
+                      <Letter result={a} forumName={forumName} />
+                    </details>
                   </li>
                 ))}
               </ol>
-            )}
-          </section>
+            </details>
+          )}
         </div>
       </div>
     </div>
