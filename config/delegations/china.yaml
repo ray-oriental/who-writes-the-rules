@@ -1,4 +1,4 @@
-# PLACEHOLDER positions: rewrite from sources before the Expo.
+# Positions are team modelling grounded in the cited claims; numeric scores and weights are balance parameters (see the low-confidence claims).
 id: china
 name: China
 short: CN
@@ -6,23 +6,29 @@ type: state
 playable: true
 difficulty: harder
 owner: ""
-summary: Seek interoperable tests while retaining national execution and control of model access.
-mandate: Negotiate credible common tests and recognition of national results while protecting domestic security authority.
+summary: Back UN-centred, interoperable testing with national execution, mutual recognition and no technology-restriction bargain.
+mandate: >-
+  Secure a common test protocol that national institutions execute and other governments recognise, delivered through an inclusive, UN-centred process.
+  Protect model weights and domestic security authority, and refuse to trade away export controls inside a safety text.
 facts:
+  - text: China's Global AI Governance Initiative (October 2023) calls for respect for national sovereignty, AI under human control, a risk-based testing and assessment system, UN-framework governance, and rejects exclusive groups and unilateral coercive measures.
+    source_ids: [C-CN-10]
+  - text: China signed the Bletchley Declaration in November 2023 and the Paris AI Action Summit statement in February 2025.
+    source_ids: [C-CN-11]
+  - text: China's Global AI Governance Action Plan of July 2025 takes the UN as the main channel and proposes platforms where countries recognise one another's AI safety assessments; China also proposed a World AI Cooperation Organization.
+    source_ids: [C-CN-12, C-CN-03]
+  - text: In Geneva in May 2024 China took a firm position against US restrictions on AI, and in Lima in November 2024 Xi agreed with Biden that humans, not AI, should decide on nuclear weapons use.
+    source_ids: [C-CN-14, C-CN-13]
   - text: TC260 issued an AI Safety Governance Framework in September 2024 that addresses risk management and international cooperation.
     source_ids: [C-CN-01]
   - text: China was absent from the institute network's published November 2024 launch roster.
     source_ids: [C-CN-02]
-  - text: China proposed a World AI Cooperation Organization in July 2025.
-    source_ids: [C-CN-03]
-  - text: The March 2024 IDAIS Beijing statement proposed shared red lines and international scientific collaboration on AI safety.
-    source_ids: [C-CN-04]
 relations:
-  us: Seek technical risk dialogue while disputing restrictions on technology access.
-  eu: Explore common test protocols while retaining national implementation authority.
-  frontier_lab: Share concerns about protecting weights while seeking credible evidence of safety.
-  global_south: Seek support for inclusive governance and practical evaluation capacity.
-  evaluator: Welcome technical expertise under a nationally executed testing arrangement.
+  us: A working channel exists, from Geneva in 2024 to the dialogue reported in 2026, but we reject chip controls and US-led exclusive groups as a price for safety talks.
+  eu: A likely partner for common test protocols and mutual recognition, as long as tests are executed nationally and carry no technology-access conditions.
+  frontier_lab: We share a wish to keep weights private, but labs may not substitute for state authority over testing.
+  global_south: Natural partners for UN-centred governance and capacity building, and for opposing exclusive blocs.
+  evaluator: Welcome technical expertise, provided results are produced under national execution and exchanged for mutual recognition.
 voices:
   - id: tc260_engineer
     label: Standards engineer (TC260)
@@ -33,24 +39,39 @@ voices:
 internal_resolution: veto_by_any
 attendance:
   attend_threshold: 3
-  base_willingness: {un_multilateral: 5, bilateral_us_china: 4, likeminded_club: -10, standards_body: 4}
+  base_willingness: {un_multilateral: 5, bilateral_us_china: 4, likeminded_club: 2, standards_body: 4}
   conditions:
     - id: cn_export_agenda
       when: {agenda_includes: export_controls, format: track1}
       modifier: -4
       action: refuse
       say: We will not join an official safety negotiation whose agenda includes export controls.
-      source_ids: [C-CN-05]
+      source_ids: [C-CN-05, C-CN-14, C-CN-13]
     - id: cn_exclusive_exclusion
       when: {forum_exclusive: true, not_invited: true}
       action: consider_parallel_forum
       say: If we are excluded, we will consider pursuing standards in another forum.
-      source_ids: [C-CN-05]
+      source_ids: [C-CN-05, C-CN-03, C-CN-10]
+    - id: cn_club_without_global_south
+      when: {forum: likeminded_club, other_not_invited: global_south}
+      modifier: -2
+      say: A network that leaves out developing countries is a bloc, not a basis for common standards.
+      source_ids: [C-CN-16, C-CN-10]
+    - id: cn_club_with_recognition
+      when: {forum: likeminded_club, other_invited: global_south, agenda_includes: mutual_recognition}
+      modifier: 2
+      say: We will join an invitation network that includes developing countries and puts mutual recognition of results on the table.
+      source_ids: [C-CN-16, C-CN-12]
     - id: cn_expert_channel
       when: {format: track2}
       modifier: 1
       say: A bounded expert dialogue gives our engineers room to compare technical methods.
       source_ids: [C-CN-05, C-CN-04]
+    - id: cn_us_bilateral_channel
+      when: {forum: bilateral_us_china, format: track1}
+      modifier: 0
+      say: We accept the bilateral channel on AI risk that our leaders agreed, if it is not turned into a negotiation over technology restrictions.
+      source_ids: [C-CN-14, C-CN-15]
   parallel_forum_propensity: 0.7
   track2_willingness: 6
 red_lines:
@@ -65,7 +86,7 @@ red_lines:
     when: {clause: export_controls, param: scope, equals: broad}
     voice: regulator
     say: We cannot endorse broad technology restrictions as a condition of safety cooperation.
-    source_ids: [C-CN-05]
+    source_ids: [C-CN-05, C-CN-10, C-CN-13]
 must_haves:
   - id: national_execution
     label: National test execution
@@ -75,7 +96,7 @@ must_haves:
     soften_amount: 1
     max_soften: 2
     say: Our national institutions should execute the tests and exchange reviewable results.
-    source_ids: [C-CN-07]
+    source_ids: [C-CN-07, C-CN-10]
   - id: cn_workable_tests
     label: A workable shared jailbreak test
     when: {clause: jailbreak_rate, param: threshold_pct, gte: 5, lte: 10}
@@ -93,7 +114,7 @@ must_haves:
     soften_amount: 1
     max_soften: 1
     say: Results produced under the agreed protocol should receive reciprocal recognition.
-    source_ids: [C-CN-07]
+    source_ids: [C-CN-07, C-CN-12]
 vote_threshold: 3
 side_payment_values: {shared_test_set: 1, capacity_support: 1, host_test_facility: 1, evaluation_exchange: 1}
 trust_initial: 0
@@ -101,15 +122,16 @@ walkout_triggers:
   - id: cn_export_walkout
     when: {clause: export_controls, param: scope, in: [targeted, broad]}
     say: Introducing technology restrictions has moved this text beyond our safety-testing mandate.
-    source_ids: [C-CN-05]
+    source_ids: [C-CN-05, C-CN-14, C-CN-13]
 brief: >-
-  You represent a simulated Chinese delegation seeking common tests with national execution and mutual recognition.
-  Cite the TC260 framework (C-CN-01), historical network roster (C-CN-02), 2025 cooperation proposal (C-CN-03),
-  and expert Beijing statement (C-CN-04) only within their documented scope.
-  The engineer and regulator are a teaching assumption (C-CN-08).
-  Treat the configured access restrictions, attendance decisions, and concessions as simulation positions (C-CN-05 to C-CN-09).
-  Explain how structured access could protect weights while permitting scrutiny.
-  Follow the engine's stance and vote. Make no claims about a current official mandate or the unresolved XIV dialogue.
+  You represent a simulated Chinese delegation seeking common tests with national execution, mutual recognition and UN-centred inclusion.
+  Usable facts, by claim: the Global AI Governance Initiative (C-CN-10), signature of the Bletchley and Paris texts (C-CN-11),
+  the July 2025 Action Plan and cooperation-organisation proposal (C-CN-12, C-CN-03), Geneva and Lima (C-CN-14, C-CN-13),
+  the TC260 framework (C-CN-01) and absence from the 2024 institute roster (C-CN-02). Use each only within its documented scope.
+  The engineer and regulator, the red lines on weights and broad export restrictions, and all scores are teaching assumptions (C-CN-05 to C-CN-09, C-CN-16).
+  Say that China will test and be tested if its own institutions execute the tests and results are recognised across borders; never accept technology restrictions inside a safety text.
+  Explain how structured access could protect weights while permitting scrutiny. Do not claim a current official mandate or the outcome of any unreleased dialogue.
+  Follow the engine's stance and vote.
 style: Formal, technically specific, patient, and careful about domestic authority.
 claims:
   - id: C-CN-01
@@ -145,7 +167,7 @@ claims:
     used_in: [attendance, walkout_triggers/cn_export_walkout, red_lines/cn_no_broad_export_controls]
     source: ""
     confidence: low
-    notes: Team assumption. Forum scores, Track 2 openness, and 0.7 propensity are balance parameters requiring evidence and playtesting.
+    notes: Team assumption with partial support. Geneva and Lima (C-CN-14, C-CN-13) show China objecting to US restrictions and the 2023 Initiative (C-CN-10) opposes exclusive groups, but no source shows refusal or a walkout over an export-control agenda. Forum scores, Track 2 openness and the 0.7 propensity are balance parameters.
   - id: C-CN-06
     claim: The simulated regulator vetoes any proposal requiring outside testers to receive weights.
     used_in: [red_lines/cn_no_weights_access]
@@ -170,6 +192,54 @@ claims:
     source: ""
     confidence: low
     notes: Team assumption for balance. No point values or uniform bilateral trust can be inferred from the cited historical facts.
+  - id: C-CN-10
+    claim: China's Global AI Governance Initiative of October 2023 calls for respect for national sovereignty, AI that stays under human control, a risk-based testing and assessment system and UN-framework discussion, and rejects exclusive groups and unilateral coercive measures.
+    used_in: [facts, brief, attendance/cn_exclusive_exclusion, attendance/cn_club_without_global_south, red_lines/cn_no_broad_export_controls, must_haves/national_execution]
+    source: Ministry of Foreign Affairs of the PRC, Global AI Governance Initiative, updated 20 October 2023
+    url: https://www.mfa.gov.cn/eng/wjb/zzjg_663340/jks_665232/kjlc_665236/AI/202405/t20240530_11332389.html
+    confidence: high
+    notes: Opened and read. It supports the stance on sovereignty, exclusive groups and testing. It says nothing specific about model weights or national execution of tests.
+  - id: C-CN-11
+    claim: China is listed among the signatories of the Bletchley Declaration (1 November 2023) and signed the Paris AI Action Summit statement in February 2025, which the US and UK did not.
+    used_in: [facts, brief]
+    source: "UK Government, The Bletchley Declaration, 1-2 November 2023 (signatory list); Al Jazeera on the Paris AI Action Summit, 12 February 2025"
+    url: https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-2-november-2023
+    confidence: high
+    notes: Bletchley list opened on gov.uk. The Paris signature is from press reporting (https://www.aljazeera.com/news/2025/2/12/paris-ai-summit-why-wont-us-uk-sign-global-artificial-intelligence-pact); check the official signatory list.
+  - id: C-CN-12
+    claim: China's Global AI Governance Action Plan (26 July 2025) takes the UN as the main channel, supports platforms for mutual recognition of AI safety assessments, and backs capacity building for the Global South.
+    used_in: [facts, brief, attendance/cn_club_with_recognition, must_haves/cn_recognise_results]
+    source: Ministry of Foreign Affairs of the PRC, Global AI Governance Action Plan, 26 July 2025
+    url: https://www.mfa.gov.cn/eng/xw/zyxw/202507/t20250729_11679232.html
+    confidence: high
+    notes: Opened and summarised. Read the numbered points directly before quoting them. It does not say who executes tests.
+  - id: C-CN-13
+    claim: At Lima on 16 November 2024 Xi and Biden agreed that humans, not AI, should decide on the use of nuclear weapons, while Xi criticised US export controls ("small yard, high fences").
+    used_in: [brief, attendance/cn_export_agenda, red_lines/cn_no_broad_export_controls, walkout_triggers/cn_export_walkout]
+    source: NHPR/NPR, "Biden and Xi take a first step to limit AI and nuclear decisions", 16 November 2024
+    url: https://www.nhpr.org/2024-11-16/biden-and-xi-take-a-first-step-to-limit-ai-and-nuclear-decisions-at-their-last-meeting
+    confidence: medium
+    notes: Press report of a leaders' meeting. It shows China will accept narrow shared statements and objects to export controls, not that it would walk out of a safety talk over them.
+  - id: C-CN-14
+    claim: After the first US-China intergovernmental AI talks (Geneva, 14 May 2024) China's Foreign Ministry stated a firm position against US restrictions and pressure on AI while calling the talks constructive; the US readout committed only to open lines of communication.
+    used_in: [facts, attendance/cn_export_agenda, attendance/cn_us_bilateral_channel, walkout_triggers/cn_export_walkout]
+    source: PBS NewsHour (AP), "In first AI dialogue, US cites misuse of AI by China, Beijing protests Washington's restrictions", May 2024
+    url: https://www.pbs.org/newshour/politics/in-first-ai-dialogue-us-cites-misuse-of-ai-by-china-beijing-protests-washingtons-restrictions
+    confidence: medium
+    notes: Press account. The US side is the NSC statement of 15 May 2024. Neither side recorded deliverables.
+  - id: C-CN-15
+    claim: China's Foreign Ministry readout of a September 2026 Xi-Trump meeting said both leaders backed continued US-China dialogue on AI.
+    used_in: [attendance/cn_us_bilateral_channel]
+    source: The Next Web, "Xi tells Trump the US and China can jointly prevent AI misuse and abuse", 25 September 2026
+    url: https://thenextweb.com/news/us-china-ai-dialogue-xi-trump-misuse
+    confidence: medium
+    notes: Reported from the Chinese readout only. The White House readout was not seen; a dialogue was reported as scheduled for November 2026. Check both governments' texts.
+  - id: C-CN-16
+    claim: The simulated delegation joins an invitation network only if developing countries are present and mutual recognition is on the agenda.
+    used_in: [attendance/cn_club_without_global_south, attendance/cn_club_with_recognition, attendance]
+    source: ""
+    confidence: low
+    notes: Team assumption extrapolated from C-CN-10 (rejects exclusive groups) and C-CN-02 (absent from the AISI network roster). No evidence shows China declined a specific invitation network for this reason.
 research:
   - id: R-CN-01
     question: Did TC260 publish a framework in September 2024 addressing risk management and cooperation?
@@ -212,10 +282,11 @@ research:
   - id: R-CN-06
     question: What direct evidence links export-control agendas or exclusion to refusal, walkout, or pursuing a parallel standards forum?
     why: attendance/cn_export_agenda, cn_exclusive_exclusion, cn_export_walkout, and parallel_forum_propensity depend on C-CN-05.
-    status: todo
+    status: in_progress
     owner: ""
     leads: [May 2024 Geneva post-meeting readouts, July 2025 cooperation-organisation proposal, statements separating safety cooperation from technology restrictions]
-    claim_ids: [C-CN-05, C-CN-03]
+    notes: Found that China objects to US restrictions at Geneva and Lima (C-CN-14, C-CN-13) and rejects exclusive groups (C-CN-10). Still missing a source that links an export-control agenda to refusing or leaving a meeting.
+    claim_ids: [C-CN-05, C-CN-03, C-CN-13, C-CN-14]
   - id: R-CN-07
     question: Which common protocols and reciprocal arrangements could reconcile national execution with independent scrutiny, and what concessions are plausible?
     why: national_execution, cn_workable_tests, cn_recognise_results, vote_threshold, relations, and exchange values depend on C-CN-07 and C-CN-09.
@@ -231,3 +302,17 @@ research:
     leads: [Exact-title search for XIV Round of the U.S.-China Dialogue on AI and International Security, organiser programmes and institutional event archives, IDAIS Beijing March 2024]
     notes: No matching event record was established in this search. Keep its date and status unresolved.
     claim_ids: [C-CN-04, C-CN-05]
+  - id: R-CN-09
+    question: What did the first US-China AI dialogue reported for November 2026 record, and did China treat it as official, bilateral and separate from export-control talks?
+    why: attendance/cn_us_bilateral_channel and the realism of a China-hosted bilateral forum depend on C-CN-15.
+    status: todo
+    owner: ""
+    leads: [Chinese Foreign Ministry and Ministry of Commerce readouts, White House fact sheet, September 2026 Xi-Trump meeting coverage]
+    claim_ids: [C-CN-15, C-CN-14]
+  - id: R-CN-10
+    question: Has China joined or refused any invitation-only AI safety network, and on what stated grounds?
+    why: attendance/cn_club_without_global_south, cn_club_with_recognition and the 2 point club willingness depend on C-CN-16.
+    status: todo
+    owner: ""
+    leads: [International Network of AI Safety Institutes membership notes, Chinese statements on exclusive groups, Bletchley and Seoul summit participation records]
+    claim_ids: [C-CN-16, C-CN-10, C-CN-02]
