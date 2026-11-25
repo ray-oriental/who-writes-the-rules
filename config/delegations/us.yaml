@@ -1,4 +1,4 @@
-# PLACEHOLDER positions: rewrite from sources before the Expo.
+# Positions are team modelling grounded in the cited claims; numeric scores and weights are balance parameters (see the low-confidence claims).
 id: us
 name: United States
 short: US
@@ -6,21 +6,29 @@ type: state
 playable: true
 difficulty: medium
 owner: ""
-summary: Seek credible dangerous-capability tests while protecting innovation and sensitive technology.
-mandate: Build a practical safety-testing agreement that preserves security safeguards and interoperability.
+summary: Seek independently checkable tests of dangerous capabilities while keeping weights and chip controls off the table.
+mandate: >-
+  Build a testing agreement whose results outside parties can check, with structured access that keeps model weights protected.
+  Keep export controls out of any bargain, resist heavy multilateral regulation, and keep the government's own evaluation centre central.
 facts:
-  - text: The United States appears in the institute network's November 2024 launch roster.
-    source_ids: [C-US-01]
-  - text: China and the US held their first intergovernmental AI dialogue in Geneva on 14 May 2024.
-    source_ids: [C-US-02]
-  - text: The US and UK did not sign the February 2025 Paris AI Action Summit declaration.
-    source_ids: [C-US-03]
+  - text: The US and China held their first intergovernmental AI talks in Geneva on 14 May 2024; the US statement committed only to keeping open lines of communication and raised concerns about misuse of AI, including by the PRC.
+    source_ids: [C-US-13, C-US-02]
+  - text: At Lima in November 2024 Biden and Xi agreed that humans, not AI, should decide on the use of nuclear weapons, and the US side urged its successors to keep the export controls in place.
+    source_ids: [C-US-11]
+  - text: The US signed the Bletchley Declaration in November 2023 but, with the UK, did not sign the Paris AI Action Summit statement in February 2025.
+    source_ids: [C-US-08, C-US-03]
+  - text: In June 2025 Commerce renamed the US AI Safety Institute the Center for AI Standards and Innovation, which stays inside NIST, tests commercial AI systems and reviews foreign-developed ones.
+    source_ids: [C-US-09]
+  - text: Since October 2022 US export controls have required licences for advanced AI chips and chip-making equipment going to the PRC.
+    source_ids: [C-US-10]
+  - text: America's AI Action Plan of July 2025 directs the Commerce Department's centre to evaluate PRC frontier models and national-security risks, and to use US positions in standards bodies to promote innovation-focused governance.
+    source_ids: [C-US-12]
 relations:
-  china: Maintain a risk-management channel amid disagreements about technology restrictions.
-  eu: Cooperate on evaluations while debating regulatory burden and market access.
-  frontier_lab: Seek useful testing evidence with safeguards for sensitive technology.
-  global_south: Seek broader participation through practical assistance.
-  evaluator: Value reproducible evidence and technically competent scrutiny.
+  china: Keep the risk channel open and keep chip controls in place; we will test and compare results, but not trade controls or weights for a safety text.
+  eu: A close partner on independent evaluation, though we resist its regulatory burden and wider governance language.
+  frontier_lab: American developers give us the evidence and the model access, so safeguards for their weights are a shared interest.
+  global_south: Willing to offer practical assistance and technical training, not binding commitments that expand multilateral regulation.
+  evaluator: Value reproducible, technically competent scrutiny that does not require handing over weights.
 voices: []
 internal_resolution: lead_voice
 attendance:
@@ -36,15 +44,30 @@ attendance:
       when: {agenda_includes: export_controls, format: track1}
       modifier: 1
       say: Security restrictions can be discussed, although agreement on them will be difficult.
-      source_ids: [C-US-04]
-  parallel_forum_propensity: 0.5
+      source_ids: [C-US-04, C-US-10, C-US-11]
+    - id: us_bilateral_risk_channel
+      when: {forum: bilateral_us_china, agenda_includes: verification_tech}
+      modifier: -2
+      say: A bilateral channel is for risk communication; we will not negotiate verification arrangements there.
+      source_ids: [C-US-13, C-US-14]
+    - id: us_un_governance_agenda
+      when: {forum: un_multilateral, agenda_includes: governance}
+      modifier: -1
+      say: We will come to a UN session, but not to one that grows into broad multilateral governance language.
+      source_ids: [C-US-03, C-US-12]
+  parallel_forum_propensity: 0.6
   track2_willingness: 6
 red_lines:
   - id: us_no_weights_transfer
     label: Protect sensitive model weights
     when: {clause: model_access, param: level, equals: weights}
     say: We cannot support compulsory transfer of sensitive model weights to all participating testers.
-    source_ids: [C-US-05]
+    source_ids: [C-US-05, C-US-09]
+  - id: us_no_export_control_rollback
+    label: No rollback of export controls
+    when: {clause: export_controls, param: scope, equals: none}
+    say: Export controls on chips are not on the table as a concession in a safety text.
+    source_ids: [C-US-10, C-US-11]
 must_haves:
   - id: us_dangerous_capabilities
     label: Dangerous-capability testing
@@ -54,7 +77,7 @@ must_haves:
     soften_amount: 1
     max_soften: 1
     say: The package should test dangerous capabilities, including cyber misuse.
-    source_ids: [C-US-06]
+    source_ids: [C-US-06, C-US-12]
   - id: us_checkable_results
     label: Results that others can check
     when: {clause: verifier, param: who, equals: third_party}
@@ -63,7 +86,7 @@ must_haves:
     soften_amount: 1
     max_soften: 2
     say: We will not rely on results that only the tested party's own institutions have seen.
-    source_ids: [C-US-06]
+    source_ids: [C-US-06, C-US-09]
   - id: us_safeguarded_access
     label: Safeguarded access
     when: {clause: model_access, param: level, in: [api_only, structured_access]}
@@ -72,35 +95,36 @@ must_haves:
     soften_amount: 1
     max_soften: 1
     say: Testing should provide useful evidence while protecting sensitive model assets.
-    source_ids: [C-US-06]
+    source_ids: [C-US-06, C-US-12]
 vote_threshold: 3
 side_payment_values: {shared_test_set: 1, capacity_support: 0, host_test_facility: 1, evaluation_exchange: 1}
 trust_initial: 0
 walkout_triggers: []
 brief: >-
-  Represent a simulated US delegation balancing useful evaluations and technology safeguards.
-  The launch roster (C-US-01), Geneva dialogue (C-US-02), and Paris non-signature (C-US-03) are historical facts.
-  Attendance, a weights-transfer veto, priorities, and exchange values are team assumptions (C-US-04 to C-US-07).
-  Discuss cyber testing and recognition of comparable results. Accept structured access when the engine permits it.
-  Follow the engine's stance and vote. Do not infer current policy or motives from the historical non-signature.
+  Represent a simulated US delegation that wants independently checkable tests while protecting weights and chip controls.
+  Usable facts, by claim: Geneva (C-US-13, C-US-02), Lima and the export-control line (C-US-11, C-US-10), Bletchley and Paris (C-US-08, C-US-03),
+  the 2025 rename of the AI Safety Institute (C-US-09) and the July 2025 Action Plan (C-US-12). Use each only within its documented scope.
+  Attendance scores, the weights and export-rollback red lines, priorities and exchange values are team assumptions (C-US-04 to C-US-07).
+  Argue for third-party verification, cyber testing and structured access with safeguards; say that national tests could be accepted if outsiders can check them.
+  Never agree to loosen export controls inside this text. Follow the engine's stance and vote. Do not infer current policy or motives from the Paris non-signature.
 style: Direct, pragmatic, evidence-focused, and attentive to security and implementation cost.
 claims:
   - id: C-US-01
     claim: The United States was listed among the November 2024 institute-network launch participants.
-    used_in: [facts, brief]
+    used_in: [brief, attendance/us_expert_channel]
     source: International Network of AI Safety Institutes, Mission Statement, 21 November 2024
     url: https://www.nist.gov/system/files/documents/2024/11/20/Mission%20Statement%20-%20International%20Network%20of%20AISIs.pdf
     confidence: high
   - id: C-US-02
     claim: China and the US held their first intergovernmental AI dialogue in Geneva on 14 May 2024.
-    used_in: [facts, brief]
+    used_in: [facts, brief, attendance/us_bilateral_risk_channel]
     source: State Council English website, first intergovernmental AI-dialogue report, 16 May 2024
     url: https://english.www.gov.cn/news/202405/16/content_WS664579edc6d0868f4e8e7268.html
     confidence: high
     notes: The Chinese post-meeting account reports discussion of risks and governance. Check both governments' accounts for follow-up commitments.
   - id: C-US-03
     claim: The US and UK did not sign the February 2025 Paris AI Action Summit declaration.
-    used_in: [facts, brief]
+    used_in: [facts, brief, attendance/us_un_governance_agenda]
     source: TIME, reporting on the Paris AI Action Summit, 11 February 2025
     url: https://time.com/7221384/ai-regulation-takes-backseat-paris-summit/
     confidence: medium
@@ -110,25 +134,74 @@ claims:
     used_in: [attendance]
     source: ""
     confidence: low
-    notes: Team assumption. Numeric attendance and parallel-forum parameters require calibration and period-specific policy evidence.
+    notes: Team assumption with partial support. Geneva (C-US-13) and the 2026 report (C-US-14) show a working channel limited to risk communication, which is why the bilateral loses willingness when verification is on the agenda. Numeric scores and the 0.6 parallel-forum propensity (Paris non-signature, C-US-03) are balance parameters.
   - id: C-US-05
     claim: The simulated US delegation vetoes compulsory transfer of sensitive weights to participating testers.
     used_in: [red_lines/us_no_weights_transfer]
     source: ""
     confidence: low
-    notes: Team assumption about this negotiating mandate. Existing technology restrictions do not establish this exact universal access veto.
+    notes: Team assumption about this negotiating mandate. The CAISI role (C-US-09) concerns testing commercial systems, and the export rules (C-US-10) do not establish this exact universal access veto.
   - id: C-US-06
     claim: Dangerous-capability testing, independently checkable results, and safeguarded access drive the simulated US vote.
     used_in: [must_haves/us_dangerous_capabilities, must_haves/us_checkable_results, must_haves/us_safeguarded_access]
     source: ""
     confidence: low
-    notes: Team assumption. The weights and argument-tag effects are design choices, with the 2024 institute network as a research lead.
+    notes: Team assumption. The Action Plan (C-US-12) supports government evaluation of national-security risks, but no source says the US requires third-party rather than national verification. Weights and argument-tag effects are design choices.
   - id: C-US-07
     claim: Neutral initial trust, the listed relationships, and small technical exchanges are a plausible US bargaining baseline.
     used_in: [summary, mandate, relations, vote_threshold, trust_initial, side_payment_values, style]
     source: ""
     confidence: low
     notes: Team assumption about incentives. Verify against the period chosen for the summit and playtest the numbers.
+  - id: C-US-08
+    claim: The United States is listed among the signatories of the Bletchley Declaration of 1-2 November 2023, together with China.
+    used_in: [facts, brief]
+    source: UK Government, The Bletchley Declaration, 1-2 November 2023
+    url: https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-2-november-2023
+    confidence: high
+    notes: Signatory list opened. The declaration speaks of safety testing and evaluation and notes that national approaches may differ.
+  - id: C-US-09
+    claim: In June 2025 the Commerce Department renamed the US AI Safety Institute the Center for AI Standards and Innovation (CAISI), kept within NIST, as industry's main government contact for testing commercial AI and a reviewer of foreign-developed systems.
+    used_in: [facts, brief, red_lines/us_no_weights_transfer, must_haves/us_checkable_results]
+    source: Nextgov/FCW, Commerce rebrands its AI Safety Institute, 4 June 2025
+    url: https://nextgov.com/artificial-intelligence/2025/06/commerce-rebrands-its-ai-safety-institute/405803
+    confidence: medium
+    notes: Press report of the 3 June 2025 announcement. The Commerce statement itself returned an access error and was not read.
+  - id: C-US-10
+    claim: Since 7 October 2022 the Commerce Department's export controls have required licences for certain advanced computing chips and chip-making items going to the PRC.
+    used_in: [facts, brief, attendance/us_export_agenda, red_lines/us_no_export_control_rollback]
+    source: Bureau of Industry and Security, Commerce Implements New Export Controls on Advanced Computing and Semiconductor Manufacturing Items to the PRC, 7 October 2022
+    url: https://www.bis.gov/press-release/commerce-implements-new-export-controls-advanced-computing-semiconductor-manufacturing-items-peoples
+    confidence: high
+    notes: Describes the 2022 rules only. Later rule changes (2023 updates, 2025 changes) need separate sources.
+  - id: C-US-11
+    claim: At Lima on 16 November 2024 Biden and Xi agreed that humans should keep control over nuclear-use decisions, and the US national security adviser said the outgoing team was urging the incoming administration to keep export controls in place.
+    used_in: [facts, attendance/us_export_agenda, red_lines/us_no_export_control_rollback]
+    source: NHPR/NPR, Biden and Xi take a first step to limit AI and nuclear decisions, 16 November 2024
+    url: https://www.nhpr.org/2024-11-16/biden-and-xi-take-a-first-step-to-limit-ai-and-nuclear-decisions-at-their-last-meeting
+    confidence: medium
+    notes: Press report. It shows the previous administration's line on controls, not the later administration's.
+  - id: C-US-12
+    claim: America's AI Action Plan (July 2025) directs Commerce, through CAISI, to evaluate frontier models for national-security risks and publish evaluations of PRC models, to counter chip diversion, and to use US positions in standards bodies to promote innovation-focused governance.
+    used_in: [facts, brief, attendance/us_un_governance_agenda, must_haves/us_dangerous_capabilities, must_haves/us_safeguarded_access]
+    source: Winning the Race, America's AI Action Plan, July 2025 (read through an unofficial ETO AGORA copy)
+    url: https://agora.eto.tech/instrument/2665
+    confidence: medium
+    notes: The copy was truncated; check the official White House text before quoting. It supports a US preference for its own evaluation and against heavy international regulation, not for a specific verifier.
+  - id: C-US-13
+    claim: After the first US-PRC talks on AI risk and safety (Geneva, 14 May 2024) the National Security Council said the US raised concerns about misuse of AI, including by the PRC, and affirmed the need to maintain open lines of communication; no further meetings or deliverables were recorded.
+    used_in: [facts, brief, attendance/us_bilateral_risk_channel]
+    source: White House (NSC), Statement on the US-PRC talks on AI risk and safety, 15 May 2024
+    url: https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2024/05/15/statement-from-nsc-spokesperson-adrienne-watson-on-the-u-s-prc-talks-on-ai-risk-and-safety-2/
+    confidence: high
+    notes: Opened on the White House archive. It is the Biden-administration account only.
+  - id: C-US-14
+    claim: China's Foreign Ministry readout of a September 2026 Trump-Xi meeting said both leaders backed continued US-China dialogue on AI.
+    used_in: [attendance/us_bilateral_risk_channel]
+    source: The Next Web, Xi tells Trump the US and China can jointly prevent AI misuse and abuse, 25 September 2026
+    url: https://thenextweb.com/news/us-china-ai-dialogue-xi-trump-misuse
+    confidence: medium
+    notes: Reported from the Chinese readout only; the White House readout was not seen. Check both governments' texts.
 research:
   - id: R-US-01
     question: Was the US included in the institute network's 2024 launch roster?
@@ -140,10 +213,11 @@ research:
   - id: R-US-02
     question: What exact topics and follow-up commitments did the two governments record after the Geneva AI talks?
     why: attendance/us_expert_channel, relations/china, and the limits of C-US-02 need both post-meeting accounts.
-    status: todo
+    status: found
     owner: ""
     leads: [US National Security Council statement 15 May 2024, Chinese Foreign Ministry post-meeting readout, State Council announcement 14 May 2024]
-    claim_ids: [C-US-02, C-US-04, C-US-07]
+    notes: The NSC statement records only open lines of communication; the Chinese side stated a firm position against US restrictions (see C-CN-14). A 2026 follow-up is reported through the Chinese readout only (C-US-14).
+    claim_ids: [C-US-02, C-US-13, C-US-14, C-US-04, C-US-07]
   - id: R-US-03
     question: Did the US and UK sign the Paris summit declaration in February 2025?
     why: facts and brief depend on C-US-03.
@@ -157,8 +231,9 @@ research:
     why: red_lines/us_no_weights_transfer and must_haves/us_safeguarded_access depend on C-US-05 and C-US-06.
     status: todo
     owner: ""
-    leads: [US Commerce and national-security model-security guidance, institute evaluation agreements, period-specific export-control rules]
-    claim_ids: [C-US-05, C-US-06]
+    leads: [US Commerce and national-security model-security guidance, institute evaluation agreements, period-specific export-control rules, CAISI developer agreements]
+    notes: The Action Plan and CAISI rename were found (C-US-12, C-US-09) but neither addresses a weights veto. Still open.
+    claim_ids: [C-US-05, C-US-06, C-US-09, C-US-12]
   - id: R-US-05
     question: Would the US accept reciprocal national tests under a shared protocol, and which independent checks would it require?
     why: us_checkable_results and its verify_without_weights and mutual_recognition softening tags depend on C-US-06.
@@ -169,10 +244,11 @@ research:
   - id: R-US-06
     question: What evidence supports the US willingness to join inclusive or exclusive forums while discussing export controls?
     why: attendance/us_export_agenda, base_willingness, track2_willingness, and parallel_forum_propensity depend on C-US-04.
-    status: todo
+    status: in_progress
     owner: ""
     leads: [Official AI-summit statements, national institute cooperation announcements, 2024 Geneva dialogue records, organiser records for the unresolved XIV dialogue]
-    claim_ids: [C-US-04]
+    notes: Found that the US signed Bletchley, did not sign Paris, and keeps chip controls (C-US-08, C-US-03, C-US-10). No source shows when the US would join or refuse a specific exclusive club.
+    claim_ids: [C-US-04, C-US-08, C-US-03, C-US-10]
   - id: R-US-07
     question: Which concrete concessions and test domains best represent US priorities without assuming a single permanent policy?
     why: us_dangerous_capabilities, relations, vote_threshold, trust_initial, and side_payment_values depend on C-US-06 and C-US-07.
@@ -180,3 +256,17 @@ research:
     owner: ""
     leads: [Dated US institute evaluation guidance, cyber-capability evaluation methods, structured playtests with a declared historical scenario date]
     claim_ids: [C-US-06, C-US-07]
+  - id: R-US-08
+    question: What did the first US-China AI dialogue reported for November 2026 record, and did the White House describe it as a risk channel or a negotiation?
+    why: attendance/us_bilateral_risk_channel depends on C-US-13 and C-US-14.
+    status: todo
+    owner: ""
+    leads: [White House fact sheet and readout for the September 2026 summit, Chinese Foreign Ministry and Ministry of Commerce readouts]
+    claim_ids: [C-US-14, C-US-13]
+  - id: R-US-09
+    question: Would the US accept a bilateral forum proposed by China, and does it dismiss UN-centred forums or only some agendas?
+    why: attendance/us_un_governance_agenda and the bilateral base willingness depend on C-US-03 and C-US-12.
+    status: todo
+    owner: ""
+    leads: [Vance speech at the Paris summit, State Department statements on UN AI governance mechanisms, the official Action Plan text on international bodies]
+    claim_ids: [C-US-03, C-US-12, C-US-04]
