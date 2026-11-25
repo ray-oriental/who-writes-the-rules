@@ -1,4 +1,4 @@
-# PLACEHOLDER positions: rewrite from sources before the Expo.
+# Positions are team modelling grounded in the cited claims; the composite lab is not any real company.
 id: frontier_lab
 name: Frontier AI laboratory
 short: LAB
@@ -6,21 +6,27 @@ type: firm
 playable: false
 difficulty: medium
 owner: ""
-summary: A composite developer seeking credible evaluations with protected weights and predictable obligations.
-mandate: Support technically useful testing while preserving model security and a workable evaluation burden.
+summary: A composite developer that already gives institutes pre-deployment access and wants that to be the template, with weights protected and the testing scope written down in advance.
+mandate: Support external testing that produces useful evidence, on written terms. Access is controlled and the weights stay inside the lab. The frontier-model scope is fixed in advance, and one shared protocol replaces many national ones.
 facts:
   - text: Google DeepMind's May 2024 framework linked capability evaluations to security and deployment mitigations.
     source_ids: [C-LAB-01]
-  - text: The Seoul commitments included external evaluations and protection of proprietary unreleased model weights.
+  - text: The Seoul commitments of May 2024 listed independent third-party evaluators as an example of external assessment and promised robust security controls for unreleased model weights.
     source_ids: [C-LAB-02]
+  - text: In August 2024 OpenAI and Anthropic signed agreements giving the US AI Safety Institute access to major new models before and after public release.
+    source_ids: [C-LAB-04]
+  - text: The December 2024 UK and US joint test of OpenAI's o1 ran in a limited pre-deployment access window and called its findings preliminary.
+    source_ids: [C-LAB-05]
+  - text: The Frontier Model Forum's August 2025 report says third-party assessment complements internal work, access should match the assessment type, and weights should be protected.
+    source_ids: [C-LAB-06]
   - text: Anthropic's October 2024 policy update acknowledged evaluations completed three days late and assessed the lapse as posing minimal risk.
     source_ids: [C-LAB-03]
 relations:
-  china: Seek acceptance of safeguarded testing without transferring weights.
-  us: Seek predictable requirements that protect sensitive technology.
-  eu: Offer reviewable evidence while negotiating access and compliance costs.
-  global_south: Offer shared methods and training that broaden testing capacity.
-  evaluator: Work with external testers under confidentiality and security safeguards.
+  china: Accept national execution of tests if the weights stay put and the protocol is shared; no transfer under any heading.
+  us: Treat the institute agreements as the model, and ask for predictable requirements that protect sensitive technology.
+  eu: Offer reviewable evidence and welcome a single written scope, while resisting duplicated compliance work.
+  global_south: Offer shared methods and training that broaden testing capacity, at a facility we can secure.
+  evaluator: Work with external testers under confidentiality and security safeguards, and expect their access to match what they need to conclude.
 voices: []
 internal_resolution: lead_voice
 attendance:
@@ -31,58 +37,59 @@ attendance:
       when: {agenda_includes: verification_tech}
       modifier: -1
       say: We will discuss verification, but the access safeguards need careful negotiation.
-      source_ids: [C-LAB-04]
+      source_ids: [C-LAB-06, C-LAB-07]
     - id: lab_expert_channel
       when: {format: track2}
       modifier: 1
       say: A technical channel lets us examine the testing burden and security requirements.
-      source_ids: [C-LAB-04]
+      source_ids: [C-LAB-07]
   parallel_forum_propensity: 0.3
   track2_willingness: 6
 red_lines:
   - id: lab_no_weights_transfer
-    label: Protect proprietary weights
+    label: Weights stay with the lab
     when: {clause: model_access, param: level, equals: weights}
-    say: We cannot accept compulsory transfer of our model weights to testers.
-    source_ids: [C-LAB-05]
+    say: We cannot accept compulsory transfer of our model weights to testers, whoever they are.
+    source_ids: [C-LAB-02, C-LAB-08]
 must_haves:
-  - id: lab_structured_access
-    label: Controlled structured access
-    when: {clause: model_access, param: level, equals: structured_access}
+  - id: lab_written_access
+    label: Written, safeguarded access
+    when: {clause: model_access, param: level, in: [api_only, structured_access]}
     weight: 2
     softenable_by: [verify_without_weights]
     soften_amount: 1
-    max_soften: 2
-    say: Structured access can give testers useful evidence while preserving security safeguards.
-    source_ids: [C-LAB-06]
+    max_soften: 1
+    say: Access should be written down and safeguarded, as our pre-deployment agreements with the institutes are, not left open.
+    source_ids: [C-LAB-04, C-LAB-05, C-LAB-09]
   - id: lab_predictable_scope
-    label: Predictable frontier-model scope
+    label: One compute trigger for the testing scope
     when: {clause: compute_threshold, param: flop, in: ["1e25", "1e26"]}
     weight: 2
     softenable_by: [measurement_error]
     soften_amount: 1
     max_soften: 1
-    say: Testing obligations should have a clearly specified and reviewable scope.
-    source_ids: [C-LAB-06]
+    say: Testing obligations should start at a stated training-compute figure, so we can plan a release around them.
+    source_ids: [C-LAB-09]
   - id: lab_shared_protocol
-    label: Shared dangerous-capability protocol
+    label: One shared dangerous-capability protocol
     when: {clause: dangerous_capability_eval, param: protocol, equals: shared}
     weight: 1
     softenable_by: [mutual_recognition]
     soften_amount: 1
     max_soften: 1
-    say: A shared protocol can reduce duplicated work and make results comparable.
-    source_ids: [C-LAB-06]
+    say: One shared protocol, recognised across borders, spares us running a different test for every capital.
+    source_ids: [C-LAB-09]
 vote_threshold: 2
-side_payment_values: {shared_test_set: 2, capacity_support: 0, host_test_facility: 1, evaluation_exchange: 1}
+side_payment_values: {shared_test_set: 1, capacity_support: 0, host_test_facility: 2, evaluation_exchange: 1}
 trust_initial: 0
 walkout_triggers: []
 brief: >-
   You are a composite laboratory, with no authority to speak for any real company.
-  Use the historical framework and commitments (C-LAB-01, C-LAB-02) and the company-reported procedural lapse (C-LAB-03).
-  Its impact assessment was the company's own assessment.
-  Your mandatory-weights veto and negotiating priorities are assumptions (C-LAB-04 to C-LAB-07).
-  Explore structured access and a shared protocol. Follow the engine's stance and vote.
+  Draw on published practice: the Seoul commitments (C-LAB-02), a capability-threshold framework (C-LAB-01), the 2024 pre-deployment access agreements and joint tests with the US and UK institutes (C-LAB-04, C-LAB-05), and the Frontier Model Forum's guidance on third-party access (C-LAB-06).
+  The company-reported procedural lapse (C-LAB-03) was assessed by the company itself.
+  Weights never leave the lab (red line). You accept api-only or structured access on written terms, ask for a stated compute trigger, and prefer one shared protocol.
+  You do not mind who runs the tests so long as the access terms hold: national institutes and independent evaluators are both acceptable.
+  Your bargaining positions are assumptions (C-LAB-07 to C-LAB-10). Follow the engine's stance and vote.
   Never infer that every laboratory has identical policies or that a published framework proves compliance.
 style: Technical, commercially aware, and specific about the evidence a test can produce.
 claims:
@@ -94,12 +101,12 @@ claims:
     confidence: high
     notes: Historical publication. Later versions may use different thresholds and safeguards.
   - id: C-LAB-02
-    claim: The Seoul commitments supported external evaluations and safeguards for proprietary unreleased weights.
-    used_in: [facts, brief]
-    source: UK government, Frontier AI Safety Commitments, AI Seoul Summit 2024
+    claim: The Seoul commitments name independent third-party evaluators as an example of external risk assessment (paragraph I) and call for robust security controls for unreleased model weights (paragraph III).
+    used_in: [facts, brief, red_lines/lab_no_weights_transfer]
+    source: UK government, Frontier AI Safety Commitments, AI Seoul Summit 2024, paragraphs I and III
     url: https://www.gov.uk/government/publications/frontier-ai-safety-commitments-ai-seoul-summit-2024/frontier-ai-safety-commitments-ai-seoul-summit-2024
     confidence: high
-    notes: Voluntary commitments motivate a research lead for the access puzzle.
+    notes: Voluntary commitments. They protect weights but do not by themselves say how a lab would respond to a transfer clause.
   - id: C-LAB-03
     claim: Anthropic reported a three-day evaluation delay and characterised its procedural lapses as posing minimal risk.
     used_in: [facts, brief]
@@ -108,25 +115,46 @@ claims:
     confidence: medium
     notes: Company self-report. Independently corroborate the obligation and response before using it as a course case study.
   - id: C-LAB-04
+    claim: In August 2024 the US AI Safety Institute signed memoranda with Anthropic and OpenAI giving it access to major new models before and after public release for research and testing.
+    used_in: [facts, must_haves/lab_written_access]
+    source: NIST, U.S. AI Safety Institute Signs Agreements Regarding AI Safety Research, Testing and Evaluation With Anthropic and OpenAI, 29 August 2024
+    url: https://www.nist.gov/news-events/news/2024/08/us-ai-safety-institute-signs-agreements-regarding-ai-safety-research
+    confidence: high
+    notes: Voluntary memoranda. The institute was later renamed CAISI and the agreements were reported renegotiated; check the current terms before citing them as in force.
+  - id: C-LAB-05
+    claim: The UK and US institutes' joint pre-deployment evaluation of OpenAI's o1, published 18 December 2024, ran in a limited access window and called its findings preliminary, with smaller differences possibly within the margin of error.
+    used_in: [facts, must_haves/lab_written_access]
+    source: UK AI Security Institute, Pre-deployment evaluation of OpenAI's o1 model, 18 December 2024
+    url: https://aisi.gov.uk/work/pre-deployment-evaluation-of-openais-o1-model
+    confidence: high
+    notes: Shows what a bounded, pre-release access arrangement yielded. It does not establish what access a lab would grant a non-allied government.
+  - id: C-LAB-06
+    claim: The Frontier Model Forum says third-party assessments complement internal safety processes, that access should match the assessment type with minimum necessary information shared, and that sensitive assets such as model weights should be protected.
+    used_in: [facts, attendance/lab_verification_agenda]
+    source: Frontier Model Forum, technical report on third-party assessments, 4 August 2025
+    url: https://www.frontiermodelforum.org/technical-reports/third-party-assessments/
+    confidence: medium
+    notes: An industry body speaking for member developers, not for any single lab. Read for the shape of the position, not for exact terms.
+  - id: C-LAB-07
     claim: The composite lab prefers technical forums and accepts a small attendance cost when model-access questions are opened.
     used_in: [attendance]
     source: ""
     confidence: low
-    notes: Team assumption about forum scores, expert willingness, and parallel-forum propensity.
-  - id: C-LAB-05
+    notes: Team assumption about forum scores, expert willingness and parallel-forum propensity.
+  - id: C-LAB-08
     claim: The composite lab vetoes any compulsory weights-transfer clause.
     used_in: [red_lines/lab_no_weights_transfer]
     source: ""
     confidence: low
-    notes: Team assumption. Weight-theft safeguards do not establish every firm's negotiating red line.
-  - id: C-LAB-06
-    claim: Structured access, predictable scope, and shared protocols are the composite lab's negotiable priorities.
-    used_in: [must_haves/lab_structured_access, must_haves/lab_predictable_scope, must_haves/lab_shared_protocol]
+    notes: Team inference from C-LAB-02 and C-LAB-06, which support protecting weights but do not document a negotiating veto. Balance parameter.
+  - id: C-LAB-09
+    claim: Written api-only or structured access, a stated compute trigger, and a shared protocol are the composite lab's negotiable priorities, and it is indifferent between national and independent verifiers.
+    used_in: [must_haves/lab_written_access, must_haves/lab_predictable_scope, must_haves/lab_shared_protocol]
     source: ""
     confidence: low
-    notes: Team assumption. Compute triggers, weights, and softening amounts require playtesting and evidence about real access agreements.
-  - id: C-LAB-07
-    claim: A single firm seat, neutral trust, technical exchange values, and the listed relationships are useful bargaining simplifications.
+    notes: Team assumption. Weights and softening amounts are balance parameters; the compute trigger as a lab priority is not sourced.
+  - id: C-LAB-10
+    claim: A single firm seat, neutral trust, the side-payment values (a secured facility valued most), and the listed relationships are useful bargaining simplifications.
     used_in: [summary, mandate, relations, vote_threshold, side_payment_values, trust_initial, style]
     source: ""
     confidence: low
@@ -137,48 +165,56 @@ research:
     why: facts and brief depend on C-LAB-01.
     status: found
     owner: ""
-    leads: ["https://deepmind.google/blog/introducing-the-frontier-safety-framework/", archived May 2024 framework]
+    leads: ["https://deepmind.google/blog/introducing-the-frontier-safety-framework/"]
     claim_ids: [C-LAB-01]
   - id: R-LAB-02
     question: Did the Seoul commitments combine external testing with protection of unreleased weights?
     why: facts and the background to lab_no_weights_transfer depend on C-LAB-02.
     status: found
     owner: ""
-    leads: [UK government Frontier AI Safety Commitments 2024, clauses I and III]
+    leads: ["UK government Frontier AI Safety Commitments 2024, paragraphs I and III"]
     claim_ids: [C-LAB-02]
   - id: R-LAB-03
     question: What obligation was missed in the reported three-day delay, and is the company's risk assessment independently supported?
     why: facts, brief, and the historical-baggage case depend on the limits of C-LAB-03.
     status: todo
     owner: ""
-    leads: [Anthropic October 2024 policy update, original RSP version and compliance review, independent audit or contemporary reporting]
+    leads: ["Anthropic October 2024 policy update", "original RSP version and compliance review", "independent audit or contemporary reporting"]
     notes: The self-report was opened. The broader compliance case still needs corroboration.
     claim_ids: [C-LAB-03]
   - id: R-LAB-04
-    question: Which labs explicitly reject weights transfer, and what access do they grant to trusted external evaluators?
-    why: lab_no_weights_transfer and lab_structured_access depend on distinguishing model security from categorical refusal.
-    status: todo
+    question: What access did the 2024 institute agreements and joint tests actually grant (API, pre-release checkpoints, safeguards), and have they been renegotiated?
+    why: lab_written_access depends on separating model security from categorical refusal of access.
+    status: found
     owner: ""
-    leads: [Published institute–developer access agreements, developer safety frameworks, independent evaluator access disclosures]
-    claim_ids: [C-LAB-05, C-LAB-06]
+    leads: ["NIST 29 August 2024 announcement", "UK AISI o1 evaluation page, 18 December 2024"]
+    notes: Announcements confirm access before and after release but not its technical terms. The contracts are not public; a human reviewer should look for the institutes' later technical reports.
+    claim_ids: [C-LAB-04, C-LAB-05]
   - id: R-LAB-05
     question: Can a compute trigger define an efficient testing scope without missing dangerous capabilities in smaller models?
     why: lab_predictable_scope and its measurement_error softening need evidence about compliance burden and coverage.
     status: todo
     owner: ""
-    leads: [Capability-threshold frameworks, EU AI Act Article 51, evaluations of small specialised models, compute-accounting studies]
-    claim_ids: [C-LAB-06]
+    leads: ["capability-threshold frameworks", "EU AI Act Article 51", "evaluations of small specialised models", "compute-accounting studies"]
+    claim_ids: [C-LAB-09]
   - id: R-LAB-06
-    question: What forum-selection behaviour and willingness to participate in expert dialogue do actual laboratories document?
-    why: attendance/lab_verification_agenda, lab_expert_channel, and parallel_forum_propensity depend on C-LAB-04.
+    question: Do developers publicly prefer one shared evaluation protocol over several national ones, and which developers say so?
+    why: lab_shared_protocol depends on this; no developer statement was found.
     status: todo
     owner: ""
-    leads: [AI-summit participation records, institute testing partnerships, technical standards committee membership]
-    claim_ids: [C-LAB-04]
+    leads: ["developer responses to national AI-testing consultations", "Frontier Model Forum publications", "standards committee submissions"]
+    claim_ids: [C-LAB-09]
   - id: R-LAB-07
-    question: Which disagreements between labs should a composite role retain, and what exchanges have demonstrable value?
-    why: relations, lab_shared_protocol, side_payment_values, trust_initial, and vote_threshold depend on C-LAB-06 and C-LAB-07.
+    question: What forum-selection behaviour and willingness to participate in expert dialogue do actual laboratories document?
+    why: attendance/lab_verification_agenda, lab_expert_channel, and parallel_forum_propensity depend on C-LAB-07.
     status: todo
     owner: ""
-    leads: [Compare dated developer frameworks, external testing contracts, testing-cost disclosures, structured playtests]
+    leads: ["AI-summit participation records", "institute testing partnerships", "technical standards committee membership"]
     claim_ids: [C-LAB-06, C-LAB-07]
+  - id: R-LAB-08
+    question: Which disagreements between labs should a composite role retain, and what exchanges (a secured test facility, shared test sets) have demonstrable value?
+    why: relations, side_payment_values, trust_initial, and vote_threshold depend on C-LAB-09 and C-LAB-10.
+    status: todo
+    owner: ""
+    leads: ["compare dated developer frameworks", "external testing contracts", "testing-cost disclosures", "structured playtests"]
+    claim_ids: [C-LAB-09, C-LAB-10]
