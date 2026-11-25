@@ -49,33 +49,43 @@ Two things drive a delegation, and neither reads `claims` or `research`:
 
 ### 1.3 例子：中国邀请美国谈 AI 安全，现实吗？ · Example: is it realistic that China can invite the US to talk AI safety?
 
-现在的配置里，中国在任何会场邀请美国，只要议程不含出口管制，美国几乎都会来。这是三层东西叠在一起：
+早期配置里，中国在任何会场邀请美国，只要议程不含出口管制，美国几乎都会来。那是三层东西叠在一起：
 
-| 层 · Layer | 现在的依据 · Current basis | 可信度 · Confidence |
+| 层 · Layer | 依据 · Basis | 可信度 · Confidence |
 | --- | --- | --- |
-| 中美之间存在官方 AI 对话渠道 · An official China–US AI channel exists | 2024 年 5 月 14 日日内瓦首次政府间 AI 对话（`C-GEN-03`、`C-US-02`），有原始报道 · First intergovernmental AI dialogue, Geneva, 14 May 2024, with a primary report | high |
+| 中美之间存在官方 AI 对话渠道 · An official China–US AI channel exists | 2024 年 5 月日内瓦首次政府间 AI 对话（`C-US-02`），以及之后双方元首表态支持继续对话（`C-US-14`、`C-CN-15`） · The first intergovernmental AI dialogue in Geneva, May 2024, and later leader-level support for continuing it | high / medium |
 | 玩家可以作为东道主随意发邀请 · The player can invite anyone as host | 教学上的简化（`C-GEN-01`） · A teaching simplification | low |
-| 美国在各会场的出席意愿（4 分，门槛 3 分），且出口管制议程反而加 1 分 · US willingness per forum (4 against a threshold of 3), plus 1 for an export-control agenda | 团队假设（`C-US-04`），对应研究任务 `R-US-02`、`R-US-06` 仍是 `todo` · Team assumption; research needs still `todo` | low |
+| 美国在各会场的出席意愿 · US willingness per forum | 早期是统一的 4 分（团队假设 `C-US-04`） · Originally a flat 4 (team assumption) | low |
 
-所以答案是：**渠道存在是真的，但“美国一定会来”是资料不够时的假设。** 日内瓦对话只证明有过一次对话，没有证明之后会持续，也没有证明美国在什么条件下会拒绝。要让它更真实，研究 `R-US-02`（日内瓦之后双方记录了哪些后续承诺）和 `R-US-06`（美国在什么情况下加入或拒绝包容性、排他性会场），然后按结论改 `us.yaml` 的 `attendance`，例如：
+所以当时的答案是：**渠道存在是真的，但“美国一定会来”是资料不够时的假设。** 这一轮内容更新已经按资料把它改掉了，现在的规则是（见 `us.yaml`、`china.yaml` 的 `attendance`）：
 
-In the current configuration, if China invites the US to any forum without export controls on the agenda, the US almost always attends. Three layers are stacked here (table above). So: **the channel is real, but "the US will come" is an assumption made for lack of evidence.** The Geneva dialogue shows one meeting took place; it does not show that it continued, nor when the US would refuse. To make it more realistic, research `R-US-02` (what follow-up the two governments recorded after Geneva) and `R-US-06` (when the US joins or refuses inclusive and exclusive forums), then change `attendance` in `us.yaml` accordingly, for example:
+- 双边会场只适合做**风险沟通渠道**：议程只谈测试时，中美都会来；议程含验证安排时，美国减 2 分不来（日内瓦对话只产出了“保持沟通”，`C-US-13`、`C-US-14`）；议程含出口管制时，中国拒绝。双边会场只有两方，永远达不到法定人数，所以它通不过任何标准。
+- 想通过标准，要去多边会场。美国在联合国会场遇到“治理”议程会减 1 分（`C-US-03`、`C-US-12`）。
+- 中国会参加美国主导的“志同道合俱乐部”，但前提是邀请了全球南方、议程里有互认（`cn_club_with_recognition`）；不邀请全球南方则减 2 分（`cn_club_without_global_south`）。
+
+Earlier, if China invited the US to any forum without export controls on the agenda, the US almost always attended. Three layers were stacked (table above), so the answer was: **the channel is real, but "the US will come" was an assumption made for lack of evidence.** This content pass replaced it with evidence-based rules (see `attendance` in `us.yaml` and `china.yaml`):
+
+- The bilateral works as a **risk channel** only. With a tests-only agenda both attend. With verification on the agenda the US loses 2 points and stays away: Geneva produced only "keep talking" (`C-US-13`, `C-US-14`). With export controls on the agenda China refuses. A bilateral has two members and never reaches quorum, so it cannot adopt a standard.
+- To pass a standard, go multilateral. The US loses 1 point at the UN when governance is on the agenda (`C-US-03`, `C-US-12`).
+- China joins a US-led like-minded club only if the Global South is invited and mutual recognition is on the agenda (`cn_club_with_recognition`); without the Global South it loses 2 points (`cn_club_without_global_south`).
+
+改这类规则的写法如下（这就是 `us.yaml` 里实际用的条件）· The rule is written like this (the condition actually used in `us.yaml`):
 
 ```yaml
 attendance:
   attend_threshold: 3
-  base_willingness: {un_multilateral: 3, bilateral_us_china: 2, likeminded_club: 5, standards_body: 4}
+  base_willingness: {un_multilateral: 4, bilateral_us_china: 4, likeminded_club: 5, standards_body: 4}
   conditions:
-    - id: us_bilateral_needs_narrow_agenda
+    - id: us_bilateral_risk_channel
       when: {forum: bilateral_us_china, agenda_includes: verification_tech}
       modifier: -2
-      say: A bilateral channel is for risk communication, not for negotiating verification arrangements.
-      source_ids: [C-US-04]
+      say: A bilateral channel is for risk communication; we will not negotiate verification arrangements there.
+      source_ids: [C-US-13, C-US-14]
 ```
 
-数值和条件只是示意，必须以查到的资料为准。改完后，用中国的席位分别在双边会场和联合国会场试玩，看出席页给出的理由是否符合资料（拒信在 **Why some did not come** 里，法定人数不足时自动展开；要选专家渠道，先点开 **Meeting format … (change)**）。
+数值本身仍是平衡参数（`confidence: low`），条件和理由要以查到的资料为准。改完后，用中国的席位分别在双边会场和联合国会场试玩，看出席页给出的理由是否符合资料（拒信在 **Why some did not come** 里，法定人数不足时自动展开；要选专家渠道，先点开 **Meeting format … (change)**）。
 
-The numbers and the condition are illustrative only and must follow the evidence you find. After the change, play the China seat in both the bilateral and the UN forum and check that the reasons shown on the attendance screen match the evidence (the letters are under **Why some did not come**, which opens by itself when quorum fails; to pick the expert channel, first open **Meeting format … (change)**).
+The numbers themselves remain balance parameters (`confidence: low`); the conditions and reasons must follow the evidence. After a change, play the China seat in both the bilateral and the UN forum and check that the reasons shown on the attendance screen match the evidence (the letters are under **Why some did not come**, which opens by itself when quorum fails; to pick the expert channel, first open **Meeting format … (change)**).
 
 ---
 
@@ -174,7 +184,7 @@ When you create it, add these six to `research` (replace `XX` with its code), al
 3. 看复盘页：它投票的理由是否和资料一致？（复盘各部分是折叠的，逐项展开。） · Read the debrief: do its vote reasons match the evidence? (Debrief sections are folded; open them one by one.)
 4. 好的代表团**既不是永远赞成，也不是永远反对**：合理的打法能争取到它，草率的打法会失去它。 · A good delegation is **neither always yes nor always no**: careful play wins it, careless play loses it.
 5. 想重来时点进度条旁的 **Restart**（确认一次，不会清除 Gallery 数据），不需要清理浏览器数据。 · To start over, use **Restart** beside the progress bar (one confirmation; gallery data is kept). There is no need to clear site data.
-6. 可玩席位测试：每个代表团小组可以加一个 `tests/playable-<id>.test.ts`，离线跑一个获胜打法和一个天真打法，断言各自的结局。内容组正在添加 `tests/playable-cnus.test.ts`、`tests/playable-eugs.test.ts`、`tests/playable-labeval.test.ts`，CI 会运行它们。 · Playable-seat tests: each delegation group may add `tests/playable-<id>.test.ts`, which plays a winning strategy and a naive strategy offline and asserts each outcome. The content agents are adding `tests/playable-cnus.test.ts`, `tests/playable-eugs.test.ts` and `tests/playable-labeval.test.ts`, and CI runs them.
+6. 可玩席位测试：每个代表团小组可以加一个 `tests/playable-<id>.test.ts`，离线跑一个获胜打法和一个天真打法，断言各自的结局。现有的例子是 `tests/playable-cnus.test.ts`（中国、美国）、`tests/playable-eugs.test.ts`（欧盟、全球南方）、`tests/playable-labeval.test.ts`（实验室、评估机构的投票），CI 会运行它们。改了数值后如果这些测试失败，说明某个席位的获胜打法被你改坏了，要么调整数值，要么在 PR 里说明为什么该改测试。 · Playable-seat tests: each delegation group may add `tests/playable-<id>.test.ts`, which plays a winning strategy and a naive strategy offline and asserts each outcome. The existing examples are `tests/playable-cnus.test.ts` (China, US), `tests/playable-eugs.test.ts` (EU, Global South) and `tests/playable-labeval.test.ts` (how the lab and the evaluator vote), and CI runs them. If one fails after you change a number, you broke a seat's winning strategy: adjust the number, or explain in the PR why the test should change.
 
 ### 2.7 提交时的预期 · What to expect when you submit
 
