@@ -25,11 +25,6 @@ export function ReportScreen() {
   const electorate = derived.voters.length || derived.present.length;
 
   return <div className="l-page l-page--narrow res-screen has-action-bar">
-    <p className="res-decision" role="status">
-      <b>The draft is ready.</b> {report.objection
-        ? 'Your objection is on the record. Call the vote when you are ready.'
-        : 'Read it, object once if the summary is wrong, or call the vote.'}
-    </p>
     <Document kicker={state.track === 1 ? 'Draft resolution' : 'Draft technical annex'} title="Report of the rapporteur"
       titleAs="h1" meta={[[ 'Cycle', state.cycle ], [ 'Voting threshold', derived.votes_needed + ' affirmative votes' ]]}>
       {report.fallback && <Chip tone="warn">Offline fallback</Chip>}

@@ -77,7 +77,7 @@ try {
   await page.getByText('3 of 5 rounds complete', { exact: true }).waitFor();
   await page.reload();
   await page.getByText('3 of 5 rounds complete', { exact: true }).waitFor();
-  assert.equal(await page.getByText('v1', { exact: true }).count(), 8);
+  assert.equal(await page.locator('.neg__clauses > .neg-clause').count(), 8);
   await button('Request report').click();
   await heading('Report of the rapporteur').waitFor();
   await button('Object to summary').click();
@@ -90,7 +90,7 @@ try {
   await button('Open debrief').click();
   await heading('Summit debrief').waitFor();
   await button('Continue to follow-up questions').click();
-  await button('Submit').click();
+  await button('Finish').click();
   await button('New game').waitFor();
 
   await page.getByRole('link', { name: 'Gallery', exact: true }).click();
@@ -150,6 +150,7 @@ try {
   await button('Take the United States seat').click();
   await button('Proceed to the summit').click();
   await page.getByText('Tests and verification', { exact: true }).click();
+  await page.locator('.convene__format summary').click();
   await page.getByText('Expert dialogue (Track 2)', { exact: true }).click();
   await button('Convene').click();
   await button('Enter the room').click();
@@ -173,7 +174,7 @@ try {
   assert.equal(await page.locator('input[type="radio"][value="track1"]').isChecked(), true);
   await button('Convene').click();
   await button('Enter the room').click();
-  assert.equal(await page.getByText('From the technical annex', { exact: true }).count(), 5);
+  assert.equal(await page.getByText('From the annex', { exact: true }).count(), 5);
   await page.getByRole('link', { name: 'Gallery', exact: true }).click();
   await page.getByRole('heading', { name: /technical annex$/ }).waitFor();
 
@@ -211,6 +212,7 @@ try {
   await button('Proceed to the summit').click();
   await toggleGuest('United States');
   await button('Convene').click();
+  await page.getByText(/^Why some did not come/).click();
   await page.getByRole('article', { name: 'Note from United States' }).waitFor();
   const invitations = await page.evaluate(() => {
     const { choices, attendance } = JSON.parse(localStorage.getItem('wwtr:v1:game'));

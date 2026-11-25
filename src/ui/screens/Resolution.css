@@ -140,13 +140,6 @@
   margin-top: var(--space-2);
 }
 
-.res-decision {
-  padding: var(--space-3) var(--space-4);
-  background: var(--info-tint);
-  border-inline-start: 3px solid var(--accent);
-  font-size: var(--text-sm);
-}
-
 .res-fold > summary {
   cursor: pointer;
   font-size: var(--text-sm);

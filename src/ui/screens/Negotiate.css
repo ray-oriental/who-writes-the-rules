@@ -630,11 +630,6 @@
   border-top: var(--hairline);
 }
 
-.neg__next-step {
-  font-weight: var(--weight-medium);
-  color: var(--ink);
-}
-
 .neg__checks {
   display: flex;
   flex-wrap: wrap;

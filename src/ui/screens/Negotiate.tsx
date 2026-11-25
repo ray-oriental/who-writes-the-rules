@@ -109,13 +109,6 @@ export function NegotiateScreen() {
     ? `${leanCount('yes')} for · ${leanCount('wavering')} wavering · ${leanCount('no')} against`
     : '';
   const likelyYes = leanCount('yes') + (derived.voters.includes(state.seat) ? 1 : 0);
-  const roundsToReport = Math.max(0, Math.min(config.rules.allow_early_report_after, derived.rounds_in_cycle) - complete);
-  const nextStep = !derived.quorum_met ? ''
-    : missingClauses > 0 ? `Next: table ${missingClauses} more ${missingClauses === 1 ? 'clause' : 'clauses'} (Propose clause).`
-      : reportReady ? 'Next: ask for the report.'
-        : derived.can_speak ? 'Next: argue for your clauses'
-          + (roundsToReport > 0 ? ` (${roundsToReport} more ${roundsToReport === 1 ? 'round' : 'rounds'} before the report).` : '.')
-          : 'Next: ask for the report.';
   const offered = (to: Id, payment: string) => state.side_payments.some(item => item.track === state.track
     && item.cycle === state.cycle && item.delegation === to && item.payment === payment);
 
@@ -300,7 +293,6 @@ export function NegotiateScreen() {
           </li>)}
         </ol>
         {derived.quorum_met && <div className="neg__next">
-          <p className="neg__next-step">{nextStep}</p>
           <ul className="neg__checks" aria-label="Progress">
             <li><Chip tone={missingClauses === 0 ? 'ok' : 'neutral'}>Clauses {state.clauses.length}/{config.rules.min_clauses_to_vote}</Chip></li>
             {readTheRoom && <li><Chip tone={likelyYes >= derived.votes_needed ? 'ok' : 'neutral'}>

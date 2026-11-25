@@ -130,8 +130,9 @@ function Nav({ route }: { route: Route }) {
 const PLAYING: Phase[] = ['convene', 'attendance', 'negotiate', 'report', 'vote', 'outcome'];
 
 /** One plain sentence telling the player what to do on the current screen. */
-function taskFor(view: GameView, minClauses: number): string {
+function taskFor(view: GameView, minClauses: number, reportAfter: number): string {
   const { state, derived } = view;
+  const report = state.reports.find(item => item.track === state.track && item.cycle === state.cycle);
   switch (state.phase) {
     case 'seat':
       return 'Choose the delegation you will lead.';
@@ -147,12 +148,14 @@ function taskFor(view: GameView, minClauses: number): string {
         : 'Too few delegations came. Change your invitation, try the expert channel, or end here.';
     case 'negotiate': {
       const tabled = state.clauses.length;
-      if (tabled < minClauses) return `Propose at least ${minClauses} clauses for the text (${tabled} so far).`;
+      if (tabled < minClauses) return `Propose at least ${minClauses} clauses with Propose clause (${tabled} so far).`;
       if (derived.can_request_report) return 'Argue for your text to win votes, then ask for the report.';
-      return 'Make your case to the delegates. Name one to address them directly.';
+      return `Make your case to win votes. You can ask for the report after round ${reportAfter}.`;
     }
     case 'report':
-      return 'Check the draft. Object once if it misstates you, or call the vote.';
+      return report?.objection
+        ? 'Your objection is on the record. Call the vote when you are ready.'
+        : 'Check the draft. Object once if it misstates you, or call the vote.';
     case 'vote':
       return 'See how each delegation voted and why, then continue.';
     case 'outcome':
@@ -311,7 +314,7 @@ export function App() {
           <div className="app-task">
             <p className="app-task__inner" aria-live="polite">
               <span className="app-task__label">Your task</span>
-              <span className="app-task__text">{taskFor(view, config.rules.min_clauses_to_vote)}</span>
+              <span className="app-task__text">{taskFor(view, config.rules.min_clauses_to_vote, config.rules.allow_early_report_after)}</span>
             </p>
           </div>
           <div className={cx('app-progress__bar', busy && 'app-progress__bar--on')} aria-hidden="true" />

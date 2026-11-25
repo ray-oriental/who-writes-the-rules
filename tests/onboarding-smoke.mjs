@@ -27,7 +27,6 @@ try {
     await page.goto(url);
     await heading('How to play').waitFor();
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
-    await page.getByText('Try a first summit', { exact: true }).click();
     await screenshot('onboarding');
     await button('Start as China').click();
     await button('Proceed to the summit').click();
@@ -39,7 +38,8 @@ try {
       await button('Concede').click();
       await heading('No agreement').waitFor();
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
-      await page.getByText('The official summit ended before a vote was held.', { exact: true }).waitFor();
+      await page.getByText(/^The official summit ended before a vote was held./).waitFor();
+      await page.getByText('Show the round table', { exact: true }).click();
       assert.equal(await page.getByRole('group', { name: 'Round table at the close of the summit' })
         .getByRole('img', { name: /: Not invited$/ }).count(), 4);
       await screenshot('no-official-vote');

@@ -227,7 +227,7 @@ export function AttendanceScreen() {
           </section>
 
           {letters.length > 0 && (
-            <details className="attendance__letters">
+            <details className="attendance__letters" open={!quorum}>
               <summary className="attendance__letters-title">
                 Why some did not come
                 <span className="t-meta t-num">{letters.length}</span>
@@ -235,14 +235,7 @@ export function AttendanceScreen() {
               <ol className="attendance__list">
                 {letters.map((a) => (
                   <li key={a.delegation} className="attendance__item">
-                    <details className="attendance__entry">
-                      <summary>
-                        <DelegationBadge id={a.delegation} size="sm" />
-                        <span>{get(a.delegation).name}</span>
-                        <span className="t-meta">{a.status === 'excluded' ? 'not invited' : 'declined'}</span>
-                      </summary>
-                      <Letter result={a} forumName={forumName} />
-                    </details>
+                    <Letter result={a} forumName={forumName} />
                   </li>
                 ))}
               </ol>

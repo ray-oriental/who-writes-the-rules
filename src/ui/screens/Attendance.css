@@ -60,19 +60,6 @@
   margin-bottom: var(--space-3);
 }
 
-.attendance__entry > summary {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  cursor: pointer;
-  padding: var(--space-2) 0;
-  border-bottom: var(--hairline);
-}
-
-.attendance__entry[open] > summary {
-  margin-bottom: var(--space-3);
-}
-
 .attendance__letters-title {
   cursor: pointer;
   display: flex;
