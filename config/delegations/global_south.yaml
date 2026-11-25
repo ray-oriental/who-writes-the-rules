@@ -1,4 +1,4 @@
-# PLACEHOLDER positions: rewrite from sources before the Expo.
+# Positions are team modelling grounded in the cited claims; unsourced numbers are balance parameters. The coalition is fictional.
 id: global_south
 name: Global South coalition
 short: GS
@@ -6,21 +6,30 @@ type: regional
 playable: true
 difficulty: easier
 owner: ""
-summary: A fictional coalition seeking funded testing capacity and an equal role in shaping standards.
-mandate: Secure implementable obligations, shared facilities, and recognition of tests from lower-capacity participants.
+summary: A fictional coalition seeking funded testing capacity, an inclusive venue and an equal role in shaping standards.
+mandate: >-
+  Speak for a fictional bloc of lower-capacity states that are asked to live under test rules they did not write.
+  Secure funded shared facilities, recognition that is open to all and not just the largest powers, a shared and multilingual test set,
+  and reporting duties that a small regulator can actually meet. The coalition is invented for this game and does not stand for any real government.
 facts:
-  - text: The Paris AI Action Summit declaration called for AI capacity building in developing countries.
-    source_ids: [C-GS-01]
-  - text: The declaration's signatory list included the African Union Commission.
-    source_ids: [C-GS-02]
-  - text: This simulation groups diverse countries into one fictional coalition for a six-seat game.
-    source_ids: [C-GS-03]
+  - text: The Paris AI Action Summit declaration of 11 February 2025 called for AI capacity building in developing countries, and the African Union Commission appears on its signatory list.
+    source_ids: [C-GS-01, C-GS-02]
+  - text: The UN General Assembly adopted resolution 78/265 on safe, secure and trustworthy AI for sustainable development on 21 March 2024, and resolution 78/311 on international cooperation on AI capacity-building (North-South, South-South and triangular) on 1 July 2024, both without a vote.
+    source_ids: [C-GS-08, C-GS-09]
+  - text: The UN High-level Advisory Body's September 2024 report found that 118 member states, mostly in the Global South, were party to none of seven prominent AI governance initiatives, and proposed a capacity development network, a global fund for AI and an AI standards exchange.
+    source_ids: [C-GS-10]
+  - text: The Global Digital Compact, adopted in September 2024 as part of the Pact for the Future, committed UN members to an independent international scientific panel on AI and a Global Dialogue on AI Governance.
+    source_ids: [C-GS-11]
+  - text: The African Union Executive Council endorsed the Continental AI Strategy on 18-19 July 2024 in Accra, with capacity building among its priorities.
+    source_ids: [C-GS-12]
+  - text: At the February 2026 New Delhi AI Impact Summit, the first in the Global South, companies committed to strengthen testing of AI systems across underrepresented languages and cultural contexts.
+    source_ids: [C-GS-13]
 relations:
-  china: Seek practical capacity support while retaining an independent negotiating position.
-  us: Seek access to testing resources and recognition beyond established networks.
-  eu: Seek implementation support alongside new compliance obligations.
-  frontier_lab: Seek affordable evaluation access and multilingual test resources.
-  evaluator: Seek training that enables local experts to scrutinise results.
+  china: Welcome its capacity-building diplomacy at the UN, while keeping our own negotiating position on the test protocol.
+  us: Ask for access to testing resources and for recognition that does not stop at the established institute network.
+  eu: Accept a common protocol only if the compliance burden comes with implementation support, not only new duties.
+  frontier_lab: Ask for affordable evaluation access and a shared multilingual test set, since the labs' own benchmarks barely cover our languages.
+  evaluator: Seek training that lets local experts scrutinise results rather than only receive them.
 voices: []
 internal_resolution: lead_voice
 attendance:
@@ -31,20 +40,30 @@ attendance:
       when: {agenda_includes: capacity_building}
       modifier: 1
       say: Capacity building gives more of our members a practical route to implement the standard.
-      source_ids: [C-GS-04]
+      source_ids: [C-GS-04, C-GS-09]
     - id: gs_expert_channel
       when: {format: track2}
       modifier: 1
       say: Expert participation can help our evaluators shape workable tests early.
       source_ids: [C-GS-04]
+    - id: gs_closed_club
+      when: {forum_exclusive: true}
+      modifier: -1
+      say: A closed network that most of our members were not asked to join cannot set the rules for them.
+      source_ids: [C-GS-10]
   parallel_forum_propensity: 0.5
   track2_willingness: 6
 red_lines:
   - id: gs_no_broad_restrictions
     label: Reject broad technology restrictions
     when: {clause: export_controls, param: scope, equals: broad}
-    say: We cannot endorse broad restrictions that cut off our members' access to useful technology.
+    say: We cannot endorse broad restrictions that cut off our members' access to chips and models they need for development.
     source_ids: [C-GS-05]
+  - id: gs_no_bilateral_recognition
+    label: No recognition limited to two parties
+    when: {clause: mutual_recognition, param: mode, equals: bilateral}
+    say: Recognition that stops at a bilateral deal between the largest powers repeats the gap the UN Advisory Body described, and we will not sign it.
+    source_ids: [C-GS-10]
 must_haves:
   - id: gs_funded_capacity
     label: Funded capacity building
@@ -53,8 +72,8 @@ must_haves:
     softenable_by: [capacity_support]
     soften_amount: 1
     max_soften: 2
-    say: New testing responsibilities need funded training, compute, and practical facilities.
-    source_ids: [C-GS-06]
+    say: New testing responsibilities need funded training, compute and a shared facility; voluntary pledges did not build capacity before.
+    source_ids: [C-GS-06, C-GS-09]
   - id: gs_recognise_results
     label: Multilateral recognition
     when: {clause: mutual_recognition, param: mode, equals: multilateral}
@@ -62,27 +81,38 @@ must_haves:
     softenable_by: [mutual_recognition, sovereignty_respect]
     soften_amount: 1
     max_soften: 2
-    say: Recognition should extend beyond a bilateral deal between the largest powers.
-    source_ids: [C-GS-06]
+    say: Results from any accredited national or regional centre should be recognised, not only those of the largest powers.
+    source_ids: [C-GS-06, C-GS-10]
   - id: gs_shared_tests
-    label: Shared test resources
+    label: A shared multilingual test set
     when: {clause: jailbreak_rate, param: test_set, equals: shared}
     weight: 1
     softenable_by: [capacity_support]
     soften_amount: 1
     max_soften: 1
-    say: A shared test resource should let our evaluators participate without rebuilding the whole protocol.
+    say: A shared test set, including languages beyond English and Chinese, lets our evaluators take part without rebuilding the protocol.
+    source_ids: [C-GS-06, C-GS-13]
+  - id: gs_proportionate_reporting
+    label: Reporting a small regulator can meet
+    when: {clause: incident_reporting, param: deadline_days, gte: 14}
+    weight: 1
+    softenable_by: [capacity_support]
+    soften_amount: 1
+    max_soften: 1
+    say: A reporting clock of a few days assumes a standing regulator; give us at least two weeks, or fund the desk that meets it.
     source_ids: [C-GS-06]
 vote_threshold: 2
 side_payment_values: {shared_test_set: 1, capacity_support: 2, host_test_facility: 2, evaluation_exchange: 1}
 trust_initial: 0
 walkout_triggers: []
 brief: >-
-  Represent a fictional coalition whose members have diverse interests (C-GS-03).
-  Use the Paris capacity-building commitment and African Union Commission signature as background (C-GS-01, C-GS-02).
-  Attendance, restrictions, priorities, relationships, and point values are teaching assumptions (C-GS-04 to C-GS-07).
-  Ask who pays for testing and whether locally produced evidence will count.
-  Seek funded facilities, multilingual test resources, and broad recognition.
+  Represent a fictional coalition whose members have diverse interests (C-GS-03); never claim it speaks for any real government.
+  Draw on the Paris capacity-building commitment and African Union Commission signature (C-GS-01, C-GS-02),
+  the 2024 General Assembly resolutions on safe AI and on capacity-building (C-GS-08, C-GS-09),
+  the UN Advisory Body's report and its 118-country finding (C-GS-10), the Global Digital Compact (C-GS-11),
+  the African Union Continental AI Strategy (C-GS-12) and the New Delhi summit's multilingual-testing commitment (C-GS-13).
+  Attendance, restrictions, priorities, relationships and point values are teaching assumptions (C-GS-04 to C-GS-07).
+  Ask who pays for testing, whether locally produced evidence will count, whether the venue is open, and whether the compliance clock suits a small regulator.
   Follow the engine's stance and vote. Avoid claiming a single real Global South position or an already funded programme.
 style: Clear, practical, inclusion-focused, and attentive to implementation costs.
 claims:
@@ -109,25 +139,67 @@ claims:
     used_in: [attendance]
     source: ""
     confidence: low
-    notes: Team assumption about willingness, forum scores, and parallel-forum propensity.
+    notes: Team assumption about willingness, forum scores, and parallel-forum propensity. The closed-club penalty rests on the 118-country finding (C-GS-10) but its size is a balance choice.
   - id: C-GS-05
     claim: The fictional coalition vetoes broad technology export restrictions.
     used_in: [red_lines/gs_no_broad_restrictions]
     source: ""
     confidence: low
-    notes: Team assumption. Real countries' positions differ by technology, security interests, and policy period.
+    notes: Team assumption. Real countries' positions differ by technology, security interests, and policy period. No shared coalition statement on export controls was found.
   - id: C-GS-06
-    claim: Funded capacity, multilateral recognition, and shared tests determine the coalition's willingness to endorse the package.
-    used_in: [must_haves/gs_funded_capacity, must_haves/gs_recognise_results, must_haves/gs_shared_tests]
+    claim: Funded capacity, multilateral recognition, a shared test set and a reporting clock a small regulator can meet determine the coalition's willingness to endorse the package.
+    used_in: [must_haves/gs_funded_capacity, must_haves/gs_recognise_results, must_haves/gs_shared_tests, must_haves/gs_proportionate_reporting]
     source: ""
     confidence: low
-    notes: Team assumption about concrete conditions and tag effects. Broad support for capacity building does not establish this exact bargaining rule.
+    notes: Team assumption about concrete conditions, weights and tag effects. The themes follow C-GS-09, C-GS-10 and C-GS-13, but those sources do not establish this exact bargaining rule. The fourteen-day floor on reporting is a balance parameter chosen to sit just under the EU's fifteen-day preference.
   - id: C-GS-07
     claim: Neutral trust and comparatively valuable capacity exchanges approximate the fictional coalition's bargaining incentives.
     used_in: [relations, vote_threshold, side_payment_values, trust_initial, style]
     source: ""
     confidence: low
     notes: Team assumption. Test whether one exchange makes capacity obligations too easy to omit.
+  - id: C-GS-08
+    claim: UN General Assembly resolution A/RES/78/265, Seizing the opportunities of safe, secure and trustworthy artificial intelligence systems for sustainable development, was adopted on 21 March 2024 without a vote.
+    used_in: [facts, brief]
+    source: UN Digital Library record for A/RES/78/265
+    url: https://digitallibrary.un.org/record/4043244
+    confidence: high
+    notes: Widely reported as United States-led; the sponsor was not checked here, so the game does not state it.
+  - id: C-GS-09
+    claim: UN General Assembly resolution A/RES/78/311, Enhancing international cooperation on capacity-building of artificial intelligence, was adopted without a vote on 1 July 2024; it concerns non-military AI and calls for narrowing AI divides, including through North-South, South-South and triangular cooperation.
+    used_in: [facts, brief, attendance/gs_capacity_agenda, must_haves/gs_funded_capacity]
+    source: UN Digital Library record for A/RES/78/311
+    url: https://digitallibrary.un.org/record/4054005
+    confidence: medium
+    notes: Adoption details and the summary of the operative theme came from the library record and a search summary; the full text PDF could not be opened. Widely reported as China-led; the sponsor was not checked here.
+  - id: C-GS-10
+    claim: The UN Secretary-General's High-level Advisory Body on AI, in its September 2024 report Governing AI for Humanity, noted that of 193 member states only seven were party to seven prominent AI governance initiatives while 118, mostly in the Global South, were party to none, and proposed among other things a capacity development network, a global fund for AI and an AI standards exchange.
+    used_in: [facts, brief, attendance/gs_closed_club, red_lines/gs_no_bilateral_recognition, must_haves/gs_recognise_results]
+    source: UN High-level Advisory Body on Artificial Intelligence, Governing AI for Humanity, Final Report, September 2024, with press release summarised by IISD SDG Knowledge Hub
+    url: https://www.un.org/sites/un2.un.org/files/governing_ai_for_humanity_final_report_en.pdf
+    confidence: medium
+    notes: The figures and recommendations were read from a search summary of the press release; the report PDF itself was not opened. Check the report before marking verified.
+  - id: C-GS-11
+    claim: The Global Digital Compact, annexed to the Pact for the Future adopted by the General Assembly as resolution 79/1 on 22 September 2024, decided to establish an Independent International Scientific Panel on AI and to initiate a Global Dialogue on AI Governance.
+    used_in: [facts, brief]
+    source: United Nations, Global Digital Compact, artificial intelligence pages
+    url: https://www.un.org/global-digital-compact/en/ai
+    confidence: medium
+    notes: Compact text not opened; summary from the UN page listing and a search summary.
+  - id: C-GS-12
+    claim: The African Union Executive Council endorsed the Continental Artificial Intelligence Strategy at its 45th Ordinary Session in Accra on 18-19 July 2024; capacity building is among its priorities.
+    used_in: [facts, brief]
+    source: African Union, press release on AI capabilities in Africa, and Continental AI Strategy, July 2024
+    url: https://au.int/en/pressreleases/20240828/african-union-committed-developing-ai-capabilities-africa
+    confidence: medium
+    notes: Dates and endorsement read from search summaries of AU pages; strategy PDF not opened.
+  - id: C-GS-13
+    claim: The India AI Impact Summit of February 2026, the first in the Global South, ended with a New Delhi Declaration; companies committed to strengthen testing and evaluation of AI systems across underrepresented languages and cultural contexts, especially in the Global South.
+    used_in: [facts, brief, must_haves/gs_shared_tests]
+    source: Fortune, "India's AI Impact Summit closes with the New Delhi Declaration and a $200 billion boost", 23 February 2026
+    url: https://fortune.com/2026/02/23/indias-ai-impact-summit-closes-with-the-new-delhi-declaration-and-a-200-billion-boost/
+    confidence: medium
+    notes: Reported by one news outlet; the commitment was described as a company commitment and voluntary. Endorsement counts differ between outlets (86 to 89), so the game does not cite one.
 research:
   - id: R-GS-01
     question: Does the Paris declaration call for developing-country AI capacity building?
@@ -146,17 +218,18 @@ research:
   - id: R-GS-03
     question: Which named regional or country positions should this coalition draw on, and where do they disagree?
     why: summary, mandate, facts, and brief depend on the representational limits of C-GS-03.
-    status: todo
+    status: in_progress
     owner: ""
     leads: [African Union Continental AI Strategy, G77 statements, Indian and Brazilian AI-governance statements, regional digital-policy consultations]
-    claim_ids: [C-GS-03]
+    notes: UN resolutions, the Advisory Body report and the AU strategy found. No Indian, Brazilian or Kenyan government statement was located; those positions remain open.
+    claim_ids: [C-GS-03, C-GS-08, C-GS-09, C-GS-10, C-GS-12]
   - id: R-GS-04
     question: What attendance barriers arise from cost, invitation rules, and agenda control in actual safety or standards forums?
-    why: attendance/gs_capacity_agenda, gs_expert_channel, and forum scores depend on C-GS-04.
+    why: attendance/gs_capacity_agenda, gs_expert_channel, gs_closed_club and forum scores depend on C-GS-04.
     status: todo
     owner: ""
     leads: [Institute-network membership criteria, UN participation rules, travel-support programmes, standards participation studies]
-    claim_ids: [C-GS-04]
+    claim_ids: [C-GS-04, C-GS-10]
   - id: R-GS-05
     question: Which countries oppose which export restrictions, and are any positions sufficiently shared for a coalition red line?
     why: gs_no_broad_restrictions needs evidence that preserves differences among participants.
@@ -167,10 +240,11 @@ research:
   - id: R-GS-06
     question: What training, compute, language coverage, and funding are necessary to run the proposed tests locally?
     why: gs_funded_capacity and gs_shared_tests require concrete costs and implementable support.
-    status: todo
+    status: in_progress
     owner: ""
     leads: [Regional evaluator training programmes, public test-facility budgets, multilingual evaluation datasets, UN capacity-development proposals]
-    claim_ids: [C-GS-06, C-GS-07]
+    notes: The themes (capacity network, fund, multilingual testing) are sourced in C-GS-09, C-GS-10 and C-GS-13; no cost figures were found.
+    claim_ids: [C-GS-06, C-GS-07, C-GS-09, C-GS-10, C-GS-13]
   - id: R-GS-07
     question: Which recognition arrangements and exchanges would give smaller participants influence over the standard?
     why: gs_recognise_results, relations, vote_threshold, trust_initial, and side_payment_values depend on C-GS-06 and C-GS-07.
@@ -178,3 +252,17 @@ research:
     owner: ""
     leads: [Laboratory accreditation recognition systems, regional testing networks, funded facility agreements, structured playtests]
     claim_ids: [C-GS-06, C-GS-07]
+  - id: R-GS-08
+    question: What have India, Brazil and Kenya said officially about testing, standards and who sets them?
+    why: the mandate invokes diverse positions but no individual government statement is cited.
+    status: todo
+    owner: ""
+    leads: [New Delhi Declaration text, Brazilian AI governance statements, Kenyan national AI strategy, G77 statements at the UN]
+    claim_ids: [C-GS-03, C-GS-13]
+  - id: R-GS-09
+    question: Do the full texts of A/RES/78/311, the Advisory Body report and the Continental AI Strategy match the summaries used in C-GS-09, C-GS-10 and C-GS-12?
+    why: those claims were read from library records, press summaries and search summaries.
+    status: todo
+    owner: ""
+    leads: [UN Digital Library PDFs, Advisory Body final report PDF, AU strategy PDF]
+    claim_ids: [C-GS-09, C-GS-10, C-GS-12]
